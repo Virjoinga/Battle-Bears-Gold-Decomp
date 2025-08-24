@@ -1,0 +1,15 @@
+namespace LocalizationKeys
+{
+	public class ReputationReward
+	{
+		public const string REPUTATION_REWARD_POPUP_TITLE = "REPUTATION_REWARD_POPUP_TITLE";
+
+		public const string REPUTATION_REWARD_POPUP_SUBTITLE = "REPUTATION_REWARD_POPUP_SUBTITLE";
+
+		public const string REPUTATION_REWARD_POPUP_BODY = "REPUTATION_REWARD_POPUP_BODY";
+
+		public const string REPUTATION_REWARD_HINT_1 = "REPUTATION_REWARD_HINT_1";
+
+		public const string REPUTATION_REWARD_HINT_2 = "REPUTATION_REWARD_HINT_2";
+	}
+}

@@ -1,0 +1,27 @@
+namespace LocalizationKeys
+{
+	public class StatsOverlay
+	{
+		public const string STATS_OVERLAY_RED_TEAM = "STATS_OVERLAY_RED_TEAM";
+
+		public const string STATS_OVERLAY_BLUE_TEAM = "STATS_OVERLAY_BLUE_TEAM";
+
+		public const string STATS_OVERLAY_TOGGLE_LOADOUT = "STATS_OVERLAY_TOGGLE_LOADOUT";
+
+		public const string STATS_OVERLAY_TAP_TO_CONTINUE = "STATS_OVERLAY_TAP_TO_CONTINUE";
+
+		public const string STATS_OVERLAY_KILLED_BY = "STATS_OVERLAY_KILLED_BY";
+
+		public const string STATS_OVERLAY_PRIMARY = "STATS_OVERLAY_PRIMARY";
+
+		public const string STATS_OVERLAY_SECONDARY = "STATS_OVERLAY_SECONDARY";
+
+		public const string STATS_OVERLAY_MELEE = "STATS_OVERLAY_MELEE";
+
+		public const string STATS_OVERLAY_SPECIALS = "STATS_OVERLAY_SPECIALS";
+
+		public const string STATS_OVERLAY_EQUIPMENT_ONE = "STATS_OVERLAY_EQUIPMENT_ONE";
+
+		public const string STATS_OVERLAY_EQUIPMENT_TWO = "STATS_OVERLAY_EQUIPMENT_TWO";
+	}
+}
