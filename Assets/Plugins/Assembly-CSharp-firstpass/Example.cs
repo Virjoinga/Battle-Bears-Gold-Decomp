@@ -82,11 +82,11 @@ public class Example : MonoBehaviour
 		mPlayer.transform.localEulerAngles += Vector3.up;
 		if (state == 1)
 		{
-			mPlayer.renderer.material.color = Color.green;
+			mPlayer.GetComponent<Renderer>().material.color = Color.green;
 		}
 		else
 		{
-			mPlayer.renderer.material.color = Color.red;
+			mPlayer.GetComponent<Renderer>().material.color = Color.red;
 		}
 	}
 }
