@@ -43,7 +43,7 @@ Shader "BBR/Edge Detect"
                 tmpvar_3.zw = float2(0.0, 0.0);
                 tmpvar_3.xy = inUV_2;
                 float4 tmpvar_4;
-                tmpvar_4 = (glstate_matrix_texture0 * tmpvar_3);
+                tmpvar_4 = mul(UNITY_MATRIX_TEXTURE0, tmpvar_3);
                 float2 tmpvar_5;
                 tmpvar_5.x = -(_MainTex_TexelSize.x);
                 float cse_6;
@@ -78,9 +78,11 @@ Shader "BBR/Edge Detect"
                 tmpvar_8 = dot (tmpvar_7, tmpvar_7);
                 if ((tmpvar_8 >= _Treshold)) {
                 original_3.xyz = float3(0.0, 0.0, 0.0);
+                }
+                return original_3;
             }
-            ENDCG
-        }
-    }
-    Fallback Off
+        ENDCG
+    }   
+}
+Fallback Off
 }

@@ -41,7 +41,7 @@ Shader "Hidden/Color Correction Effect"
                 float4 tmpvar_5;
                 tmpvar_5.zw = float2(0.0, 0.0);
                 tmpvar_5.xy = inUV_4;
-                tmpvar_3 = (glstate_matrix_texture0 * tmpvar_5).xy;
+                tmpvar_3 = mul(UNITY_MATRIX_TEXTURE0, tmpvar_5).xy;
                 tmpvar_2 = tmpvar_3;
                 o.vertex = UnityObjectToClipPos(v.vertex);
                 o.texcoord0 = tmpvar_2;

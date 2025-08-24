@@ -47,7 +47,7 @@ Shader "Hidden/Noise Shader YUV"
                 tmpvar_3.zw = float2(0.0, 0.0);
                 tmpvar_3.xy = inUV_2;
                 o.vertex = UnityObjectToClipPos(v.vertex);
-                o.texcoord0 = (glstate_matrix_texture0 * tmpvar_3).xy;
+                o.texcoord0 = mul(UNITY_MATRIX_TEXTURE0, tmpvar_3).xy;
                 o.texcoord1 = ((v.texcoord0.xy * _GrainOffsetScale.zw) + _GrainOffsetScale.xy);
                 o.texcoord2 = ((v.texcoord0.xy * _ScratchOffsetScale.zw) + _ScratchOffsetScale.xy);
                 return o;
