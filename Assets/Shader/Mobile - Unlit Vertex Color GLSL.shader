@@ -1,107 +1,45 @@
-¥Shader "CPX_Custom/Mobile/Unlit Color GLSL" {
-Properties {
- _MainTex ("Base (RGB)", 2D) = "white" {}
- _Color ("Main Color", Color) = (1,1,1,1)
-}
-SubShader { 
- Pass {
-Program "vp" {
-SubProgram "gles " {
-"!!GLES
-#ifndef SHADER_API_GLES
-    #define SHADER_API_GLES 1
-#endif
-#ifndef SHADER_API_MOBILE
-    #define SHADER_API_MOBILE 1
-#endif
-#line 6
-#ifdef DUMMY_PREPROCESSOR_TO_WORK_AROUND_HLSL_COMPILER_LINE_HANDLING
-#endif
-
-#line 6
-#ifdef DUMMY_PREPROCESSOR_TO_WORK_AROUND_HLSL_COMPILER_LINE_HANDLING
-#endif
-
-         uniform lowp sampler2D _MainTex; 
-         uniform lowp vec4 _Color;
-         uniform lowp vec4 _MainTex_ST;
-         varying lowp vec2 uv;
-                           
-
-#ifdef VERTEX
-#define gl_ModelViewProjectionMatrix glstate_matrix_mvp
-uniform highp mat4 glstate_matrix_mvp;
-#define gl_Vertex _glesVertex
-attribute vec4 _glesVertex;
-#define gl_MultiTexCoord0 _glesMultiTexCoord0
-attribute vec4 _glesMultiTexCoord0;
-
-         void main(){
-            uv = gl_MultiTexCoord0.xy * _MainTex_ST.xy + _MainTex_ST.zw;
-            gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;
-         }
-         
-#endif
-#ifdef FRAGMENT
-
-         void main(){
-            vec4 color = texture2D(_MainTex, uv);
-            gl_FragColor = (color + color) * _Color;
-         }
-         
-#endif"
-}
-SubProgram "gles3 " {
-"!!GLES3#version 300 es
-#ifndef SHADER_API_GLES3
-    #define SHADER_API_GLES3 1
-#endif
-#ifndef SHADER_API_MOBILE
-    #define SHADER_API_MOBILE 1
-#endif
-// version 300 es
-#line 6
-#ifdef DUMMY_PREPROCESSOR_TO_WORK_AROUND_HLSL_COMPILER_LINE_HANDLING
-#endif
-
-#line 6
-#ifdef DUMMY_PREPROCESSOR_TO_WORK_AROUND_HLSL_COMPILER_LINE_HANDLING
-#endif
-
-         uniform lowp sampler2D _MainTex; 
-         uniform lowp vec4 _Color;
-         uniform lowp vec4 _MainTex_ST;
-         varying lowp vec2 uv;
-                           
-
-#ifdef VERTEX
-#define gl_ModelViewProjectionMatrix glstate_matrix_mvp
-uniform highp mat4 glstate_matrix_mvp;
-#define gl_Vertex _glesVertex
-in vec4 _glesVertex;
-#define gl_MultiTexCoord0 _glesMultiTexCoord0
-in vec4 _glesMultiTexCoord0;
-
-         void main(){
-            uv = gl_MultiTexCoord0.xy * _MainTex_ST.xy + _MainTex_ST.zw;
-            gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;
-         }
-         
-#endif
-#ifdef FRAGMENT
-#define gl_FragColor _glesFragData[0]
-#define gl_FragData _glesFragData
-layout(location = 0) out mediump vec4 _glesFragData[4];
-
-         void main(){
-            vec4 color = texture(_MainTex, uv);
-            gl_FragColor = (color + color) * _Color;
-         }
-         
-#endif"
-}
-}
- }
-}
-Fallback "Unlit/Texture"
+Shader "CPX_Custom/Mobile/Unlit Color GLSL" 
+{
+    Properties
+    {
+        _MainTex ("Base (RGB)", 2D) = "white" {}
+        _Color ("Main Color", Color) = (1,1,1,1)
+    }
+    SubShader
+    { 
+        Pass
+        {
+            CGPROGRAM
+            #pragma vertex vert
+            #pragma fragment frag
+            #include "UnityCG.cginc"
+            sampler2D _MainTex; 
+            float4 _Color;
+            float4 _MainTex_ST;
+            struct appdata_t
+            {
+                float4 vertex : POSITION;
+                float4 texcoord0 : TEXCOORD0;
+            };
+            struct v2f
+            {
+                float2 texcoord0 : TEXCOORD0;
+                float4 vertex : POSITION;
+            };
+            v2f vert(appdata_t v)
+            {
+                v2f o;
+                o.texcoord0 = v.texcoord0.xy * _MainTex_ST.xy + _MainTex_ST.zw;
+                o.vertex = UnityObjectToClipPos(v.vertex);
+                return o;
+            }
+            float4 frag(v2f i) : SV_TARGET
+            {
+                float4 color = tex2D(_MainTex, i.texcoord0);
+                return (color + color) * _Color;
+            }
+            ENDCG
+        }
+    }
+    Fallback "Unlit/Texture"
 }
