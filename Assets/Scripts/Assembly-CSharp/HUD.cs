@@ -1395,20 +1395,20 @@ public class HUD : MonoBehaviour
 		{
 			if (Bootloader.Instance.isIpad)
 			{
-				base.animation["bombIn_ipad"].layer = 1;
-				base.animation.Play("bombIn_ipad");
+				base.GetComponent<Animation>()["bombIn_ipad"].layer = 1;
+				base.GetComponent<Animation>().Play("bombIn_ipad");
 			}
 			else
 			{
-				base.animation["bombIn"].layer = 1;
-				base.animation.Play("bombIn");
+				base.GetComponent<Animation>()["bombIn"].layer = 1;
+				base.GetComponent<Animation>().Play("bombIn");
 			}
 			StartCoroutine("arrowAnimator");
 		}
 		else
 		{
-			base.animation["bombOut"].layer = 1;
-			base.animation.Play("bombOut");
+			base.GetComponent<Animation>()["bombOut"].layer = 1;
+			base.GetComponent<Animation>().Play("bombOut");
 			StopCoroutine("arrowAnimator");
 		}
 		if (playerController != null && playerController.Director is SimpleControllerDirector)
@@ -1422,13 +1422,13 @@ public class HUD : MonoBehaviour
 	private IEnumerator arrowAnimator()
 	{
 		yield return new WaitForSeconds(2f);
-		float minWaitTime = arrowIndicator.animation["arrow"].length;
+		float minWaitTime = arrowIndicator.GetComponent<Animation>()["arrow"].length;
 		while (true)
 		{
 			Transform targetTransform = ((playerController.Team != 0) ? CTFManager.Instance.RedDepositSpot : CTFManager.Instance.BlueDepositSpot);
 			float distance = Vector3.Distance(b: playerController.transform.position, a: targetTransform.position);
-			arrowIndicator.animation["arrow"].layer = 0;
-			arrowIndicator.animation.Play("arrow");
+			arrowIndicator.GetComponent<Animation>()["arrow"].layer = 0;
+			arrowIndicator.GetComponent<Animation>().Play("arrow");
 			float pulseDelay = minWaitTime + distance / 1500f;
 			yield return new WaitForSeconds(pulseDelay);
 		}

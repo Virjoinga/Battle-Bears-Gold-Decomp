@@ -23,7 +23,7 @@ public class LegAnimator : MonoBehaviour
 
 	private void Awake()
 	{
-		myAnimator = base.animation;
+		myAnimator = base.GetComponent<Animation>();
 		playerTransform = base.transform.parent;
 		myAnimator["legs_left"].layer = 1;
 		myAnimator["legs_right"].layer = 1;

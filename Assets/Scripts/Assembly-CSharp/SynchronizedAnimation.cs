@@ -15,9 +15,9 @@ public class SynchronizedAnimation : MonoBehaviour
 	private IEnumerator delayedStart(float delay)
 	{
 		yield return new WaitForSeconds(delayAtStart - delay);
-		if (base.animation[animationName] != null)
+		if (base.GetComponent<Animation>()[animationName] != null)
 		{
-			base.animation.Play(animationName);
+			base.GetComponent<Animation>().Play(animationName);
 		}
 	}
 }

@@ -16,9 +16,9 @@ public class LOSSimpleConstantDamageSource : SimpleConstantDamageSource
 	protected bool checkForActualHit(GameObject target)
 	{
 		bool result = false;
-		if (target != null && target.collider != null && base.transform != null)
+		if (target != null && target.GetComponent<Collider>() != null && base.transform != null)
 		{
-			Bounds bounds = target.collider.bounds;
+			Bounds bounds = target.GetComponent<Collider>().bounds;
 			Vector3[] array = new Vector3[2]
 			{
 				new Vector3(bounds.center.x, bounds.max.y, bounds.center.z),

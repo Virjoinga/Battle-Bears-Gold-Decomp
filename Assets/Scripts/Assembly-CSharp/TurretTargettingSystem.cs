@@ -108,11 +108,11 @@ public class TurretTargettingSystem : MonoBehaviour
 				_myTurretController.gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
 				foreach (KeyValuePair<float, TargetableObject> kvp in potentialTargets)
 				{
-					if (kvp.Value.transform == null || kvp.Value.transform.collider == null)
+					if (kvp.Value.transform == null || kvp.Value.transform.GetComponent<Collider>() == null)
 					{
 						continue;
 					}
-					Bounds playerBounds = kvp.Value.transform.collider.bounds;
+					Bounds playerBounds = kvp.Value.transform.GetComponent<Collider>().bounds;
 					Vector3[] pointsToCheck = new Vector3[2]
 					{
 						new Vector3(playerBounds.center.x, playerBounds.max.y, playerBounds.center.z),

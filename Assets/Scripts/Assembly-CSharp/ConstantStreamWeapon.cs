@@ -66,8 +66,8 @@ public class ConstantStreamWeapon : WeaponBase
 			{
 				missEffect = transform.GetComponent(typeof(ParticleEmitter)) as ParticleEmitter;
 			}
-			hitEffect1 = streamEnd.Find("Contact1").renderer;
-			hitEffect2 = streamEnd.Find("Contact2").renderer;
+			hitEffect1 = streamEnd.Find("Contact1").GetComponent<Renderer>();
+			hitEffect2 = streamEnd.Find("Contact2").GetComponent<Renderer>();
 		}
 		if (missEffect != null)
 		{

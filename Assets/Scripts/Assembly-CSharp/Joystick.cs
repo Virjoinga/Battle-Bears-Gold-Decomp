@@ -27,8 +27,8 @@ public class Joystick : MonoBehaviour
 	private void Awake()
 	{
 		myTransform = base.transform;
-		myCollider = base.collider;
-		indicator = myTransform.FindChild("indicator");
+		myCollider = base.GetComponent<Collider>();
+		indicator = myTransform.Find("indicator");
 		aimJoystick = Object.FindObjectOfType(typeof(DynamicJoystick)) as DynamicJoystick;
 	}
 

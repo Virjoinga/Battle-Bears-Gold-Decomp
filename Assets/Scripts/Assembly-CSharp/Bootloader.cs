@@ -226,7 +226,7 @@ public class Bootloader : MonoBehaviour
 	{
 		EventTracker.TrackLastEvent();
 		TrackTimePlayed();
-		Caching.CleanCache();
+		Caching.ClearCache();
 	}
 
 	private void OnApplicationPause(bool isPaused)

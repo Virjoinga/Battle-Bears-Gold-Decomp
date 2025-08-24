@@ -20,7 +20,7 @@ public class GraphicsLevel
 			return;
 		}
 		Debug.Log("Adding camera effect: " + _cameraEffect);
-		Component component = character.mainCamera.gameObject.AddComponent(_cameraEffect);
+		Component component = UnityEngineInternal.APIUpdaterRuntimeServices.AddComponent(character.mainCamera.gameObject, "Assets/Scripts/Assembly-CSharp/GraphicsLevel.cs (23,25)", _cameraEffect);
 		if (component is BBRImageEffect)
 		{
 			EffectSetting[] effectSettings = _effectSettings;

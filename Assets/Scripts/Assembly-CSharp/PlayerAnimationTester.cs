@@ -18,7 +18,7 @@ public class PlayerAnimationTester : MonoBehaviour
 
 	private void Awake()
 	{
-		myAnimator = base.animation;
+		myAnimator = base.GetComponent<Animation>();
 		for (int i = 0; i < walkAnimations.Length; i++)
 		{
 			myAnimator[walkAnimations[i]].layer = 1;

@@ -26,7 +26,7 @@ public class CarpetBombProjectile : Projectile
 	{
 		if (!_hasHitGround)
 		{
-			base.transform.forward = base.rigidbody.velocity.normalized;
+			base.transform.forward = base.GetComponent<Rigidbody>().velocity.normalized;
 		}
 	}
 
@@ -34,16 +34,16 @@ public class CarpetBombProjectile : Projectile
 	{
 		_hasHitGround = true;
 		CalculateFacingDirection(collision);
-		base.rigidbody.isKinematic = true;
+		base.GetComponent<Rigidbody>().isKinematic = true;
 		DisableMeshRenderers();
 		StartCoroutine(DoCarpetBomb());
 	}
 
 	private void CalculateFacingDirection(Collision collision)
 	{
-		Vector3 velocity = base.rigidbody.velocity;
-		base.rigidbody.useGravity = false;
-		base.transform.position -= collision.contacts[0].normal * base.collider.bounds.extents.x;
+		Vector3 velocity = base.GetComponent<Rigidbody>().velocity;
+		base.GetComponent<Rigidbody>().useGravity = false;
+		base.transform.position -= collision.contacts[0].normal * base.GetComponent<Collider>().bounds.extents.x;
 		Vector3 realNormal = GetRealNormal(collision.contacts[0].point, collision.contacts[0].normal, collision.contacts[0].otherCollider);
 		SetForwardFromNormal(velocity, realNormal);
 	}

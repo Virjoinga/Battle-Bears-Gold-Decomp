@@ -20,7 +20,7 @@ public class ReportMenuController : MonoBehaviour
 		_lastPlayerToBeReported = playerToBeReported;
 		_lastReportPopupButtonPressed = reportPopupButton;
 		base.gameObject.SetActive(true);
-		base.animation.Play("in");
+		base.GetComponent<Animation>().Play("in");
 	}
 
 	private void OnGUIButtonClicked(GUIButton button)
@@ -90,8 +90,8 @@ public class ReportMenuController : MonoBehaviour
 	private void DismissMenu()
 	{
 		_requestInProgress = false;
-		base.animation.Play("out");
-		StartCoroutine(DelayedSetActive(false, base.animation["out"].length));
+		base.GetComponent<Animation>().Play("out");
+		StartCoroutine(DelayedSetActive(false, base.GetComponent<Animation>()["out"].length));
 	}
 
 	private IEnumerator DelayedSetActive(bool active, float delay)
@@ -103,8 +103,8 @@ public class ReportMenuController : MonoBehaviour
 	private void OpenErrorPopup()
 	{
 		errorPopup.SetActive(true);
-		errorPopup.animation.Play("in");
-		Transform transform = errorPopup.transform.FindChild("text");
+		errorPopup.GetComponent<Animation>().Play("in");
+		Transform transform = errorPopup.transform.Find("text");
 		if (transform != null)
 		{
 			TextMesh component = transform.gameObject.GetComponent<TextMesh>();

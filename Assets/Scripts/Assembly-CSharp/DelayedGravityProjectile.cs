@@ -17,7 +17,7 @@ public class DelayedGravityProjectile : MonoBehaviour
 
 	private void Awake()
 	{
-		myRigidbody = base.rigidbody;
+		myRigidbody = base.GetComponent<Rigidbody>();
 		myTransform = base.transform;
 		if (!lookAtDirection)
 		{

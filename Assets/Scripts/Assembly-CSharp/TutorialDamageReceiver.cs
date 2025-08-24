@@ -26,17 +26,17 @@ public class TutorialDamageReceiver : DamageReceiver
 	private IEnumerator startDeath()
 	{
 		isDying = true;
-		base.animation.Play("tutorialDeath");
-		yield return new WaitForSeconds(base.animation["tutorialDeath"].length);
+		base.GetComponent<Animation>().Play("tutorialDeath");
+		yield return new WaitForSeconds(base.GetComponent<Animation>()["tutorialDeath"].length);
 		Object.Destroy(this);
 	}
 
 	private IEnumerator startDeathByMelee()
 	{
 		isDying = true;
-		base.animation.Play("hit");
-		yield return new WaitForSeconds(base.animation["hit"].length);
-		base.renderer.material.color = Color.red;
+		base.GetComponent<Animation>().Play("hit");
+		yield return new WaitForSeconds(base.GetComponent<Animation>()["hit"].length);
+		base.GetComponent<Renderer>().material.color = Color.red;
 		Object.Destroy(this);
 	}
 }

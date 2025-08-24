@@ -33,14 +33,14 @@ public class AcmeRocket : ConfigurableNetworkObject
 		{
 			OnHitShield();
 		}
-		AudioSource audioSource = base.audio;
+		AudioSource audioSource = base.GetComponent<AudioSource>();
 		if (wickSound != null)
 		{
 			audioSource.clip = wickSound;
 			audioSource.loop = true;
 			audioSource.Play();
 		}
-		Animation animation = base.animation;
+		Animation animation = base.GetComponent<Animation>();
 		if (animation != null)
 		{
 			animation.Stop();

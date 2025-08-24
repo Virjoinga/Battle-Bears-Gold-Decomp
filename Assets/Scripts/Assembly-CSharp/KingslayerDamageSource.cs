@@ -58,7 +58,7 @@ public class KingslayerDamageSource : LineOfSightDamageSource
 		}
 		if (num > 0f && extraDamageSound != null)
 		{
-			base.audio.PlayOneShot(extraDamageSound);
+			base.GetComponent<AudioSource>().PlayOneShot(extraDamageSound);
 		}
 		damageReceiver.OnTakeDamage((damage + num) * base.DamageMultiplier, base.OwnerID, false, false, false, true, false, 0f, string.Empty);
 	}

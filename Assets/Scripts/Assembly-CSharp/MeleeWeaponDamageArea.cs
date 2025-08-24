@@ -8,7 +8,7 @@ public class MeleeWeaponDamageArea : MonoBehaviour
 
 	private void Awake()
 	{
-		myCollider = base.collider;
+		myCollider = base.GetComponent<Collider>();
 		ourWeaponRoot = base.transform.root.GetComponent(typeof(MeleeWeapon)) as MeleeWeapon;
 	}
 

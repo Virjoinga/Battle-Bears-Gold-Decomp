@@ -28,9 +28,9 @@ public class JumpBoots : SpecialItem
 		{
 			Vector3 vector = new Vector3(p.Motor.movement.velocity.x, jumpPower, p.Motor.movement.velocity.z);
 			playerController.OnJumpPad(vector);
-			if (base.audio != null && jumpSound != null)
+			if (base.GetComponent<AudioSource>() != null && jumpSound != null)
 			{
-				base.audio.PlayOneShot(jumpSound);
+				base.GetComponent<AudioSource>().PlayOneShot(jumpSound);
 			}
 		}
 	}

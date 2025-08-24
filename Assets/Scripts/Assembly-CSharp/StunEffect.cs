@@ -33,7 +33,7 @@ public class StunEffect : NetworkObject
 	{
 		if (hitSound != null)
 		{
-			base.audio.PlayOneShot(hitSound);
+			base.GetComponent<AudioSource>().PlayOneShot(hitSound);
 		}
 		PlayerController playerController = col.GetComponent(typeof(PlayerController)) as PlayerController;
 		PlayerCharacterManager playerCharacterManager = GameManager.Instance.Players(base.OwnerID);

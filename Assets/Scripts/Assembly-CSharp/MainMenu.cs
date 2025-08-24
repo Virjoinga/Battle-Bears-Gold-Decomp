@@ -404,7 +404,7 @@ public class MainMenu : MonoBehaviour
 		UpdateLocalizedText();
 		hasBeenToMainMenuScene = true;
 		headIcons = new GameObject[headIconMounts.Length];
-		myAnimation = base.animation;
+		myAnimation = base.GetComponent<Animation>();
 		Preferences.Instance.OnLoad();
 		popupCamera = popupRoot.GetComponentInChildren<Camera>();
 		popupCamera.enabled = false;
@@ -528,7 +528,7 @@ public class MainMenu : MonoBehaviour
 		ServiceManager.Instance.UpdateProperty("display_rank", ref showRanks);
 		for (int i = 0; i < rankTexts.Length; i++)
 		{
-			rankTexts[i].renderer.enabled = showRanks;
+			rankTexts[i].GetComponent<Renderer>().enabled = showRanks;
 		}
 		Bootloader.Instance.permitItemModifiers = true;
 		if (isFirstTime)
@@ -1986,7 +1986,7 @@ public class MainMenu : MonoBehaviour
 		currentCharacter.transform.localScale = localScale;
 		currentCharacter.name = loadout.model.name;
 		loadSkin(loadout);
-		characterAnimator = currentCharacter.transform.Find("playerModel").animation;
+		characterAnimator = currentCharacter.transform.Find("playerModel").GetComponent<Animation>();
 		Component[] componentsInChildren = currentCharacter.GetComponentsInChildren(typeof(WeaponMountPoint));
 		Component[] array = componentsInChildren;
 		foreach (Component component in array)
@@ -2094,9 +2094,9 @@ public class MainMenu : MonoBehaviour
 			if (!(weaponToLoad.name != currentLefthandWeapon.name))
 			{
 				PlayCharacterIdle(weaponToLoad.name, weaponToLoad);
-				if (currentLefthandWeapon.animation != null && currentLefthandWeapon.animation["switch"] != null)
+				if (currentLefthandWeapon.GetComponent<Animation>() != null && currentLefthandWeapon.GetComponent<Animation>()["switch"] != null)
 				{
-					StartCoroutine("playWeaponSwitch", currentLefthandWeapon.animation);
+					StartCoroutine("playWeaponSwitch", currentLefthandWeapon.GetComponent<Animation>());
 				}
 				return;
 			}
@@ -2110,9 +2110,9 @@ public class MainMenu : MonoBehaviour
 			if (!(weaponToLoad.name != currentRighthandWeapon.name))
 			{
 				PlayCharacterIdle(weaponToLoad.name, weaponToLoad);
-				if (currentRighthandWeapon.animation != null && currentRighthandWeapon.animation["switch"] != null)
+				if (currentRighthandWeapon.GetComponent<Animation>() != null && currentRighthandWeapon.GetComponent<Animation>()["switch"] != null)
 				{
-					StartCoroutine("playWeaponSwitch", currentLefthandWeapon.animation);
+					StartCoroutine("playWeaponSwitch", currentLefthandWeapon.GetComponent<Animation>());
 				}
 				return;
 			}
@@ -2155,16 +2155,16 @@ public class MainMenu : MonoBehaviour
 			else if (component2.useBothHands)
 			{
 				currentLefthandWeapon = loadWeapon(weaponToLoad, leftMountpoint);
-				if (currentLefthandWeapon.animation != null && currentLefthandWeapon.animation["idle"] != null)
+				if (currentLefthandWeapon.GetComponent<Animation>() != null && currentLefthandWeapon.GetComponent<Animation>()["idle"] != null)
 				{
-					currentLefthandWeapon.animation["idle"].speed = component.idleAnimationSpeed;
-					currentLefthandWeapon.animation.Play("idle");
+					currentLefthandWeapon.GetComponent<Animation>()["idle"].speed = component.idleAnimationSpeed;
+					currentLefthandWeapon.GetComponent<Animation>().Play("idle");
 				}
 				currentRighthandWeapon = loadWeapon(weaponToLoad, rightMountpoint);
-				if (currentRighthandWeapon.animation != null && currentRighthandWeapon.animation["idle"] != null)
+				if (currentRighthandWeapon.GetComponent<Animation>() != null && currentRighthandWeapon.GetComponent<Animation>()["idle"] != null)
 				{
-					currentRighthandWeapon.animation["idle"].speed = component.idleAnimationSpeed;
-					currentRighthandWeapon.animation.Play("idle");
+					currentRighthandWeapon.GetComponent<Animation>()["idle"].speed = component.idleAnimationSpeed;
+					currentRighthandWeapon.GetComponent<Animation>().Play("idle");
 				}
 			}
 		}
@@ -2174,9 +2174,9 @@ public class MainMenu : MonoBehaviour
 			if (component.hand == WeaponMountPoint.Side.LEFT)
 			{
 				currentLefthandWeapon = loadWeapon(weaponToLoad, leftMountpoint);
-				if (currentLefthandWeapon.animation != null && currentLefthandWeapon.animation["switch"] != null)
+				if (currentLefthandWeapon.GetComponent<Animation>() != null && currentLefthandWeapon.GetComponent<Animation>()["switch"] != null)
 				{
-					StartCoroutine("playWeaponSwitch", currentLefthandWeapon.animation);
+					StartCoroutine("playWeaponSwitch", currentLefthandWeapon.GetComponent<Animation>());
 				}
 			}
 			else if (component.hand == WeaponMountPoint.Side.RIGHT)
@@ -2184,26 +2184,26 @@ public class MainMenu : MonoBehaviour
 				if (_characterUsesBackpack)
 				{
 					currentRighthandWeapon = loadWeapon(weaponToLoad, rightMountpoint);
-					if (currentRighthandWeapon.animation != null && currentRighthandWeapon.animation["switch"] != null)
+					if (currentRighthandWeapon.GetComponent<Animation>() != null && currentRighthandWeapon.GetComponent<Animation>()["switch"] != null)
 					{
-						StartCoroutine(playWeaponSwitch(currentRighthandWeapon.animation));
+						StartCoroutine(playWeaponSwitch(currentRighthandWeapon.GetComponent<Animation>()));
 					}
 				}
 				else
 				{
 					currentLefthandWeapon = loadWeapon(weaponToLoad, rightMountpoint);
-					if (currentLefthandWeapon.animation != null && currentLefthandWeapon.animation["switch"] != null)
+					if (currentLefthandWeapon.GetComponent<Animation>() != null && currentLefthandWeapon.GetComponent<Animation>()["switch"] != null)
 					{
-						StartCoroutine(playWeaponSwitch(currentLefthandWeapon.animation));
+						StartCoroutine(playWeaponSwitch(currentLefthandWeapon.GetComponent<Animation>()));
 					}
 				}
 			}
 			else if (component.hand == WeaponMountPoint.Side.BACK)
 			{
 				currentBackpackWeapon = loadWeapon(weaponToLoad, backMountpoint);
-				if (currentBackpackWeapon.animation != null && currentBackpackWeapon.animation["switch"] != null)
+				if (currentBackpackWeapon.GetComponent<Animation>() != null && currentBackpackWeapon.GetComponent<Animation>()["switch"] != null)
 				{
-					StartCoroutine(playWeaponSwitch(currentBackpackWeapon.animation));
+					StartCoroutine(playWeaponSwitch(currentBackpackWeapon.GetComponent<Animation>()));
 				}
 			}
 		}
@@ -2211,13 +2211,13 @@ public class MainMenu : MonoBehaviour
 		{
 			StopCoroutine("playWeaponSwitch");
 			currentRighthandWeapon = loadWeapon(weaponToLoad, rightMountpoint);
-			if (currentRighthandWeapon.animation != null && currentRighthandWeapon.animation["switch"] != null)
+			if (currentRighthandWeapon.GetComponent<Animation>() != null && currentRighthandWeapon.GetComponent<Animation>()["switch"] != null)
 			{
-				StartCoroutine("playWeaponSwitch", currentRighthandWeapon.animation);
+				StartCoroutine("playWeaponSwitch", currentRighthandWeapon.GetComponent<Animation>());
 			}
 		}
 		StopCoroutine("playCharacterSwitch");
-		if (component.animation != null && component.animation["switch"] != null)
+		if (component.GetComponent<Animation>() != null && component.GetComponent<Animation>()["switch"] != null)
 		{
 			StartCoroutine("playCharacterSwitch", component);
 		}
@@ -2233,7 +2233,7 @@ public class MainMenu : MonoBehaviour
 		WeaponBase component = gameObject.GetComponent<WeaponBase>();
 		if (component != null && !_characterUsesBackpack && component.isRiggedWeapon && (backMountpoint == null || mountpoint.position != backMountpoint.position))
 		{
-			Transform transform = currentCharacter.transform.FindChild("playerModel");
+			Transform transform = currentCharacter.transform.Find("playerModel");
 			if (transform != null)
 			{
 				gameObject.transform.parent = transform.transform;
@@ -2550,7 +2550,7 @@ public class MainMenu : MonoBehaviour
 		{
 		default:
 		{
-			int num;
+			int num = 0;
 			if (num == 1)
 			{
 				OnSessionError();
@@ -2606,7 +2606,7 @@ public class MainMenu : MonoBehaviour
 		if (button == _androidQuitConfirm)
 		{
 			Application.Quit();
-			Caching.CleanCache();
+			Caching.ClearCache();
 		}
 	}
 

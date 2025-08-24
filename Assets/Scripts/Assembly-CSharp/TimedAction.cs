@@ -14,9 +14,9 @@ public class TimedAction : MonoBehaviour
 
 	private void Start()
 	{
-		base.renderer.enabled = false;
-		base.collider.enabled = false;
-		base.light.enabled = false;
+		base.GetComponent<Renderer>().enabled = false;
+		base.GetComponent<Collider>().enabled = false;
+		base.GetComponent<Light>().enabled = false;
 		if (PhotonManager.Instance != null)
 		{
 			int startTime = GameManager.Instance.StartTime;
@@ -48,8 +48,8 @@ public class TimedAction : MonoBehaviour
 				_on = true;
 			}
 		}
-		base.renderer.enabled = _on;
-		base.collider.enabled = _on;
-		base.light.enabled = _on;
+		base.GetComponent<Renderer>().enabled = _on;
+		base.GetComponent<Collider>().enabled = _on;
+		base.GetComponent<Light>().enabled = _on;
 	}
 }

@@ -105,9 +105,9 @@ public class PrivateMatchController : Popup
 		{
 			_currentPopup.transform.parent = base.transform;
 			_currentPopup.SendMessage("SetController", this, SendMessageOptions.DontRequireReceiver);
-			if (_currentPopup.animation != null && _currentPopup.animation.GetClip("in") != null)
+			if (_currentPopup.GetComponent<Animation>() != null && _currentPopup.GetComponent<Animation>().GetClip("in") != null)
 			{
-				_currentPopup.animation.Play("in");
+				_currentPopup.GetComponent<Animation>().Play("in");
 			}
 		}
 		_state = state;
@@ -195,9 +195,9 @@ public class PrivateMatchController : Popup
 
 	private void CloseError()
 	{
-		if (_errorMessage.animation != null && (bool)_errorMessage.animation.GetClip("out"))
+		if (_errorMessage.GetComponent<Animation>() != null && (bool)_errorMessage.GetComponent<Animation>().GetClip("out"))
 		{
-			_errorMessage.animation.Play("out");
+			_errorMessage.GetComponent<Animation>().Play("out");
 		}
 		else
 		{
@@ -210,10 +210,10 @@ public class PrivateMatchController : Popup
 		float result = 0f;
 		if (_currentPopup != null)
 		{
-			if (_currentPopup.animation != null && _currentPopup.animation.GetClip("out") != null)
+			if (_currentPopup.GetComponent<Animation>() != null && _currentPopup.GetComponent<Animation>().GetClip("out") != null)
 			{
-				_currentPopup.animation.Play("out");
-				result = _currentPopup.animation.GetClip("out").length;
+				_currentPopup.GetComponent<Animation>().Play("out");
+				result = _currentPopup.GetComponent<Animation>().GetClip("out").length;
 			}
 			else
 			{

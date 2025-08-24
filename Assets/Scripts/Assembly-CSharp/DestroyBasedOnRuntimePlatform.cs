@@ -45,9 +45,9 @@ public class DestroyBasedOnRuntimePlatform : MonoBehaviour
 		}
 		if (disableMeshRendererOnly)
 		{
-			if (base.gameObject.renderer != null)
+			if (base.gameObject.GetComponent<Renderer>() != null)
 			{
-				base.gameObject.renderer.enabled = false;
+				base.gameObject.GetComponent<Renderer>().enabled = false;
 			}
 		}
 		else if (flag)

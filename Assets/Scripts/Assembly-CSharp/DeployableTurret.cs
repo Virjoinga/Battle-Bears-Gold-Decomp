@@ -126,7 +126,7 @@ public class DeployableTurret : DeployableObject
 			tracer = Object.Instantiate(tracerPrefab) as GameObject;
 			tracerStart = tracer.transform.Find("start");
 			tracerEnd = tracer.transform.Find("end");
-			tracerMesh = tracer.transform.Find("mesh").renderer;
+			tracerMesh = tracer.transform.Find("mesh").GetComponent<Renderer>();
 			tracerMesh.enabled = false;
 			tracerTransform = tracer.transform;
 			tracerTransform.parent = spawnPoint;
@@ -144,7 +144,7 @@ public class DeployableTurret : DeployableObject
 		{
 			deathEffect.SetActive(false);
 		}
-		myAudio = base.audio;
+		myAudio = base.GetComponent<AudioSource>();
 		myAudio.PlayOneShot(assembleSound);
 	}
 
@@ -209,7 +209,7 @@ public class DeployableTurret : DeployableObject
 		hashtable[(byte)4] = tracerEnd.position.y;
 		hashtable[(byte)5] = tracerEnd.position.z;
 		OwningPlayer.NetSync.SetAction(42, hashtable);
-		base.animation.Play(base.name + "_fire");
+		base.GetComponent<Animation>().Play(base.name + "_fire");
 		myAudio.PlayOneShot(fireSounds[Random.Range(0, fireSounds.Length)]);
 		return true;
 	}
@@ -217,7 +217,7 @@ public class DeployableTurret : DeployableObject
 	public void OnRemoteAttack(Vector3 pos)
 	{
 		StopCoroutine("DelayedStopFiringAnimation");
-		base.animation.Play(base.name + "_fire");
+		base.GetComponent<Animation>().Play(base.name + "_fire");
 		myAudio.PlayOneShot(fireSounds[Random.Range(0, fireSounds.Length)]);
 		StartCoroutine("DelayedStopFiringAnimation");
 		if (tracerMesh != null && !showingTracer)
@@ -230,7 +230,7 @@ public class DeployableTurret : DeployableObject
 	protected IEnumerator DelayedStopFiringAnimation()
 	{
 		yield return new WaitForSeconds(0.6f);
-		base.animation.Stop(base.name + "_fire");
+		base.GetComponent<Animation>().Stop(base.name + "_fire");
 	}
 
 	protected void OnDealDirectDamage(DamageReceiver dmgReceiver, float damage)
@@ -306,16 +306,16 @@ public class DeployableTurret : DeployableObject
 	{
 		if (OwningPlayer.Team == Team.RED)
 		{
-			base.transform.Find("playerHighlight").renderer.sharedMaterial = Resources.Load("goggleMaterialRed") as Material;
+			base.transform.Find("playerHighlight").GetComponent<Renderer>().sharedMaterial = Resources.Load("goggleMaterialRed") as Material;
 		}
 		else
 		{
-			base.transform.Find("playerHighlight").renderer.sharedMaterial = Resources.Load("goggleMaterialBlue") as Material;
+			base.transform.Find("playerHighlight").GetComponent<Renderer>().sharedMaterial = Resources.Load("goggleMaterialBlue") as Material;
 		}
 		base.name = base.name.Replace("(Clone)", string.Empty);
 		_targetingSystem = GetComponent<TurretTargettingSystem>();
-		AnimationClip clip = base.animation.GetClip(base.name + "_ready");
-		StartCoroutine(base.animation.playWithCallbackCoroutine(clip, delegate
+		AnimationClip clip = base.GetComponent<Animation>().GetClip(base.name + "_ready");
+		StartCoroutine(base.GetComponent<Animation>().playWithCallbackCoroutine(clip, delegate
 		{
 			if (!OwningPlayer.isRemote)
 			{
@@ -348,7 +348,7 @@ public class DeployableTurret : DeployableObject
 		{
 			return;
 		}
-		AnimationClip clip = base.animation.GetClip(base.name + "_death");
+		AnimationClip clip = base.GetComponent<Animation>().GetClip(base.name + "_death");
 		_turretIsReady = false;
 		_turretIsDead = true;
 		Object.Destroy(base.transform.Find("playerHighlight").gameObject);
@@ -358,7 +358,7 @@ public class DeployableTurret : DeployableObject
 		{
 			deathEffect.SetActive(true);
 		}
-		StartCoroutine(base.animation.playWithCallbackCoroutine(clip, delegate
+		StartCoroutine(base.GetComponent<Animation>().playWithCallbackCoroutine(clip, delegate
 		{
 			if (objectToSpawn != null && !hasSpawned)
 			{
@@ -389,7 +389,7 @@ public class DeployableTurret : DeployableObject
 		{
 			if (_targetingSystem.lockedTarget == null)
 			{
-				base.animation.Stop(base.name + "_fire");
+				base.GetComponent<Animation>().Stop(base.name + "_fire");
 				yield return new WaitForSeconds(cooldown);
 			}
 			else if (_turretIsReady)

@@ -20,7 +20,7 @@ public class FontMetrics
 	public FontMetrics(TextMesh tm, float size)
 	{
 		textMesh = tm;
-		Renderer renderer = textMesh.renderer;
+		Renderer renderer = textMesh.GetComponent<Renderer>();
 		textMeshFont = textMesh.font;
 		fontSize = (int)size;
 		fontIdentifier = textMeshFont.name + fontSize;

@@ -28,7 +28,7 @@ public class IPadAdjuster : MonoBehaviour
 
 	private void Awake()
 	{
-		myCamera = base.camera;
+		myCamera = base.GetComponent<Camera>();
 		myTransform = base.transform;
 		init();
 	}

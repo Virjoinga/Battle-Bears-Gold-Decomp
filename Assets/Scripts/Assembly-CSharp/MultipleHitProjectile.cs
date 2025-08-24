@@ -18,12 +18,12 @@ public class MultipleHitProjectile : Projectile
 		}
 		foreach (PlayerCharacterManager playerCharacterManager in GameManager.Instance.GetPlayerCharacterManagers())
 		{
-			if (playerCharacterManager.PlayerController != null && playerCharacterManager.PlayerController.collider != null)
+			if (playerCharacterManager.PlayerController != null && playerCharacterManager.PlayerController.GetComponent<Collider>() != null)
 			{
 				bool flag = playerCharacterManager.PlayerController.enabled;
-				playerCharacterManager.PlayerController.collider.enabled = true;
-				Physics.IgnoreCollision(base.collider, playerCharacterManager.PlayerController.collider);
-				playerCharacterManager.PlayerController.collider.enabled = flag;
+				playerCharacterManager.PlayerController.GetComponent<Collider>().enabled = true;
+				Physics.IgnoreCollision(base.GetComponent<Collider>(), playerCharacterManager.PlayerController.GetComponent<Collider>());
+				playerCharacterManager.PlayerController.GetComponent<Collider>().enabled = flag;
 			}
 		}
 	}

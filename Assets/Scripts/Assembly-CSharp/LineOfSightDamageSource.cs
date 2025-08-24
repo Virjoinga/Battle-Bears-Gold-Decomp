@@ -18,7 +18,7 @@ public class LineOfSightDamageSource : ConfigurableNetworkObject
 
 	protected virtual void Awake()
 	{
-		myCollider = base.collider;
+		myCollider = base.GetComponent<Collider>();
 		myTransform = base.transform;
 	}
 
@@ -58,9 +58,9 @@ public class LineOfSightDamageSource : ConfigurableNetworkObject
 	protected bool checkForActualHit(GameObject target)
 	{
 		bool result = false;
-		if (target != null && target.collider != null && myTransform != null)
+		if (target != null && target.GetComponent<Collider>() != null && myTransform != null)
 		{
-			Bounds bounds = target.collider.bounds;
+			Bounds bounds = target.GetComponent<Collider>().bounds;
 			Vector3[] array = new Vector3[2]
 			{
 				new Vector3(bounds.center.x, bounds.max.y, bounds.center.z),

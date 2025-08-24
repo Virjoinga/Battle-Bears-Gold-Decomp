@@ -55,11 +55,11 @@ public class GUIController : MonoBehaviour
 			Transform transform = base.transform.root.Find("Camera");
 			if (transform != null)
 			{
-				guiCamera = transform.camera;
+				guiCamera = transform.GetComponent<Camera>();
 			}
 			else
 			{
-				guiCamera = GameObject.Find("MenuCamera").camera;
+				guiCamera = GameObject.Find("MenuCamera").GetComponent<Camera>();
 			}
 		}
 	}

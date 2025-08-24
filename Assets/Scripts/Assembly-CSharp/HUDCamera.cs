@@ -10,8 +10,8 @@ public class HUDCamera : MonoBehaviour
 
 	private void Update()
 	{
-		base.camera.orthographic = true;
-		base.camera.orthographicSize = _orthoSize;
-		base.camera.aspect = _aspectRatio;
+		base.GetComponent<Camera>().orthographic = true;
+		base.GetComponent<Camera>().orthographicSize = _orthoSize;
+		base.GetComponent<Camera>().aspect = _aspectRatio;
 	}
 }

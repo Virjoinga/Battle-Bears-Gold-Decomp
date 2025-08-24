@@ -20,9 +20,9 @@ public class StickyBomb : DelayedGravityProjectile
 
 	private void OnStick()
 	{
-		if (stickSound != null && base.audio != null)
+		if (stickSound != null && base.GetComponent<AudioSource>() != null)
 		{
-			base.audio.PlayOneShot(stickSound);
+			base.GetComponent<AudioSource>().PlayOneShot(stickSound);
 		}
 		Object.Destroy(GetComponent(typeof(ConstantForce)));
 		myRigidbody.Sleep();

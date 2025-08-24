@@ -93,10 +93,10 @@ public class PrefabSpawner : MonoBehaviour
 		if (!_playerController.IsDead)
 		{
 			GameObject gameObject = Object.Instantiate(Resources.Load(_prefabResourceDirectory + _prefabNames[_currentPrefabIndex])) as GameObject;
-			Transform transform = gameObject.transform.FindChild("DamageCollider");
+			Transform transform = gameObject.transform.Find("DamageCollider");
 			if (transform != null && _playerController != null)
 			{
-				Physics.IgnoreCollision(transform.gameObject.collider, _playerController.collider);
+				Physics.IgnoreCollision(transform.gameObject.GetComponent<Collider>(), _playerController.GetComponent<Collider>());
 			}
 			gameObject.BroadcastMessage("SetEquipmentNames", _weapon.EquipmentNames, SendMessageOptions.DontRequireReceiver);
 			gameObject.BroadcastMessage("SetItemOverride", _weapon.name, SendMessageOptions.DontRequireReceiver);
@@ -109,11 +109,11 @@ public class PrefabSpawner : MonoBehaviour
 			{
 				gameObject.transform.rotation = _spawnPosition.rotation;
 			}
-			gameObject.rigidbody.velocity = gameObject.transform.rotation * velocity;
-			gameObject.rigidbody.angularVelocity = _angularVelocity;
+			gameObject.GetComponent<Rigidbody>().velocity = gameObject.transform.rotation * velocity;
+			gameObject.GetComponent<Rigidbody>().angularVelocity = _angularVelocity;
 			if (!isRemote)
 			{
-				_weapon.TellPrefabSpawned(gameObject.transform.position, gameObject.rigidbody.velocity);
+				_weapon.TellPrefabSpawned(gameObject.transform.position, gameObject.GetComponent<Rigidbody>().velocity);
 			}
 			Object.Destroy(gameObject, _lifetime);
 			_currentPrefabIndex = ((_currentPrefabIndex + 1 < _prefabNames.Length) ? (_currentPrefabIndex + 1) : 0);

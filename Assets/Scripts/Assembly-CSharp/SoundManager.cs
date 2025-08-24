@@ -42,7 +42,7 @@ public class SoundManager : MonoBehaviour
 	private void Awake()
 	{
 		instance = this;
-		musicAudio = base.audio;
+		musicAudio = base.GetComponent<AudioSource>();
 		musicAudio.ignoreListenerVolume = true;
 		if (ServiceManager.Instance.GetStats() != null && ServiceManager.Instance.GetStats().pid != -1)
 		{

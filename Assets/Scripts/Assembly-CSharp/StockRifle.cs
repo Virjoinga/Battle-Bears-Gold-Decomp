@@ -69,13 +69,13 @@ public class StockRifle : SniperRifle
 		if (stockPrice < 0f)
 		{
 			barrelRenderer.material = redMaterial;
-			burstFire.renderer.material.mainTextureOffset = new Vector2(0.5f, 0f);
+			burstFire.GetComponent<Renderer>().material.mainTextureOffset = new Vector2(0.5f, 0f);
 			tracerPrefab = redTracerPrefab;
 			fireSounds = redFireSounds;
 		}
 		else
 		{
-			burstFire.renderer.material.mainTextureOffset = new Vector2(0f, 0f);
+			burstFire.GetComponent<Renderer>().material.mainTextureOffset = new Vector2(0f, 0f);
 		}
 	}
 

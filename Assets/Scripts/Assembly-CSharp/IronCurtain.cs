@@ -32,9 +32,9 @@ public class IronCurtain : SpecialItem
 	protected override void Awake()
 	{
 		base.Awake();
-		myAnimation = base.animation;
-		myCollider = base.collider;
-		myAudio = base.audio;
+		myAnimation = base.GetComponent<Animation>();
+		myCollider = base.GetComponent<Collider>();
+		myAudio = base.GetComponent<AudioSource>();
 	}
 
 	protected override void OnActivate(PlayerController p, bool isRemote, float delay)

@@ -18,7 +18,7 @@ namespace BestHTTP
 
 		private static HeartbeatManager heartbeats;
 
-		private static ILogger logger;
+		private static BestHTTP.Logger.ILogger logger;
 
 		public static bool TryToMinimizeTCPLatency;
 
@@ -84,7 +84,7 @@ namespace BestHTTP
 			}
 		}
 
-		public static ILogger Logger
+		public static BestHTTP.Logger.ILogger Logger
 		{
 			get
 			{

@@ -86,7 +86,7 @@ namespace DeltaDNA
 				{
 					result = Convert.ToInt32(matchCollection2[0].Groups[1].Value);
 				}
-				else if (Application.platform == RuntimePlatform.WindowsWebPlayer)
+				else if (Application.platform == RuntimePlatform.WebGLPlayer)
 				{
 					Logger.LogDebug("IE11 Webplayer workaround, assuming request succeeded");
 					result = 204;

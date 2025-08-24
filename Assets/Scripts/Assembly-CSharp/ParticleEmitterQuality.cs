@@ -39,9 +39,9 @@ public class ParticleEmitterQuality : MonoBehaviour
 			_selectedPercent = _lowestPercent;
 			break;
 		}
-		if (base.particleSystem != null)
+		if (base.GetComponent<ParticleSystem>() != null)
 		{
-			base.particleSystem.emissionRate *= _selectedPercent;
+			base.GetComponent<ParticleSystem>().emissionRate *= _selectedPercent;
 		}
 	}
 }

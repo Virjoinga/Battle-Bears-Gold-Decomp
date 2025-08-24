@@ -144,7 +144,7 @@ public class LeapNDestroyWeapon : FireInOutLoopWeapon
 		if (_landEffect != null)
 		{
 			Vector3 position = base.gameObject.transform.root.position;
-			position.y -= base.playerController.collider.bounds.size.y;
+			position.y -= base.playerController.GetComponent<Collider>().bounds.size.y;
 			GameObject gameObject = Object.Instantiate(_landEffect, position, Quaternion.identity) as GameObject;
 			InstantaneousDamageSource component = gameObject.GetComponent<InstantaneousDamageSource>();
 			if (component != null)

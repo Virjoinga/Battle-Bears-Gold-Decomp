@@ -85,7 +85,7 @@ public class FlamethrowerWeapon : WeaponBase
 		}
 		base.playerController.BodyAnimator.IsFiring = true;
 		Animation bodyAnimation = base.playerController.BodyAnimator.Animator;
-		if (bodyAnimation.animation.GetClip(_fireInAnim) != null)
+		if (bodyAnimation.GetComponent<Animation>().GetClip(_fireInAnim) != null)
 		{
 			bodyAnimation.CrossFade(_fireInAnim);
 			yield return new WaitForSeconds(bodyAnimation[_fireInAnim].length);
@@ -108,7 +108,7 @@ public class FlamethrowerWeapon : WeaponBase
 		i.SetEquipmentNames(base.EquipmentNames);
 		i.OwnerID = ownerID;
 		i.DamageMultiplier = base.playerController.DamageMultiplier;
-		Collider newCollider = currentFlames.collider;
+		Collider newCollider = currentFlames.GetComponent<Collider>();
 		if (newCollider == null)
 		{
 			newCollider = currentFlames.GetComponentInChildren<Collider>();
@@ -125,7 +125,7 @@ public class FlamethrowerWeapon : WeaponBase
 				Physics.IgnoreCollision(newCollider, capsule);
 			}
 		}
-		if (bodyAnimation.animation.GetClip(_fireLoopAnim) != null)
+		if (bodyAnimation.GetComponent<Animation>().GetClip(_fireLoopAnim) != null)
 		{
 			bodyAnimation.CrossFade(_fireLoopAnim);
 		}
@@ -159,7 +159,7 @@ public class FlamethrowerWeapon : WeaponBase
 			Transform transform = currentFlames.transform.Find("flame");
 			if (transform != null)
 			{
-				transform.particleSystem.enableEmission = false;
+				transform.GetComponent<ParticleSystem>().enableEmission = false;
 				transform.transform.parent = currentFlames.transform.parent;
 				DelayedDestroy delayedDestroy = transform.gameObject.AddComponent<DelayedDestroy>();
 				delayedDestroy.delay = 2f;

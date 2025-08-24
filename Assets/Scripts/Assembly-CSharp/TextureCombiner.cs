@@ -16,7 +16,7 @@ public class TextureCombiner : MonoBehaviour
 
 	private void Awake()
 	{
-		myRenderer = base.renderer;
+		myRenderer = base.GetComponent<Renderer>();
 	}
 
 	private void Start()

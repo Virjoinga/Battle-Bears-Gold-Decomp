@@ -17,7 +17,7 @@ public class TextProcessor : FontChooser
 	protected override void Awake()
 	{
 		base.Awake();
-		textRenderer = textMesh.renderer;
+		textRenderer = textMesh.GetComponent<Renderer>();
 		if (textRenderer == null)
 		{
 			Debug.LogError("FontResizer " + base.name + " doesn't have a Renderer component.");

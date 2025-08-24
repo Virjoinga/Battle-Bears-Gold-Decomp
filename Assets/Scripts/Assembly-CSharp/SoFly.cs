@@ -139,7 +139,7 @@ public class SoFly : MeleeAttack
 			DelayedDestroy delayedDestroy = gameObject.AddComponent(typeof(DelayedDestroy)) as DelayedDestroy;
 			delayedDestroy.delay = flyDuration;
 			StartCoroutine(stopFlying(flyDuration));
-			Physics.IgnoreCollision(gameObject.collider, rootTransform.collider);
+			Physics.IgnoreCollision(gameObject.GetComponent<Collider>(), rootTransform.GetComponent<Collider>());
 		}
 		if (flyEffectPrefab != null)
 		{
@@ -188,7 +188,7 @@ public class SoFly : MeleeAttack
 			component.MeleeMultiplier = base.playerController.MeleeMultiplier;
 			DelayedDestroy delayedDestroy = gameObject.AddComponent(typeof(DelayedDestroy)) as DelayedDestroy;
 			delayedDestroy.delay = flyDuration - (float)delay / 1000f;
-			Physics.IgnoreCollision(gameObject.collider, rootTransform.collider);
+			Physics.IgnoreCollision(gameObject.GetComponent<Collider>(), rootTransform.GetComponent<Collider>());
 		}
 		if (flyEffectPrefab != null)
 		{

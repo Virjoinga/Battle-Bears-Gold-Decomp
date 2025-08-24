@@ -14,7 +14,7 @@ public class SlowDownAOE : ConfigurableNetworkObject
 
 	private void Awake()
 	{
-		myCollider = base.collider;
+		myCollider = base.GetComponent<Collider>();
 	}
 
 	private new void Start()

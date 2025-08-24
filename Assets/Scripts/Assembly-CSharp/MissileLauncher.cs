@@ -136,7 +136,7 @@ public class MissileLauncher : WeaponBase
 		{
 			component2.StartHomingCountDown(target, 0f, (!(targettingSystem != null)) ? null : targettingSystem.lockedTarget);
 		}
-		Collider collider = gameObject.collider;
+		Collider collider = gameObject.GetComponent<Collider>();
 		Component[] componentsInChildren = myTransform.root.GetComponentsInChildren(typeof(Collider));
 		Component[] array = componentsInChildren;
 		foreach (Component component3 in array)
@@ -212,13 +212,13 @@ public class MissileLauncher : WeaponBase
 			Transform lockedTarget2 = ((!(lockedTarget != null)) ? null : lockedTarget.transform);
 			homingMissile.StartHomingCountDown(target, delay, lockedTarget2);
 		}
-		Collider collider = gameObject.collider;
+		Collider collider = gameObject.GetComponent<Collider>();
 		collider.enabled = true;
 		Component[] componentsInChildren = myTransform.root.GetComponentsInChildren(typeof(Collider));
 		Component[] array = componentsInChildren;
 		foreach (Component component2 in array)
 		{
-			if (component2.collider.enabled)
+			if (component2.GetComponent<Collider>().enabled)
 			{
 				Physics.IgnoreCollision(collider, component2 as Collider);
 			}

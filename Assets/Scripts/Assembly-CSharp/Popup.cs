@@ -21,7 +21,7 @@ public class Popup : MonoBehaviour
 
 	protected virtual void Awake()
 	{
-		myAnimation = base.animation;
+		myAnimation = base.GetComponent<Animation>();
 		if (myAnimation != null && myAnimation["in"] != null)
 		{
 			myAnimation.Play("in");

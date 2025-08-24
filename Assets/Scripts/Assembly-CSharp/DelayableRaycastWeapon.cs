@@ -95,7 +95,7 @@ public class DelayableRaycastWeapon : RaycastWeapon
 
 	private void SpawnAttackOnSpawnPoint()
 	{
-		Transform transform = base.transform.FindChild("spawn");
+		Transform transform = base.transform.Find("spawn");
 		if (transform != null)
 		{
 			GameObject gameObject = (GameObject)Object.Instantiate(_attackSpawnPointEffect, transform.position, transform.rotation);

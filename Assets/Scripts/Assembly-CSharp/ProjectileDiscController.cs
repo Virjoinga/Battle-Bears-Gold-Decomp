@@ -66,19 +66,19 @@ public class ProjectileDiscController : DiscController
 		{
 			gameObject.BroadcastMessage("SetEquipmentNames", base.Deployer.EquipmentNames, SendMessageOptions.DontRequireReceiver);
 			gameObject.BroadcastMessage("SetItemOverride", base.Deployer.name, SendMessageOptions.DontRequireReceiver);
-			gameObject.rigidbody.velocity = base.Owner.bodyRotator.rotation * _velocity;
-			gameObject.transform.LookAt(gameObject.transform.position + gameObject.rigidbody.velocity);
+			gameObject.GetComponent<Rigidbody>().velocity = base.Owner.bodyRotator.rotation * _velocity;
+			gameObject.transform.LookAt(gameObject.transform.position + gameObject.GetComponent<Rigidbody>().velocity);
 			NetworkObject componentInChildren = gameObject.GetComponentInChildren<NetworkObject>();
 			componentInChildren.OwnerID = base.Owner.OwnerID;
 			componentInChildren.DamageMultiplier = base.Owner.DamageMultiplier;
-			Collider componentInChildren2 = gameObject.collider;
+			Collider componentInChildren2 = gameObject.GetComponent<Collider>();
 			if (componentInChildren2 == null)
 			{
 				componentInChildren2 = gameObject.GetComponentInChildren<Collider>();
 			}
 			if (componentInChildren2 != null)
 			{
-				Physics.IgnoreCollision(componentInChildren2, base.Owner.collider);
+				Physics.IgnoreCollision(componentInChildren2, base.Owner.GetComponent<Collider>());
 			}
 		}
 	}

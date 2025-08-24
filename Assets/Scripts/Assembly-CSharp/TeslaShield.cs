@@ -32,7 +32,7 @@ public class TeslaShield : SpecialItem
 	protected override void OnActivate(PlayerController p, bool isRemote, float delay)
 	{
 		base.OnActivate(p, isRemote, delay);
-		myTransform.parent = playerController.transform.FindChild("playerModel");
+		myTransform.parent = playerController.transform.Find("playerModel");
 		myTransform.localPosition = new Vector3(0f, -35f, 0f);
 		myTransform.localEulerAngles = Vector3.zero;
 		myTransform.localScale = new Vector3(scaleModifier, scaleModifier, scaleModifier);

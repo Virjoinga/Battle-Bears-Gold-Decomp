@@ -372,9 +372,9 @@ public class SearchController : MonoBehaviour
 	{
 		if (_currentTextPrompt != null)
 		{
-			if (_currentTextPrompt.animation != null && (bool)_currentTextPrompt.animation.GetClip("out"))
+			if (_currentTextPrompt.GetComponent<Animation>() != null && (bool)_currentTextPrompt.GetComponent<Animation>().GetClip("out"))
 			{
-				_currentTextPrompt.animation.Play("out");
+				_currentTextPrompt.GetComponent<Animation>().Play("out");
 			}
 			else
 			{
@@ -388,9 +388,9 @@ public class SearchController : MonoBehaviour
 
 	private void RemoveTextPrompt()
 	{
-		if (_currentTextPrompt != null && _currentTextPrompt.animation != null && _currentTextPrompt.animation.GetClip("out") != null)
+		if (_currentTextPrompt != null && _currentTextPrompt.GetComponent<Animation>() != null && _currentTextPrompt.GetComponent<Animation>().GetClip("out") != null)
 		{
-			_currentTextPrompt.animation.Play("out");
+			_currentTextPrompt.GetComponent<Animation>().Play("out");
 		}
 		else
 		{

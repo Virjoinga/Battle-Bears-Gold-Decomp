@@ -65,14 +65,14 @@ public class RoomPlate : MonoBehaviour
 	{
 		if (isSelected)
 		{
-			_name.renderer.material = _selectedMaterial;
-			_players.renderer.material = _selectedMaterial;
+			_name.GetComponent<Renderer>().material = _selectedMaterial;
+			_players.GetComponent<Renderer>().material = _selectedMaterial;
 			_selected.enable();
 		}
 		else
 		{
-			_name.renderer.material = _unselectedMaterial;
-			_players.renderer.material = _unselectedMaterial;
+			_name.GetComponent<Renderer>().material = _unselectedMaterial;
+			_players.GetComponent<Renderer>().material = _unselectedMaterial;
 			_selected.disable();
 		}
 	}

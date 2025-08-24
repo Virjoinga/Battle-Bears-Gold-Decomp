@@ -115,7 +115,7 @@ namespace BestHTTP.Authentication
 					{
 					default:
 					{
-						int num;
+						int num = 0;
 						if (num == 1)
 						{
 							if (string.IsNullOrEmpty(HA1Sess))

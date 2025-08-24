@@ -6,7 +6,7 @@ public class ForceRigidBodyAwake : MonoBehaviour
 
 	private void Awake()
 	{
-		_rigidbody = base.rigidbody;
+		_rigidbody = base.GetComponent<Rigidbody>();
 	}
 
 	private void Update()

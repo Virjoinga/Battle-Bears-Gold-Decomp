@@ -75,7 +75,7 @@ public class ProjectileWeapon : WeaponBase
 			}
 			if (base.NetSyncReporter != null && !dontSendNetworkMessages)
 			{
-				base.NetSyncReporter.SpawnProjectile(gameObject.transform.position, gameObject.rigidbody.velocity);
+				base.NetSyncReporter.SpawnProjectile(gameObject.transform.position, gameObject.GetComponent<Rigidbody>().velocity);
 			}
 			gameObject.SendMessage("OnNetworkDelay", 0f, SendMessageOptions.DontRequireReceiver);
 		}
@@ -111,7 +111,7 @@ public class ProjectileWeapon : WeaponBase
 		}
 		if (base.NetSyncReporter != null && !isRemote && !dontSendNetworkMessages)
 		{
-			base.NetSyncReporter.SpawnProjectile(gameObject.transform.position, gameObject.rigidbody.velocity);
+			base.NetSyncReporter.SpawnProjectile(gameObject.transform.position, gameObject.GetComponent<Rigidbody>().velocity);
 		}
 		gameObject.SendMessage("OnNetworkDelay", 0f, SendMessageOptions.DontRequireReceiver);
 	}
@@ -127,15 +127,15 @@ public class ProjectileWeapon : WeaponBase
 		{
 			gameObject.BroadcastMessage("SetEquipmentNames", base.EquipmentNames, SendMessageOptions.DontRequireReceiver);
 			gameObject.BroadcastMessage("SetItemOverride", base.name, SendMessageOptions.DontRequireReceiver);
-			gameObject.rigidbody.velocity = velocity;
-			gameObject.transform.LookAt(gameObject.transform.position + gameObject.rigidbody.velocity);
+			gameObject.GetComponent<Rigidbody>().velocity = velocity;
+			gameObject.transform.LookAt(gameObject.transform.position + gameObject.GetComponent<Rigidbody>().velocity);
 			NetworkObject componentInChildren = gameObject.GetComponentInChildren<NetworkObject>();
 			componentInChildren.OwnerID = ownerID;
 			if (base.playerController != null)
 			{
 				componentInChildren.DamageMultiplier = base.playerController.DamageMultiplier;
 			}
-			Collider componentInChildren2 = gameObject.collider;
+			Collider componentInChildren2 = gameObject.GetComponent<Collider>();
 			if (componentInChildren2 == null)
 			{
 				componentInChildren2 = gameObject.GetComponentInChildren<Collider>();
@@ -176,7 +176,7 @@ public class ProjectileWeapon : WeaponBase
 	protected void SpawnRemoteProjectile(Vector3 pos, Vector3 vel, int delay)
 	{
 		GameObject gameObject = SpawnProjectile(pos, vel);
-		Collider componentInChildren = gameObject.collider;
+		Collider componentInChildren = gameObject.GetComponent<Collider>();
 		if (componentInChildren == null)
 		{
 			componentInChildren = gameObject.GetComponentInChildren<Collider>();

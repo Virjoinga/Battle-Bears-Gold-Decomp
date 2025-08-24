@@ -615,7 +615,7 @@ namespace DeltaDNA
 				return "el";
 			case SystemLanguage.Hebrew:
 				return "he";
-			case SystemLanguage.Hugarian:
+			case SystemLanguage.Hungarian:
 				return "hu";
 			case SystemLanguage.Icelandic:
 				return "is";

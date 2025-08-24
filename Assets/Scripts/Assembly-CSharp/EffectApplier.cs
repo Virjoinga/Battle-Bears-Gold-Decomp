@@ -16,7 +16,7 @@ public abstract class EffectApplier : MonoBehaviour
 
 	protected virtual void OnCollisionEnter(Collision collision)
 	{
-		PlayerController component = base.collider.gameObject.GetComponent<PlayerController>();
+		PlayerController component = base.GetComponent<Collider>().gameObject.GetComponent<PlayerController>();
 		if (component != null)
 		{
 			ApplyEffect(component);

@@ -19,7 +19,7 @@ public class TextBlock : MonoBehaviour
 	private void Awake()
 	{
 		myTransform = base.transform;
-		myCollider = base.collider;
+		myCollider = base.GetComponent<Collider>();
 		if (startText != string.Empty)
 		{
 			OnSetText(startText, string.Empty);
@@ -41,9 +41,9 @@ public class TextBlock : MonoBehaviour
 				Debug.LogError("could not find textmesh");
 				return;
 			}
-			if (!string.IsNullOrEmpty(color) && ourTextMesh.renderer != null)
+			if (!string.IsNullOrEmpty(color) && ourTextMesh.GetComponent<Renderer>() != null)
 			{
-				ourTextMesh.renderer.material = Resources.Load("Materials/All/HELVETICA_" + color) as Material;
+				ourTextMesh.GetComponent<Renderer>().material = Resources.Load("Materials/All/HELVETICA_" + color) as Material;
 			}
 		}
 		metric = new FontMetrics(ourTextMesh, ourTextMesh.characterSize);

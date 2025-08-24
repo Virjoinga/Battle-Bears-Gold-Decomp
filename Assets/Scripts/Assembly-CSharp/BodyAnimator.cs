@@ -147,7 +147,7 @@ public class BodyAnimator : BodyAnimatorBase
 				_idleAnimation.layer = 0;
 				_idleAnimation.speed = currentWeapon.idleAnimationSpeed;
 			}
-			if (w.animation != null && w.animation["switch"] != null)
+			if (w.GetComponent<Animation>() != null && w.GetComponent<Animation>()["switch"] != null)
 			{
 				_switchAnimation = myAnimator[w.name + "_switch"];
 				if (_switchAnimation != null)

@@ -29,9 +29,9 @@ public class AlphaCutoffMeter : MonoBehaviour
 		{
 			percent = 1f;
 		}
-		if (base.renderer != null && base.renderer.material != null && base.renderer.material.HasProperty("_Cutoff"))
+		if (base.GetComponent<Renderer>() != null && base.GetComponent<Renderer>().material != null && base.GetComponent<Renderer>().material.HasProperty("_Cutoff"))
 		{
-			base.renderer.material.SetFloat("_Cutoff", percent);
+			base.GetComponent<Renderer>().material.SetFloat("_Cutoff", percent);
 		}
 	}
 

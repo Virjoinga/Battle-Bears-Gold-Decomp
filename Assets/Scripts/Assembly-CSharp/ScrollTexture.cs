@@ -25,7 +25,7 @@ public class ScrollTexture : MonoBehaviour
 
 	private void Awake()
 	{
-		myRenderer = base.renderer;
+		myRenderer = base.GetComponent<Renderer>();
 		if (textureNames.Length == 0)
 		{
 			textureNames = new string[1];
@@ -84,7 +84,7 @@ public class ScrollTexture : MonoBehaviour
 			}
 			else
 			{
-				base.renderer.materials[matIndex].SetTextureOffset(propertyName, offset);
+				base.GetComponent<Renderer>().materials[matIndex].SetTextureOffset(propertyName, offset);
 			}
 		}
 	}

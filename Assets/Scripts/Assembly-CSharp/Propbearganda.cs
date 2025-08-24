@@ -35,9 +35,9 @@ public class Propbearganda : SpecialItem
 	protected override void Awake()
 	{
 		base.Awake();
-		myAnimation = base.animation;
-		myRigidbody = base.rigidbody;
-		myAudio = base.audio;
+		myAnimation = base.GetComponent<Animation>();
+		myRigidbody = base.GetComponent<Rigidbody>();
+		myAudio = base.GetComponent<AudioSource>();
 	}
 
 	protected override void Configure(Item item)

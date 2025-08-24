@@ -31,10 +31,10 @@ public class Bomb : MonoBehaviour
 
 	private void Awake()
 	{
-		myAudio = base.audio;
+		myAudio = base.GetComponent<AudioSource>();
 		myTransform = base.transform;
-		myCollider = base.collider;
-		bombAnimator = myTransform.Find("bomb_anim").animation;
+		myCollider = base.GetComponent<Collider>();
+		bombAnimator = myTransform.Find("bomb_anim").GetComponent<Animation>();
 		timerMount = myTransform.Find("timerMount");
 		wickParticles.SetActive(false);
 	}

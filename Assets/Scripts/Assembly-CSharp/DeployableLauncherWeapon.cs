@@ -91,7 +91,7 @@ public class DeployableLauncherWeapon : WeaponBase, IDeployableWeapon
 			}
 			if (base.NetSyncReporter != null && !dontSendNetworkMessages)
 			{
-				base.NetSyncReporter.SpawnProjectile(gameObject.transform.position, gameObject.rigidbody.velocity);
+				base.NetSyncReporter.SpawnProjectile(gameObject.transform.position, gameObject.GetComponent<Rigidbody>().velocity);
 			}
 			gameObject.SendMessage("OnNetworkDelay", 0f, SendMessageOptions.DontRequireReceiver);
 		}
@@ -106,7 +106,7 @@ public class DeployableLauncherWeapon : WeaponBase, IDeployableWeapon
 			gameObject = (isRemote ? SpawnProjectile(_position, _velocity) : SpawnProjectile(spawnPoints[0].position, aimer.forward * projectileSpeed));
 			if (base.NetSyncReporter != null && !isRemote && !dontSendNetworkMessages)
 			{
-				base.NetSyncReporter.SpawnProjectile(gameObject.transform.position, gameObject.rigidbody.velocity);
+				base.NetSyncReporter.SpawnProjectile(gameObject.transform.position, gameObject.GetComponent<Rigidbody>().velocity);
 			}
 			gameObject.SendMessage("OnNetworkDelay", 0f, SendMessageOptions.DontRequireReceiver);
 		}
@@ -123,8 +123,8 @@ public class DeployableLauncherWeapon : WeaponBase, IDeployableWeapon
 		{
 			gameObject.BroadcastMessage("SetEquipmentNames", base.EquipmentNames, SendMessageOptions.DontRequireReceiver);
 			gameObject.BroadcastMessage("SetItemOverride", base.name, SendMessageOptions.DontRequireReceiver);
-			gameObject.rigidbody.velocity = velocity;
-			gameObject.transform.LookAt(gameObject.transform.position + gameObject.rigidbody.velocity);
+			gameObject.GetComponent<Rigidbody>().velocity = velocity;
+			gameObject.transform.LookAt(gameObject.transform.position + gameObject.GetComponent<Rigidbody>().velocity);
 			NetworkObject componentInChildren = gameObject.GetComponentInChildren<NetworkObject>();
 			componentInChildren.OwnerID = ownerID;
 			componentInChildren.DamageMultiplier = base.playerController.DamageMultiplier;
@@ -134,7 +134,7 @@ public class DeployableLauncherWeapon : WeaponBase, IDeployableWeapon
 			component.weaponIndex = base.playerController.WeaponManager.CurrentWeaponIndex;
 			component.OwningPlayer = base.playerController;
 			component.deployableIndex = base.playerController.WeaponManager.lastDeployableIndex++;
-			Collider componentInChildren2 = gameObject.collider;
+			Collider componentInChildren2 = gameObject.GetComponent<Collider>();
 			if (componentInChildren2 == null)
 			{
 				componentInChildren2 = gameObject.GetComponentInChildren<Collider>();
@@ -180,7 +180,7 @@ public class DeployableLauncherWeapon : WeaponBase, IDeployableWeapon
 			return;
 		}
 		GameObject gameObject = SpawnProjectile(pos, vel);
-		Collider componentInChildren = gameObject.collider;
+		Collider componentInChildren = gameObject.GetComponent<Collider>();
 		if (componentInChildren == null)
 		{
 			componentInChildren = gameObject.GetComponentInChildren<Collider>();

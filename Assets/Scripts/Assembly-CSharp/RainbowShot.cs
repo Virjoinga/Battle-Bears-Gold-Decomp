@@ -174,7 +174,7 @@ public class RainbowShot : MeleeAttack
 		head.transform.localPosition = Vector3.zero;
 		head.transform.localEulerAngles = Vector3.zero;
 		head.transform.localScale = new Vector3(1f, 1f, 1f);
-		head.renderer.material = (base.playerController.transform.Find("playerModel").GetComponentInChildren(typeof(Renderer)) as Renderer).material;
+		head.GetComponent<Renderer>().material = (base.playerController.transform.Find("playerModel").GetComponentInChildren(typeof(Renderer)) as Renderer).material;
 		if (rainbowStart != null)
 		{
 			myAudio.PlayOneShot(rainbowStart);

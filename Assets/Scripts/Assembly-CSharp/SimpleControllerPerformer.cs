@@ -52,11 +52,11 @@ public class SimpleControllerPerformer : ControllerPerformer
 		GameObject gameObject = GameObject.Find(_backgroundCameraName);
 		if (gameObject != null)
 		{
-			_backgroundCamera = gameObject.gameObject.camera;
+			_backgroundCamera = gameObject.gameObject.GetComponent<Camera>();
 		}
-		if (Camera.mainCamera != null)
+		if (Camera.main != null)
 		{
-			_normalFov = Camera.mainCamera.fieldOfView;
+			_normalFov = Camera.main.fieldOfView;
 		}
 		else
 		{
@@ -161,11 +161,11 @@ public class SimpleControllerPerformer : ControllerPerformer
 		{
 			return;
 		}
-		if (Camera.mainCamera != null && !base.PlayerController.IsDead && base.PlayerController.WeaponManager.CurrentWeapon.isConstantFire)
+		if (Camera.main != null && !base.PlayerController.IsDead && base.PlayerController.WeaponManager.CurrentWeapon.isConstantFire)
 		{
 			if (director.Fire)
 			{
-				Camera.mainCamera.fieldOfView = Mathf.Lerp(Camera.mainCamera.fieldOfView, _zoomFov, delta * _smooth);
+				Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, _zoomFov, delta * _smooth);
 				if (_backgroundCamera != null)
 				{
 					_backgroundCamera.fieldOfView = Mathf.Lerp(_backgroundCamera.fieldOfView, _zoomFov, delta * _smooth);
@@ -173,16 +173,16 @@ public class SimpleControllerPerformer : ControllerPerformer
 			}
 			else
 			{
-				Camera.mainCamera.fieldOfView = Mathf.Lerp(Camera.mainCamera.fieldOfView, _normalFov, delta * _smooth);
+				Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, _normalFov, delta * _smooth);
 				if (_backgroundCamera != null)
 				{
 					_backgroundCamera.fieldOfView = Mathf.Lerp(_backgroundCamera.fieldOfView, _normalFov, delta * _smooth);
 				}
 			}
 		}
-		else if (Camera.mainCamera != null && (!base.PlayerController.WeaponManager.CurrentWeapon.isConstantFire || base.PlayerController.IsDead))
+		else if (Camera.main != null && (!base.PlayerController.WeaponManager.CurrentWeapon.isConstantFire || base.PlayerController.IsDead))
 		{
-			Camera.mainCamera.fieldOfView = _normalFov;
+			Camera.main.fieldOfView = _normalFov;
 			if (_backgroundCamera != null)
 			{
 				_backgroundCamera.fieldOfView = _normalFov;

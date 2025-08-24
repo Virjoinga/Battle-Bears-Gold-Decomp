@@ -13,7 +13,7 @@ public class PlayRandomSounds : MonoBehaviour
 
 	private void Awake()
 	{
-		myAudio = base.audio;
+		myAudio = base.GetComponent<AudioSource>();
 	}
 
 	private void Start()

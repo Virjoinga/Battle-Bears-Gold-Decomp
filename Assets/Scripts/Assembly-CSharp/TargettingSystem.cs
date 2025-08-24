@@ -103,11 +103,11 @@ public abstract class TargettingSystem : MonoBehaviour
 				myChar.gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
 				foreach (KeyValuePair<float, TargetableObject> kvp in potentialTargets)
 				{
-					if (kvp.Value.transform == null || kvp.Value.transform.collider == null)
+					if (kvp.Value.transform == null || kvp.Value.transform.GetComponent<Collider>() == null)
 					{
 						continue;
 					}
-					Bounds playerBounds = kvp.Value.transform.collider.bounds;
+					Bounds playerBounds = kvp.Value.transform.GetComponent<Collider>().bounds;
 					Vector3[] pointsToCheck = new Vector3[2]
 					{
 						new Vector3(playerBounds.center.x, playerBounds.max.y, playerBounds.center.z),
@@ -158,10 +158,10 @@ public abstract class TargettingSystem : MonoBehaviour
 				}
 				if (actualTarget != null)
 				{
-					Bounds targetBounds2 = actualTarget.collider.bounds;
+					Bounds targetBounds2 = actualTarget.GetComponent<Collider>().bounds;
 					if (HUD.Instance.PlayerCamera != null && HUD.Instance.hudCamera != null)
 					{
-						Vector3 screenPoint2 = HUD.Instance.PlayerCamera.camera.WorldToScreenPoint(targetBounds2.center);
+						Vector3 screenPoint2 = HUD.Instance.PlayerCamera.GetComponent<Camera>().WorldToScreenPoint(targetBounds2.center);
 						Vector3 hudPos2 = HUD.Instance.hudCamera.ScreenToWorldPoint(screenPoint2);
 						targetHUDPos = hudPos2;
 						if (currentTarget == null)
@@ -198,8 +198,8 @@ public abstract class TargettingSystem : MonoBehaviour
 			}
 			if (isLosingLock && lockedTarget != null && HUD.Instance.PlayerCamera != null && HUD.Instance.hudCamera != null)
 			{
-				Bounds targetBounds = lockedTarget.transform.collider.bounds;
-				Vector3 screenPoint = HUD.Instance.PlayerCamera.camera.WorldToScreenPoint(targetBounds.center);
+				Bounds targetBounds = lockedTarget.transform.GetComponent<Collider>().bounds;
+				Vector3 screenPoint = HUD.Instance.PlayerCamera.GetComponent<Camera>().WorldToScreenPoint(targetBounds.center);
 				Vector3 hudPos = HUD.Instance.hudCamera.ScreenToWorldPoint(screenPoint);
 				targetHUDPos = hudPos;
 			}

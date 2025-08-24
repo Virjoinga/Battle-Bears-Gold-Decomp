@@ -302,7 +302,7 @@ public class ChargingWeapon : WeaponBase
 			if (base.NetSyncReporter != null && !dontSendNetworkMessages)
 			{
 				Vector3 position = gameObject.transform.position;
-				Vector3 velocity = gameObject.rigidbody.velocity;
+				Vector3 velocity = gameObject.GetComponent<Rigidbody>().velocity;
 				ExitGames.Client.Photon.Hashtable hashtable = new ExitGames.Client.Photon.Hashtable();
 				hashtable[(byte)0] = ownerID;
 				hashtable[(byte)1] = base.playerController.WeaponManager.CurrentWeaponIndex;
@@ -338,7 +338,7 @@ public class ChargingWeapon : WeaponBase
 			}
 			if (base.NetSyncReporter != null && !dontSendNetworkMessages)
 			{
-				base.NetSyncReporter.SpawnProjectile(gameObject.transform.position, gameObject.rigidbody.velocity);
+				base.NetSyncReporter.SpawnProjectile(gameObject.transform.position, gameObject.GetComponent<Rigidbody>().velocity);
 			}
 			gameObject.SendMessage("OnNetworkDelay", 0f, SendMessageOptions.DontRequireReceiver);
 		}
@@ -355,15 +355,15 @@ public class ChargingWeapon : WeaponBase
 		{
 			gameObject.BroadcastMessage("SetEquipmentNames", base.EquipmentNames, SendMessageOptions.DontRequireReceiver);
 			gameObject.BroadcastMessage("SetItemOverride", base.name, SendMessageOptions.DontRequireReceiver);
-			gameObject.rigidbody.velocity = velocity;
-			gameObject.transform.LookAt(gameObject.transform.position + gameObject.rigidbody.velocity);
+			gameObject.GetComponent<Rigidbody>().velocity = velocity;
+			gameObject.transform.LookAt(gameObject.transform.position + gameObject.GetComponent<Rigidbody>().velocity);
 			NetworkObject componentInChildren = gameObject.GetComponentInChildren<NetworkObject>();
 			if (componentInChildren != null)
 			{
 				componentInChildren.OwnerID = ownerID;
 				componentInChildren.DamageMultiplier = base.playerController.DamageMultiplier;
 			}
-			Collider componentInChildren2 = gameObject.collider;
+			Collider componentInChildren2 = gameObject.GetComponent<Collider>();
 			if (componentInChildren2 == null)
 			{
 				componentInChildren2 = gameObject.GetComponentInChildren<Collider>();
@@ -431,7 +431,7 @@ public class ChargingWeapon : WeaponBase
 		{
 			return;
 		}
-		Collider componentInChildren = gameObject.collider;
+		Collider componentInChildren = gameObject.GetComponent<Collider>();
 		if (componentInChildren == null)
 		{
 			componentInChildren = gameObject.GetComponentInChildren<Collider>();
@@ -504,7 +504,7 @@ public class ChargingWeapon : WeaponBase
 		{
 			return;
 		}
-		Collider componentInChildren = gameObject.collider;
+		Collider componentInChildren = gameObject.GetComponent<Collider>();
 		if (componentInChildren == null)
 		{
 			componentInChildren = gameObject.GetComponentInChildren<Collider>();

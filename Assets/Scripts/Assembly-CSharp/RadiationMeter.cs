@@ -13,21 +13,21 @@ public class RadiationMeter : SegmentedMeter
 		base.SetSegmentLevel(level);
 		if (!base.enabled)
 		{
-			base.audio.Stop();
+			base.GetComponent<AudioSource>().Stop();
 			return;
 		}
 		if (level > meterSegments.Length)
 		{
 			level = meterSegments.Length;
 		}
-		if (base.audio != null && radiationLevelSounds.Length >= level)
+		if (base.GetComponent<AudioSource>() != null && radiationLevelSounds.Length >= level)
 		{
-			base.audio.Stop();
+			base.GetComponent<AudioSource>().Stop();
 			if (level > 0)
 			{
-				base.audio.loop = true;
-				base.audio.clip = radiationLevelSounds[level - 1];
-				base.audio.Play();
+				base.GetComponent<AudioSource>().loop = true;
+				base.GetComponent<AudioSource>().clip = radiationLevelSounds[level - 1];
+				base.GetComponent<AudioSource>().Play();
 			}
 		}
 	}

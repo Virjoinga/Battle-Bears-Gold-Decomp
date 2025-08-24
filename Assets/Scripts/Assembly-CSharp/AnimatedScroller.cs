@@ -57,12 +57,12 @@ public class AnimatedScroller : MonoBehaviour
 	{
 		if (myAnimation == null)
 		{
-			myAnimation = base.animation;
+			myAnimation = base.GetComponent<Animation>();
 		}
 		animatorObject = myAnimation.gameObject;
 		if (myCollider == null)
 		{
-			myCollider = base.collider;
+			myCollider = base.GetComponent<Collider>();
 		}
 		for (int i = 0; i < buttons.Count; i++)
 		{
@@ -189,7 +189,7 @@ public class AnimatedScroller : MonoBehaviour
 		if (Mathf.Abs(currentAnimationTime - targetAnimationTime) > float.Epsilon)
 		{
 			currentAnimationTime = Mathf.Lerp(currentAnimationTime, targetAnimationTime, scrollSpeed * Time.deltaTime);
-			animatorObject.SampleAnimation(myAnimation["slide"].clip, currentAnimationTime);
+			myAnimation["slide"].clip.SampleAnimation(animatorObject, currentAnimationTime);
 		}
 	}
 

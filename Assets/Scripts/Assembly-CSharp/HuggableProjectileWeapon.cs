@@ -55,7 +55,7 @@ public class HuggableProjectileWeapon : MeleeAttack
 			}
 			if (base.NetSyncReporter != null)
 			{
-				base.NetSyncReporter.SpawnProjectile(gameObject.transform.position, gameObject.rigidbody.velocity);
+				base.NetSyncReporter.SpawnProjectile(gameObject.transform.position, gameObject.GetComponent<Rigidbody>().velocity);
 			}
 			gameObject.SendMessage("OnNetworkDelay", 0f, SendMessageOptions.DontRequireReceiver);
 			ConfigurableNetworkObject component2 = gameObject.GetComponent<ConfigurableNetworkObject>();
@@ -64,7 +64,7 @@ public class HuggableProjectileWeapon : MeleeAttack
 			component2.OwnerID = ownerID;
 			component2.DamageMultiplier = base.playerController.DamageMultiplier;
 			component2.MeleeMultiplier = base.playerController.MeleeMultiplier;
-			Physics.IgnoreCollision(gameObject.collider, myTransform.root.collider);
+			Physics.IgnoreCollision(gameObject.GetComponent<Collider>(), myTransform.root.GetComponent<Collider>());
 		}
 		return PerformLocalAttackAnimationAndEffects();
 	}
@@ -80,12 +80,12 @@ public class HuggableProjectileWeapon : MeleeAttack
 		{
 			gameObject.BroadcastMessage("SetEquipmentNames", base.EquipmentNames, SendMessageOptions.DontRequireReceiver);
 			gameObject.BroadcastMessage("SetItemOverride", base.name, SendMessageOptions.DontRequireReceiver);
-			gameObject.rigidbody.velocity = velocity;
-			gameObject.transform.LookAt(gameObject.transform.position + gameObject.rigidbody.velocity);
+			gameObject.GetComponent<Rigidbody>().velocity = velocity;
+			gameObject.transform.LookAt(gameObject.transform.position + gameObject.GetComponent<Rigidbody>().velocity);
 			NetworkObject componentInChildren = gameObject.GetComponentInChildren<NetworkObject>();
 			componentInChildren.OwnerID = ownerID;
 			componentInChildren.DamageMultiplier = base.playerController.DamageMultiplier;
-			Collider componentInChildren2 = gameObject.collider;
+			Collider componentInChildren2 = gameObject.GetComponent<Collider>();
 			if (componentInChildren2 == null)
 			{
 				componentInChildren2 = gameObject.GetComponentInChildren<Collider>();
@@ -122,7 +122,7 @@ public class HuggableProjectileWeapon : MeleeAttack
 			return;
 		}
 		GameObject gameObject = SpawnProjectile(pos, vel);
-		Collider componentInChildren = gameObject.collider;
+		Collider componentInChildren = gameObject.GetComponent<Collider>();
 		if (componentInChildren == null)
 		{
 			componentInChildren = gameObject.GetComponentInChildren<Collider>();

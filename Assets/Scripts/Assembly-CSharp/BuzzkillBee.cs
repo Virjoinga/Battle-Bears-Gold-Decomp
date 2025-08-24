@@ -21,9 +21,9 @@ public class BuzzkillBee : ConfigurableNetworkObject
 
 	private void Awake()
 	{
-		myAnimation = base.animation;
+		myAnimation = base.GetComponent<Animation>();
 		myTransform = base.transform;
-		myRigidbody = base.rigidbody;
+		myRigidbody = base.GetComponent<Rigidbody>();
 		myAnimation["wings"].layer = 0;
 		myAnimation.Play("wings");
 		myAnimation["bob"].layer = 1;
@@ -53,7 +53,7 @@ public class BuzzkillBee : ConfigurableNetworkObject
 
 	private void handleCollision(GameObject target)
 	{
-		base.animation.Stop("bob");
+		base.GetComponent<Animation>().Stop("bob");
 		if (target.layer == LayerMask.NameToLayer("Player") || target.layer == LayerMask.NameToLayer("Shield"))
 		{
 			OnDestroyOnImpact();
@@ -67,7 +67,7 @@ public class BuzzkillBee : ConfigurableNetworkObject
 		delayedExplosion.OwnerID = base.OwnerID;
 		delayedExplosion.DamageMultiplier = base.DamageMultiplier;
 		Object.Destroy(myRigidbody);
-		Object.Destroy(base.collider);
+		Object.Destroy(base.GetComponent<Collider>());
 		Object.Destroy(this);
 	}
 

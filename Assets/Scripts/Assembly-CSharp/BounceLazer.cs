@@ -50,14 +50,14 @@ public class BounceLazer : WeaponBase
 	public override void BeginConstantFireEffects()
 	{
 		base.BeginConstantFireEffects();
-		base.audio.Play();
+		base.GetComponent<AudioSource>().Play();
 		_isFiring = true;
 	}
 
 	public override void EndConstantFireEffects()
 	{
 		base.EndConstantFireEffects();
-		base.audio.Stop();
+		base.GetComponent<AudioSource>().Stop();
 		_isFiring = false;
 	}
 

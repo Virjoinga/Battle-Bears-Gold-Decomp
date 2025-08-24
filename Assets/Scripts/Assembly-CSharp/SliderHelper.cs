@@ -32,7 +32,7 @@ public class SliderHelper : MonoBehaviour
 
 	private void Awake()
 	{
-		_collider = base.collider;
+		_collider = base.GetComponent<Collider>();
 		_currentPercentage = _collider.bounds.size.x * _percentNearEdge;
 	}
 

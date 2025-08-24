@@ -46,7 +46,7 @@ public class ShotgunWeapon : WeaponBase
 		NetworkObject componentInChildren = gameObject.GetComponentInChildren<NetworkObject>();
 		componentInChildren.OwnerID = ownerID;
 		componentInChildren.DamageMultiplier = base.playerController.DamageMultiplier;
-		Collider componentInChildren2 = gameObject.collider;
+		Collider componentInChildren2 = gameObject.GetComponent<Collider>();
 		if (componentInChildren2 == null)
 		{
 			componentInChildren2 = gameObject.GetComponentInChildren<Collider>();

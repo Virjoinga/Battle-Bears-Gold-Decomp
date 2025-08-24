@@ -50,16 +50,16 @@ public class MenuAreaManager : MonoBehaviour
 	{
 		if (_gateIsOpen && !shouldOpen)
 		{
-			gateObject.animation[gateOpenAnimationName].speed = -1f;
-			gateObject.animation[gateOpenAnimationName].time = gateObject.animation[gateOpenAnimationName].length;
-			gateObject.animation.Play(gateOpenAnimationName);
+			gateObject.GetComponent<Animation>()[gateOpenAnimationName].speed = -1f;
+			gateObject.GetComponent<Animation>()[gateOpenAnimationName].time = gateObject.GetComponent<Animation>()[gateOpenAnimationName].length;
+			gateObject.GetComponent<Animation>().Play(gateOpenAnimationName);
 			_gateIsOpen = shouldOpen;
 		}
 		else if (shouldOpen && !_gateIsOpen)
 		{
-			gateObject.animation[gateOpenAnimationName].speed = 1f;
-			gateObject.animation[gateOpenAnimationName].time = 0f;
-			gateObject.animation.Play(gateOpenAnimationName);
+			gateObject.GetComponent<Animation>()[gateOpenAnimationName].speed = 1f;
+			gateObject.GetComponent<Animation>()[gateOpenAnimationName].time = 0f;
+			gateObject.GetComponent<Animation>().Play(gateOpenAnimationName);
 			_gateIsOpen = shouldOpen;
 		}
 	}

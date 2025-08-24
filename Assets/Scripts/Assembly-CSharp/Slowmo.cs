@@ -46,7 +46,7 @@ public class Slowmo : SpecialItem
 	protected override void Awake()
 	{
 		base.Awake();
-		myRigidbody = base.rigidbody;
+		myRigidbody = base.GetComponent<Rigidbody>();
 	}
 
 	protected override void Configure(Item item)

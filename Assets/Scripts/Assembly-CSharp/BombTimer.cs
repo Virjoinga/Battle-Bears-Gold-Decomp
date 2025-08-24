@@ -28,7 +28,7 @@ public class BombTimer : MonoBehaviour
 		{
 			shaders[i] = transparentRenderers[i].material.shader;
 		}
-		timeRenderer = myTransform.Find("timerRing").renderer;
+		timeRenderer = myTransform.Find("timerRing").GetComponent<Renderer>();
 		particles = myTransform.Find("pulse").gameObject.GetComponent<ParticleSystem>();
 		timeRenderer.enabled = false;
 		StartCoroutine(UpdateTimeLeftRatio());
@@ -44,9 +44,9 @@ public class BombTimer : MonoBehaviour
 		while (true)
 		{
 			particles.Emit(1);
-			if (Camera.mainCamera != null)
+			if (Camera.main != null)
 			{
-				Vector3 cameraPos = Camera.mainCamera.transform.position;
+				Vector3 cameraPos = Camera.main.transform.position;
 				float distance = Vector3.Distance(cameraPos, myTransform.position);
 				float maxSize = 1000f;
 				float minSize = 150f;
@@ -78,7 +78,7 @@ public class BombTimer : MonoBehaviour
 
 	private void checkCameraVisibility()
 	{
-		Vector3 position = Camera.mainCamera.transform.position;
+		Vector3 position = Camera.main.transform.position;
 		Vector3 vector = myTransform.position - position;
 		Ray ray = new Ray(position, vector.normalized);
 		LayerMask layerMask = 1 << LayerMask.NameToLayer("Wall");

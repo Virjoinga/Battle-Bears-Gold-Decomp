@@ -50,7 +50,7 @@ public class SpecialAbilityAttack : MeleeAttack
 				gameObject.transform.localPosition = localOffset;
 				gameObject.transform.localScale = Vector3.one;
 			}
-			SpecialAbility specialAbility = base.playerController.gameObject.AddComponent(abilityScriptName) as SpecialAbility;
+			SpecialAbility specialAbility = UnityEngineInternal.APIUpdaterRuntimeServices.AddComponent(base.playerController.gameObject, "Assets/Scripts/Assembly-CSharp/SpecialAbilityAttack.cs (53,36)", abilityScriptName) as SpecialAbility;
 			specialAbility.duration = abilityDuration;
 			specialAbility.effectPrefab = effect;
 			specialAbility.damage = damage;
@@ -93,7 +93,7 @@ public class SpecialAbilityAttack : MeleeAttack
 				gameObject.transform.localPosition = localOffset;
 				gameObject.transform.localScale = new Vector3(1f, 1f, 1f);
 			}
-			SpecialAbility specialAbility = base.playerController.gameObject.AddComponent(abilityScriptName) as SpecialAbility;
+			SpecialAbility specialAbility = UnityEngineInternal.APIUpdaterRuntimeServices.AddComponent(base.playerController.gameObject, "Assets/Scripts/Assembly-CSharp/SpecialAbilityAttack.cs (96,36)", abilityScriptName) as SpecialAbility;
 			specialAbility.duration = abilityDuration - (float)delay / 1000f;
 			specialAbility.effectPrefab = effect;
 		}

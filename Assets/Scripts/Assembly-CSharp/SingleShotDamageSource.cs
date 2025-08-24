@@ -26,7 +26,7 @@ public class SingleShotDamageSource : ConfigurableNetworkObject
 
 	private void Awake()
 	{
-		myAudio = base.audio;
+		myAudio = base.GetComponent<AudioSource>();
 	}
 
 	private new void Start()

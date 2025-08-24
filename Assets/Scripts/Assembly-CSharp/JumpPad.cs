@@ -14,7 +14,7 @@ public class JumpPad : MonoBehaviour
 			playerController.OnJumpPad(jumpPower);
 			if (jumpSound != null)
 			{
-				base.audio.PlayOneShot(jumpSound, SoundManager.Instance.getEffectsVolume());
+				base.GetComponent<AudioSource>().PlayOneShot(jumpSound, SoundManager.Instance.getEffectsVolume());
 			}
 		}
 	}

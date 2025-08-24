@@ -80,6 +80,6 @@ public class ToothpasteGun : RaycastWeapon
 	public override void WeaponDeath()
 	{
 		base.WeaponDeath();
-		_leftGun.renderer.enabled = false;
+		_leftGun.GetComponent<Renderer>().enabled = false;
 	}
 }

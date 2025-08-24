@@ -27,9 +27,9 @@ public class DeployableProjectile : DeployableObject
 		}
 		foreach (PlayerCharacterManager playerCharacterManager in GameManager.Instance.GetPlayerCharacterManagers())
 		{
-			if (base.collider != null && playerCharacterManager != null && playerCharacterManager.PlayerController != null && playerCharacterManager.PlayerController.collider != null && base.collider.enabled && playerCharacterManager.PlayerController.collider.enabled)
+			if (base.GetComponent<Collider>() != null && playerCharacterManager != null && playerCharacterManager.PlayerController != null && playerCharacterManager.PlayerController.GetComponent<Collider>() != null && base.GetComponent<Collider>().enabled && playerCharacterManager.PlayerController.GetComponent<Collider>().enabled)
 			{
-				Physics.IgnoreCollision(base.collider, playerCharacterManager.PlayerController.collider);
+				Physics.IgnoreCollision(base.GetComponent<Collider>(), playerCharacterManager.PlayerController.GetComponent<Collider>());
 			}
 		}
 	}
@@ -40,7 +40,7 @@ public class DeployableProjectile : DeployableObject
 		{
 			_isBeingDeployed = true;
 			_collisionInfoForDeployment = c;
-			Physics.IgnoreCollision(base.collider, c.collider);
+			Physics.IgnoreCollision(base.GetComponent<Collider>(), c.collider);
 		}
 	}
 
@@ -51,7 +51,7 @@ public class DeployableProjectile : DeployableObject
 			PlayerController componentInChildren = transform.root.GetComponentInChildren<PlayerController>();
 			if (componentInChildren != null)
 			{
-				Physics.IgnoreCollision(base.collider, otherCollider);
+				Physics.IgnoreCollision(base.GetComponent<Collider>(), otherCollider);
 				return true;
 			}
 		}
@@ -60,7 +60,7 @@ public class DeployableProjectile : DeployableObject
 			DamageReceiverProxy componentInChildren2 = transform.root.GetComponentInChildren<DamageReceiverProxy>();
 			if (componentInChildren2 != null)
 			{
-				Physics.IgnoreCollision(base.collider, otherCollider);
+				Physics.IgnoreCollision(base.GetComponent<Collider>(), otherCollider);
 				return true;
 			}
 		}

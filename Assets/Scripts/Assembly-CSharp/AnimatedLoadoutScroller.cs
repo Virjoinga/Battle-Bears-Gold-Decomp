@@ -119,11 +119,11 @@ public class AnimatedLoadoutScroller : AnimatedScroller
 
 	private void AddLoadoutIconsToContainer(GameObject container, int loadoutNumber)
 	{
-		Transform parent = container.transform.FindChild(_characterMountName);
-		Transform parent2 = container.transform.FindChild(_primaryMountName);
-		Transform parent3 = container.transform.FindChild(_secondaryMountName);
-		Transform parent4 = container.transform.FindChild(_equipmentOneMountName);
-		Transform parent5 = container.transform.FindChild(_equipmentTwoMountName);
+		Transform parent = container.transform.Find(_characterMountName);
+		Transform parent2 = container.transform.Find(_primaryMountName);
+		Transform parent3 = container.transform.Find(_secondaryMountName);
+		Transform parent4 = container.transform.Find(_equipmentOneMountName);
+		Transform parent5 = container.transform.Find(_equipmentTwoMountName);
 		PlayerLoadout playerLoadout = LoadoutManager.Instance.GetLoadoutByNumber(loadoutNumber, string.Empty);
 		if (playerLoadout == null)
 		{

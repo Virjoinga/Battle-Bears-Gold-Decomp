@@ -8,8 +8,8 @@ public class AnimationSpeed : MonoBehaviour
 
 	private void Start()
 	{
-		base.animation["in"].speed = inSpeed;
-		base.animation["out"].speed = outSpeed;
+		base.GetComponent<Animation>()["in"].speed = inSpeed;
+		base.GetComponent<Animation>()["out"].speed = outSpeed;
 	}
 
 	private void Update()

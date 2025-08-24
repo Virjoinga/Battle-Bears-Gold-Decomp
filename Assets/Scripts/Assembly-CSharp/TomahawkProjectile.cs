@@ -34,7 +34,7 @@ public class TomahawkProjectile : NetworkObject
 			itemByName.UpdateProperty("duration", ref hawkTime, EquipmentNames);
 			itemByName.UpdateProperty("damage", ref damage, EquipmentNames);
 		}
-		base.rigidbody.AddRelativeTorque(new Vector3(100f, 0f, 0f), ForceMode.VelocityChange);
+		base.GetComponent<Rigidbody>().AddRelativeTorque(new Vector3(100f, 0f, 0f), ForceMode.VelocityChange);
 	}
 
 	private IEnumerator delayedShowHawk()

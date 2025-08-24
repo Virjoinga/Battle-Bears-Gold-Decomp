@@ -20,7 +20,7 @@ public class TouchRotator : MonoBehaviour
 
 	private void Awake()
 	{
-		myCollider = base.collider;
+		myCollider = base.GetComponent<Collider>();
 		myTransform = base.transform;
 	}
 
@@ -35,7 +35,7 @@ public class TouchRotator : MonoBehaviour
 		for (int i = 0; i < Input.touches.Length; i++)
 		{
 			Touch aT = Input.touches[i];
-			Ray ray = Camera.mainCamera.ScreenPointToRay(aT.position);
+			Ray ray = Camera.main.ScreenPointToRay(aT.position);
 			RaycastHit hitInfo;
 			if (myCollider.Raycast(ray, out hitInfo, 2000f))
 			{
@@ -78,7 +78,7 @@ public class TouchRotator : MonoBehaviour
 				if (Time.time > nextAllowedPukeTime && pukeSounds.Length > 0)
 				{
 					AudioClip audioClip = pukeSounds[Random.Range(0, pukeSounds.Length)];
-					base.audio.PlayOneShot(audioClip);
+					base.GetComponent<AudioSource>().PlayOneShot(audioClip);
 					nextAllowedPukeTime = Time.time + audioClip.length + 0.5f;
 				}
 			}

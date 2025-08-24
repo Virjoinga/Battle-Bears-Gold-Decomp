@@ -19,8 +19,8 @@ public class SimpleVerticalMissile : Projectile
 
 	private void Awake()
 	{
-		myRigidbody = base.rigidbody;
-		base.collider.enabled = false;
+		myRigidbody = base.GetComponent<Rigidbody>();
+		base.GetComponent<Collider>().enabled = false;
 	}
 
 	private new void Start()
@@ -39,7 +39,7 @@ public class SimpleVerticalMissile : Projectile
 	private IEnumerator DelayedStartDescent()
 	{
 		yield return new WaitForSeconds(ascendTime);
-		base.collider.enabled = true;
+		base.GetComponent<Collider>().enabled = true;
 		float startLerpTime = Time.fixedTime;
 		while (myRigidbody.velocity.y > 0f)
 		{

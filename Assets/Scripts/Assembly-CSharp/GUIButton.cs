@@ -83,11 +83,11 @@ public class GUIButton : MonoBehaviour
 		{
 			if (pressObj != null)
 			{
-				pressObj.renderer.material = greyObj.renderer.material;
+				pressObj.GetComponent<Renderer>().material = greyObj.GetComponent<Renderer>().material;
 			}
 			if (upObj != null)
 			{
-				upObj.renderer.material = greyObj.renderer.material;
+				upObj.GetComponent<Renderer>().material = greyObj.GetComponent<Renderer>().material;
 			}
 		}
 	}
@@ -95,9 +95,9 @@ public class GUIButton : MonoBehaviour
 	public void disable()
 	{
 		disabled = true;
-		if (base.collider != null)
+		if (base.GetComponent<Collider>() != null)
 		{
-			base.collider.enabled = false;
+			base.GetComponent<Collider>().enabled = false;
 		}
 		if (greyObj != null)
 		{
@@ -115,9 +115,9 @@ public class GUIButton : MonoBehaviour
 
 	public void showDisableButAllowClicks()
 	{
-		if (base.collider != null)
+		if (base.GetComponent<Collider>() != null)
 		{
-			base.collider.enabled = true;
+			base.GetComponent<Collider>().enabled = true;
 		}
 		if (greyObj != null)
 		{
@@ -136,9 +136,9 @@ public class GUIButton : MonoBehaviour
 	public void enable()
 	{
 		disabled = false;
-		if (base.collider != null)
+		if (base.GetComponent<Collider>() != null)
 		{
-			base.collider.enabled = true;
+			base.GetComponent<Collider>().enabled = true;
 		}
 		if (greyObj != null)
 		{

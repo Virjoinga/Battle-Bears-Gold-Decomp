@@ -33,9 +33,9 @@ public class ConstantDamageSource : ConfigurableNetworkObject
 			itemByName.UpdateProperty("minDamageRange", ref minDamageDistance, equipmentNames);
 			itemByName.UpdateProperty("maxDamageRange", ref maxDamageDistance, equipmentNames);
 		}
-		if (base.collider != null && base.collider is SphereCollider && minDamageDistance != 80f)
+		if (base.GetComponent<Collider>() != null && base.GetComponent<Collider>() is SphereCollider && minDamageDistance != 80f)
 		{
-			SphereCollider sphereCollider = (SphereCollider)base.collider;
+			SphereCollider sphereCollider = (SphereCollider)base.GetComponent<Collider>();
 			sphereCollider.radius = minDamageDistance;
 		}
 	}

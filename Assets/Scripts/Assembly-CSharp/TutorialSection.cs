@@ -28,10 +28,10 @@ public class TutorialSection : MonoBehaviour
 		}
 		if (sign != null)
 		{
-			sign.animation["Popup"].speed = 0.5f;
-			sign.animation.Play("Popup");
+			sign.GetComponent<Animation>()["Popup"].speed = 0.5f;
+			sign.GetComponent<Animation>().Play("Popup");
 		}
-		Object.Destroy(base.collider);
+		Object.Destroy(base.GetComponent<Collider>());
 		Tutorial.Instance.OnNextSection();
 		if (sign == null)
 		{
@@ -59,8 +59,8 @@ public class TutorialSection : MonoBehaviour
 
 	private IEnumerator delayedCloseGate()
 	{
-		blocker.animation.Play("gateClose");
-		yield return new WaitForSeconds(blocker.animation["gateClose"].length);
+		blocker.GetComponent<Animation>().Play("gateClose");
+		yield return new WaitForSeconds(blocker.GetComponent<Animation>()["gateClose"].length);
 		Object.Destroy(blocker);
 	}
 }

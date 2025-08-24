@@ -13,7 +13,7 @@ public class PlayOutAnimation : MonoBehaviour
 
 	private void Awake()
 	{
-		myAnimation = base.animation;
+		myAnimation = base.GetComponent<Animation>();
 	}
 
 	private void Start()

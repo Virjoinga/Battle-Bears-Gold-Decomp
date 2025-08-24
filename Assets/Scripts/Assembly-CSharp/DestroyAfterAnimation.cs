@@ -21,7 +21,7 @@ public class DestroyAfterAnimation : MonoBehaviour
 		{
 			animationName = "idle";
 		}
-		Animation myAnimation = base.animation;
+		Animation myAnimation = base.GetComponent<Animation>();
 		myAnimation.Play(animationName);
 		yield return new WaitForSeconds(myAnimation[animationName].length + extraStayTime);
 		Object.Destroy(base.gameObject);

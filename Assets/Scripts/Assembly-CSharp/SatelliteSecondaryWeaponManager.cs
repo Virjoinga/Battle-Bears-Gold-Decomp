@@ -260,9 +260,9 @@ public class SatelliteSecondaryWeaponManager : WeaponManager
 			SecondaryWeapon.gameObject.SetActive(true);
 			_nextSecondaryUseTime = Time.fixedTime + SecondaryWeapon.reloadTime + SecondaryWeapon.firingTime;
 			float num = 0f;
-			if (SecondaryWeapon.animation != null && SecondaryWeapon.animation[SECONDARY_ACTIVATE_ANIM_NAME] != null)
+			if (SecondaryWeapon.GetComponent<Animation>() != null && SecondaryWeapon.GetComponent<Animation>()[SECONDARY_ACTIVATE_ANIM_NAME] != null)
 			{
-				num = SecondaryWeapon.animation[SECONDARY_ACTIVATE_ANIM_NAME].length;
+				num = SecondaryWeapon.GetComponent<Animation>()[SECONDARY_ACTIVATE_ANIM_NAME].length;
 			}
 			StartCoroutine("FireSecondaryWithPrimary", new float[2] { num, SecondaryWeapon.firingTime });
 			SetColorActive(true);
@@ -484,9 +484,9 @@ public class SatelliteSecondaryWeaponManager : WeaponManager
 	private float GetAnimLength(string animName)
 	{
 		float result = 0f;
-		if (SecondaryWeapon.animation != null && SecondaryWeapon.animation[animName] != null)
+		if (SecondaryWeapon.GetComponent<Animation>() != null && SecondaryWeapon.GetComponent<Animation>()[animName] != null)
 		{
-			result = SecondaryWeapon.animation[animName].length;
+			result = SecondaryWeapon.GetComponent<Animation>()[animName].length;
 		}
 		return result;
 	}
@@ -503,7 +503,7 @@ public class SatelliteSecondaryWeaponManager : WeaponManager
 
 	private void StartConstantFireAnimation()
 	{
-		if (SecondaryWeapon.animation != null && SecondaryWeapon.animation[FIRE_ANIM_NAME] != null && !SecondaryWeapon.animation[FIRE_ANIM_NAME].enabled)
+		if (SecondaryWeapon.GetComponent<Animation>() != null && SecondaryWeapon.GetComponent<Animation>()[FIRE_ANIM_NAME] != null && !SecondaryWeapon.GetComponent<Animation>()[FIRE_ANIM_NAME].enabled)
 		{
 			SecondaryWeapon.PlayWeaponAnimation(FIRE_ANIM_NAME, WrapMode.Loop, 0f);
 		}
@@ -548,9 +548,9 @@ public class SatelliteSecondaryWeaponManager : WeaponManager
 
 	private void PlaySound(AudioClip clip)
 	{
-		if (base.audio != null)
+		if (base.GetComponent<AudioSource>() != null)
 		{
-			base.audio.PlayOneShot(clip, SoundManager.Instance.getEffectsVolume());
+			base.GetComponent<AudioSource>().PlayOneShot(clip, SoundManager.Instance.getEffectsVolume());
 		}
 	}
 }

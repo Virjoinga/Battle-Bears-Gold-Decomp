@@ -28,8 +28,8 @@ public class HomingMissile : Projectile
 	private void Awake()
 	{
 		_transform = base.transform;
-		_rigidbody = base.rigidbody;
-		base.collider.enabled = false;
+		_rigidbody = base.GetComponent<Rigidbody>();
+		base.GetComponent<Collider>().enabled = false;
 		StartCoroutine(DelayedEnableCollider(0.2f));
 		_transform.forward = Vector3.up;
 	}
@@ -50,7 +50,7 @@ public class HomingMissile : Projectile
 	public IEnumerator DelayedEnableCollider(float seconds)
 	{
 		yield return new WaitForSeconds(seconds);
-		base.collider.enabled = true;
+		base.GetComponent<Collider>().enabled = true;
 	}
 
 	public void StartHomingCountDown(Vector3 t, float delay, Transform lockedTarget = null)

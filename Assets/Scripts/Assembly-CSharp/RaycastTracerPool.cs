@@ -61,9 +61,9 @@ public class RaycastTracerPool : MonoBehaviour
 			eulerAngles.z = Random.Range(0f, 360f);
 			tracer.tracerHead.eulerAngles = eulerAngles;
 		}
-		if (tracer.tracerObject.animation != null)
+		if (tracer.tracerObject.GetComponent<Animation>() != null)
 		{
-			tracer.tracerObject.animation.Play(TRACER_ANIMATION_NAME);
+			tracer.tracerObject.GetComponent<Animation>().Play(TRACER_ANIMATION_NAME);
 		}
 		StartCoroutine(Disable(_tracerPersistTime, tracer.tracerObject));
 		_nextTracerIndex = ((_nextTracerIndex + 1 < _tracerPool.Count) ? (_nextTracerIndex + 1) : 0);

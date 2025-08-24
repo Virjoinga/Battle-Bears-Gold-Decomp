@@ -21,7 +21,7 @@ public class InstantaneousDamageSource : ConfigurableNetworkObject
 
 	private void Awake()
 	{
-		myCollider = base.collider;
+		myCollider = base.GetComponent<Collider>();
 	}
 
 	protected override void Start()

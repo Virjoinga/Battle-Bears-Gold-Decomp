@@ -31,28 +31,28 @@ public class DeployableAnimationController : MonoBehaviour
 		{
 			itemByName.UpdateProperty("timeToLive", ref _totalDuration, "|");
 		}
-		inAnim = base.animation[_inAnimation];
+		inAnim = base.GetComponent<Animation>()[_inAnimation];
 		if (!string.IsNullOrEmpty(_loopAnimation))
 		{
-			loopAnim = base.animation[_loopAnimation];
+			loopAnim = base.GetComponent<Animation>()[_loopAnimation];
 		}
-		outAnim = base.animation[_outAnimation];
+		outAnim = base.GetComponent<Animation>()[_outAnimation];
 		StartCoroutine(DoAnimations());
 	}
 
 	private IEnumerator DoAnimations()
 	{
 		float timeRemaining2 = _totalDuration;
-		base.animation.Play(inAnim.name);
+		base.GetComponent<Animation>().Play(inAnim.name);
 		timeRemaining2 -= inAnim.length;
 		yield return new WaitForSeconds(inAnim.length);
 		if (loopAnim != null)
 		{
 			loopAnim.wrapMode = WrapMode.Loop;
-			base.animation.Play(loopAnim.name);
+			base.GetComponent<Animation>().Play(loopAnim.name);
 		}
 		yield return new WaitForSeconds(timeRemaining2 - outAnim.length);
-		base.animation.Play(outAnim.name);
+		base.GetComponent<Animation>().Play(outAnim.name);
 		yield return new WaitForSeconds(outAnim.length);
 	}
 }

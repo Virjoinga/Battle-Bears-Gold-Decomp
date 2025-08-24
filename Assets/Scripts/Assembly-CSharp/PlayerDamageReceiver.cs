@@ -82,7 +82,7 @@ public class PlayerDamageReceiver : DamageReceiver
 	private void Awake()
 	{
 		myTransform = base.transform;
-		myAudio = base.audio;
+		myAudio = base.GetComponent<AudioSource>();
 		playerController = myTransform.root.GetComponentInChildren<PlayerController>();
 		if (playerController.CharacterHandle != null)
 		{

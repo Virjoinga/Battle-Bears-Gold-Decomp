@@ -25,11 +25,11 @@ public class LerpedScroller : AnimatedScroller
 	{
 		if (myAnimation == null)
 		{
-			myAnimation = base.animation;
+			myAnimation = base.GetComponent<Animation>();
 		}
 		if (myCollider == null)
 		{
-			myCollider = base.collider;
+			myCollider = base.GetComponent<Collider>();
 		}
 		if (_emptyContainerPrefab == null)
 		{

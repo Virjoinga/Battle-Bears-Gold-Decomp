@@ -645,7 +645,7 @@ public class PhotonManager : MonoBehaviour
 				AssignTeams();
 			}
 		}
-		NetSyncObject netSyncObject = (NetSyncObject)UserList[ownerUserID].gameObject.AddComponent(objectType);
+		NetSyncObject netSyncObject = (NetSyncObject)UnityEngineInternal.APIUpdaterRuntimeServices.AddComponent(UserList[ownerUserID].gameObject, "Assets/Scripts/Assembly-CSharp/PhotonManager.cs (648,48)", objectType);
 		netSyncObject.Construct(netID, startPos, baseRotY, angleRotX, state, ownerUserID);
 		if (this.OnNetSyncObjectCreated != null)
 		{

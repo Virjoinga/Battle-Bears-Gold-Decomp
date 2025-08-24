@@ -29,10 +29,10 @@ public class MeleeWeapon : WeaponBase
 		CharacterController characterController = myTransform.root.GetComponentInChildren(typeof(CharacterController)) as CharacterController;
 		if (characterController != null)
 		{
-			collider = characterController.collider;
-			if (base.collider != null && characterController.enabled && base.collider.enabled)
+			collider = characterController.GetComponent<Collider>();
+			if (base.GetComponent<Collider>() != null && characterController.enabled && base.GetComponent<Collider>().enabled)
 			{
-				Physics.IgnoreCollision(base.collider, characterController);
+				Physics.IgnoreCollision(base.GetComponent<Collider>(), characterController);
 			}
 		}
 		else
@@ -40,10 +40,10 @@ public class MeleeWeapon : WeaponBase
 			CapsuleCollider capsuleCollider = myTransform.root.GetComponent(typeof(CapsuleCollider)) as CapsuleCollider;
 			if (capsuleCollider != null)
 			{
-				collider = capsuleCollider.collider;
-				if (base.collider != null && base.collider.enabled && capsuleCollider != null && capsuleCollider.enabled)
+				collider = capsuleCollider.GetComponent<Collider>();
+				if (base.GetComponent<Collider>() != null && base.GetComponent<Collider>().enabled && capsuleCollider != null && capsuleCollider.enabled)
 				{
-					Physics.IgnoreCollision(base.collider, capsuleCollider);
+					Physics.IgnoreCollision(base.GetComponent<Collider>(), capsuleCollider);
 				}
 			}
 		}
@@ -65,10 +65,10 @@ public class MeleeWeapon : WeaponBase
 
 	public void Reset()
 	{
-		if (base.collider != null)
+		if (base.GetComponent<Collider>() != null)
 		{
-			base.collider.enabled = false;
-			base.collider.enabled = true;
+			base.GetComponent<Collider>().enabled = false;
+			base.GetComponent<Collider>().enabled = true;
 		}
 		isAttacking = false;
 		hasDealtDamage = false;
@@ -104,14 +104,14 @@ public class MeleeWeapon : WeaponBase
 	{
 		if (isAttacking)
 		{
-			if (hitEffect != null && base.collider != null)
+			if (hitEffect != null && base.GetComponent<Collider>() != null)
 			{
-				Object.Instantiate(hitEffect, base.collider.bounds.center, Quaternion.identity);
+				Object.Instantiate(hitEffect, base.GetComponent<Collider>().bounds.center, Quaternion.identity);
 			}
 			dealDamage(c.gameObject);
-			if (base.collider != null && base.collider.enabled && c.enabled)
+			if (base.GetComponent<Collider>() != null && base.GetComponent<Collider>().enabled && c.enabled)
 			{
-				Physics.IgnoreCollision(c, base.collider);
+				Physics.IgnoreCollision(c, base.GetComponent<Collider>());
 			}
 		}
 	}
@@ -127,7 +127,7 @@ public class MeleeWeapon : WeaponBase
 			dealDamage(c.gameObject);
 			if (c.collider != null)
 			{
-				Physics.IgnoreCollision(c.collider, base.collider);
+				Physics.IgnoreCollision(c.collider, base.GetComponent<Collider>());
 			}
 		}
 	}

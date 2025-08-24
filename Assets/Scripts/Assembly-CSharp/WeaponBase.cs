@@ -230,7 +230,7 @@ public abstract class WeaponBase : MonoBehaviour
 	{
 		myTransform = base.transform;
 		myAnimation = GetComponentInChildren<Animation>();
-		myAudio = base.audio;
+		myAudio = base.GetComponent<AudioSource>();
 		OnIdle();
 		if (myAnimation != null && myAnimation["passive"] != null)
 		{
@@ -462,7 +462,7 @@ public abstract class WeaponBase : MonoBehaviour
 
 	private void CreateReloadSpawnPointEffect()
 	{
-		Transform transform = base.transform.FindChild("spawn");
+		Transform transform = base.transform.Find("spawn");
 		if (transform != null && reloadEffectOnSpawnPoint != null)
 		{
 			GameObject gameObject = (GameObject)Object.Instantiate(reloadEffectOnSpawnPoint, transform.position, transform.rotation);

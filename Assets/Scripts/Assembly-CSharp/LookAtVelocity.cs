@@ -8,7 +8,7 @@ public class LookAtVelocity : MonoBehaviour
 
 	private void Awake()
 	{
-		_rigidBody = base.rigidbody;
+		_rigidBody = base.GetComponent<Rigidbody>();
 		_transform = base.transform;
 		if (_transform == null || _rigidBody == null)
 		{

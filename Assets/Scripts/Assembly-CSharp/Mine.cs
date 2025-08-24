@@ -10,7 +10,7 @@ public class Mine : DeployableObject
 	{
 		if (primingTime > 0f)
 		{
-			base.collider.enabled = false;
+			base.GetComponent<Collider>().enabled = false;
 			StartCoroutine(PrimingCoRoutine(primingTime));
 		}
 	}
@@ -26,7 +26,7 @@ public class Mine : DeployableObject
 		{
 			yield return new WaitForSeconds(primingTime);
 		}
-		base.collider.enabled = true;
+		base.GetComponent<Collider>().enabled = true;
 	}
 
 	public override void ConfigureObject()

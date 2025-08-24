@@ -1439,7 +1439,7 @@ public class Gearup : MonoBehaviour
 					mainMenu.currentCharacter.transform.localPosition = new Vector3(10000000f, 0f, 0f);
 				}
 				gearDescriptionPlate.SetActive(true);
-				gearDescriptionPlate.animation.Play("in");
+				gearDescriptionPlate.GetComponent<Animation>().Play("in");
 				currentDescriptionPlate = UnityEngine.Object.Instantiate(object2) as GameObject;
 				currentDescriptionPlate.transform.parent = gearDescriptionPlate.transform.Find("gearDesc_mount");
 				currentDescriptionPlate.transform.localEulerAngles = Vector3.zero;
@@ -1460,12 +1460,12 @@ public class Gearup : MonoBehaviour
 		mount.Find("title").GetComponent<TextMesh>().text = title;
 		if (val > 0f)
 		{
-			mount.Find("stat").renderer.material.color = Color.green;
+			mount.Find("stat").GetComponent<Renderer>().material.color = Color.green;
 			mount.Find("stat").GetComponent<TextMesh>().text = "+" + Mathf.RoundToInt(val) + "%";
 		}
 		else
 		{
-			mount.Find("stat").renderer.material.color = Color.red;
+			mount.Find("stat").GetComponent<Renderer>().material.color = Color.red;
 			mount.Find("stat").GetComponent<TextMesh>().text = Mathf.RoundToInt(val) + "%";
 		}
 	}

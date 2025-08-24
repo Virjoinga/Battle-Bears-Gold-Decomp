@@ -38,10 +38,10 @@ public class MGSBox : SpecialItem
 	protected override void Awake()
 	{
 		base.Awake();
-		myAnimation = base.animation;
+		myAnimation = base.GetComponent<Animation>();
 		myAnimation["Walk"].speed = 2f;
 		proxy = GetComponent(typeof(DamageReceiverProxy)) as DamageReceiverProxy;
-		myAudio = base.audio;
+		myAudio = base.GetComponent<AudioSource>();
 		base.enabled = false;
 	}
 
@@ -79,7 +79,7 @@ public class MGSBox : SpecialItem
 		playerModel = playerController.transform.Find("playerModel");
 		base.isRemote = isRemote;
 		targetTransform = playerController.transform;
-		targetCollider = playerController.collider;
+		targetCollider = playerController.GetComponent<Collider>();
 		base.enabled = true;
 		Debug.Log("setting canJump to false");
 		playerController.CanJump = false;

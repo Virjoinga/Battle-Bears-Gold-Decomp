@@ -53,7 +53,7 @@ public class ImageAnimator : MonoBehaviour
 
 	private void Start()
 	{
-		ourRenderer = base.renderer;
+		ourRenderer = base.GetComponent<Renderer>();
 		ourRenderer.material.mainTextureScale = new Vector2(1f / xTiles, 1f / yTiles);
 		for (int i = 0; i < imageAnimations.Length; i++)
 		{

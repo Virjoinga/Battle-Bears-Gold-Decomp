@@ -32,7 +32,7 @@ public class HealTent : SpecialItem
 	protected override void Awake()
 	{
 		base.Awake();
-		myAnimation = base.animation;
+		myAnimation = base.GetComponent<Animation>();
 		proxy = GetComponent(typeof(DamageReceiverProxy)) as DamageReceiverProxy;
 		base.enabled = false;
 	}
@@ -58,7 +58,7 @@ public class HealTent : SpecialItem
 		}
 		playerModel = playerController.transform.Find("playerModel");
 		targetTransform = playerController.transform;
-		targetCollider = playerController.collider;
+		targetCollider = playerController.GetComponent<Collider>();
 		base.isRemote = isRemote;
 		base.enabled = false;
 		playerController.CanJump = true;

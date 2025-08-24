@@ -469,10 +469,10 @@ public class GameManager : MonoBehaviour
 		}
 		HUD.Instance.OnSetScore(Team.RED, 0);
 		HUD.Instance.OnSetScore(Team.BLUE, 0);
-		if (base.camera != null)
+		if (base.GetComponent<Camera>() != null)
 		{
 			yield return null;
-			UnityEngine.Object.Destroy(base.camera);
+			UnityEngine.Object.Destroy(base.GetComponent<Camera>());
 		}
 	}
 

@@ -45,7 +45,7 @@ public class RotatingPictureLinks : MonoBehaviour
 	private void NextPicture()
 	{
 		_currentPicture = ((_currentPicture + 1 < _rotatingPictures.Length) ? (_currentPicture + 1) : 0);
-		base.gameObject.renderer.material.mainTexture = _rotatingPictures[_currentPicture].picture;
+		base.gameObject.GetComponent<Renderer>().material.mainTexture = _rotatingPictures[_currentPicture].picture;
 	}
 
 	private IEnumerator SwapPicture()

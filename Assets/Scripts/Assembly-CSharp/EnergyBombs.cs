@@ -17,7 +17,7 @@ public class EnergyBombs : ProjectileWeapon
 			}
 			if (!isRemote && base.NetSyncReporter != null && !dontSendNetworkMessages)
 			{
-				base.NetSyncReporter.SpawnProjectile(gameObject.transform.position, gameObject.rigidbody.velocity);
+				base.NetSyncReporter.SpawnProjectile(gameObject.transform.position, gameObject.GetComponent<Rigidbody>().velocity);
 			}
 			gameObject.SendMessage("OnNetworkDelay", 0f, SendMessageOptions.DontRequireReceiver);
 		}

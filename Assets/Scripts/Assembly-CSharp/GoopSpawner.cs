@@ -35,7 +35,7 @@ public class GoopSpawner : ConfigurableNetworkObject
 			component2.DamageMultiplier = base.DamageMultiplier;
 			component2.SetItemOverride(netsyncNameOverride);
 			component2.SetEquipmentNames(equipmentNames);
-			Rigidbody rigidbody = gameObject2.rigidbody;
+			Rigidbody rigidbody = gameObject2.GetComponent<Rigidbody>();
 			if (rigidbody != null)
 			{
 				rigidbody.velocity = gameObject2.transform.forward * velocity;

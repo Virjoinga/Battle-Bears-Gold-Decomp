@@ -8,7 +8,7 @@ public class BombDepositArea : MonoBehaviour
 
 	private void Awake()
 	{
-		myAnimation = base.animation;
+		myAnimation = base.GetComponent<Animation>();
 	}
 
 	protected void OnTriggerEnter(Collider c)
@@ -31,7 +31,7 @@ public class BombDepositArea : MonoBehaviour
 
 	private void playDepositAnimation()
 	{
-		base.audio.Play();
+		base.GetComponent<AudioSource>().Play();
 		myAnimation.Play("bombIn");
 	}
 }

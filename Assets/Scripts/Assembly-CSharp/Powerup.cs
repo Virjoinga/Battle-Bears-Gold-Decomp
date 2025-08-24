@@ -20,9 +20,9 @@ public abstract class Powerup : MonoBehaviour
 
 	protected virtual void Start()
 	{
-		if (base.rigidbody != null)
+		if (base.GetComponent<Rigidbody>() != null)
 		{
-			base.rigidbody.WakeUp();
+			base.GetComponent<Rigidbody>().WakeUp();
 		}
 	}
 

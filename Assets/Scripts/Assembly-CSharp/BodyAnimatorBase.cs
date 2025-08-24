@@ -35,7 +35,7 @@ public abstract class BodyAnimatorBase : MonoBehaviour
 
 	public virtual void Awake()
 	{
-		myAnimator = base.animation;
+		myAnimator = base.GetComponent<Animation>();
 	}
 
 	public virtual void OnReset()

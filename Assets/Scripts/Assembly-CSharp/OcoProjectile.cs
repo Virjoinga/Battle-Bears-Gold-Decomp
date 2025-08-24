@@ -19,8 +19,8 @@ public class OcoProjectile : Projectile
 
 	private void Awake()
 	{
-		myAnimation = base.animation;
-		myRigidbody = base.rigidbody;
+		myAnimation = base.GetComponent<Animation>();
+		myRigidbody = base.GetComponent<Rigidbody>();
 		coreDamageSource = GetComponentInChildren<SimpleConstantDamageSource>();
 		if (coreDamageSource != null)
 		{
@@ -59,15 +59,15 @@ public class OcoProjectile : Projectile
 		{
 			coreDamageSource.gameObject.layer = LayerMask.NameToLayer("Explosion");
 		}
-		base.audio.clip = startFlyingSound;
-		base.audio.Play();
+		base.GetComponent<AudioSource>().clip = startFlyingSound;
+		base.GetComponent<AudioSource>().Play();
 		base.gameObject.layer = LayerMask.NameToLayer("Projectile");
 		myRigidbody.velocity = originalVelocity;
 		myAnimation.CrossFade("idle", 0.5f);
 		yield return new WaitForSeconds(startFlyingSound.length);
-		base.audio.loop = true;
-		base.audio.clip = flyingLoopSound;
-		base.audio.Play();
+		base.GetComponent<AudioSource>().loop = true;
+		base.GetComponent<AudioSource>().clip = flyingLoopSound;
+		base.GetComponent<AudioSource>().Play();
 		yield return new WaitForSeconds(duration - startFlyingSound.length);
 		Explode(null);
 	}

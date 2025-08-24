@@ -7,13 +7,13 @@ public class DelayedCollision : MonoBehaviour
 
 	public void Awake()
 	{
-		base.collider.enabled = false;
+		base.GetComponent<Collider>().enabled = false;
 		StartCoroutine(delayedCollision());
 	}
 
 	private IEnumerator delayedCollision()
 	{
 		yield return new WaitForSeconds(duration);
-		base.collider.enabled = true;
+		base.GetComponent<Collider>().enabled = true;
 	}
 }

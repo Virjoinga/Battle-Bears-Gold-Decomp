@@ -14,7 +14,7 @@ public class DamageSource : ConfigurableNetworkObject
 
 	private void Awake()
 	{
-		myCollider = base.collider;
+		myCollider = base.GetComponent<Collider>();
 	}
 
 	protected new virtual void Start()

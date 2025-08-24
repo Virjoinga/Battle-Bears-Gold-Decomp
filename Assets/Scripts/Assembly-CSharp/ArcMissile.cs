@@ -20,7 +20,7 @@ public class ArcMissile : Projectile
 	private new void Start()
 	{
 		_velocity = base.transform.root.rotation * _startVelocity;
-		base.rigidbody.velocity = _velocity;
+		base.GetComponent<Rigidbody>().velocity = _velocity;
 		base.transform.rotation = Quaternion.LookRotation(_velocity);
 		StartCoroutine(DelayedEnableCollider());
 	}
@@ -33,13 +33,13 @@ public class ArcMissile : Projectile
 			_velocity += _velocity.normalized * _descentAcceleration;
 		}
 		base.transform.rotation = Quaternion.LookRotation(_velocity);
-		base.rigidbody.velocity = _velocity;
+		base.GetComponent<Rigidbody>().velocity = _velocity;
 	}
 
 	private IEnumerator DelayedEnableCollider()
 	{
-		base.collider.enabled = false;
+		base.GetComponent<Collider>().enabled = false;
 		yield return new WaitForSeconds(_colliderWaitTime);
-		base.collider.enabled = true;
+		base.GetComponent<Collider>().enabled = true;
 	}
 }

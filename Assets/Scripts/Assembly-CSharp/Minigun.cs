@@ -26,7 +26,7 @@ public class Minigun : RaycastWeapon
 	{
 		base.Awake();
 		barrelRotator = myTransform.Find("barrel_grp");
-		barrelLoop = barrelRotator.audio;
+		barrelLoop = barrelRotator.GetComponent<AudioSource>();
 	}
 
 	protected override void Start()

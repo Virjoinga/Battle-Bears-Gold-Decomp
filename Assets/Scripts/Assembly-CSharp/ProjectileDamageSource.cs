@@ -10,7 +10,7 @@ public class ProjectileDamageSource : NetworkObject
 
 	private void Awake()
 	{
-		myCollider = base.collider;
+		myCollider = base.GetComponent<Collider>();
 	}
 
 	public void OnTriggerEnter(Collider c)

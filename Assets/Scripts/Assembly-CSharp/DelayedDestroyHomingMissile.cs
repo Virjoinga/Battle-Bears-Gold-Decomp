@@ -11,12 +11,12 @@ public class DelayedDestroyHomingMissile : HomingMissile
 	public override void Explode(GameObject objectHit)
 	{
 		base.Explode(objectHit);
-		if (_stopInPlaceOnExplode && base.rigidbody != null)
+		if (_stopInPlaceOnExplode && base.GetComponent<Rigidbody>() != null)
 		{
-			base.rigidbody.useGravity = false;
-			base.rigidbody.isKinematic = true;
-			base.rigidbody.detectCollisions = false;
-			base.rigidbody.Sleep();
+			base.GetComponent<Rigidbody>().useGravity = false;
+			base.GetComponent<Rigidbody>().isKinematic = true;
+			base.GetComponent<Rigidbody>().detectCollisions = false;
+			base.GetComponent<Rigidbody>().Sleep();
 		}
 	}
 

@@ -8,7 +8,7 @@ public class TimedProximityMine : ProximityMine
 
 	protected override void Awake()
 	{
-		base.collider.enabled = false;
+		base.GetComponent<Collider>().enabled = false;
 	}
 
 	protected override void Start()

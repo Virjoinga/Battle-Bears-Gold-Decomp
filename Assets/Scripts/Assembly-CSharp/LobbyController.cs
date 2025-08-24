@@ -240,17 +240,17 @@ public class LobbyController : MonoBehaviour
 		_currentBootPlayerPopup = UnityEngine.Object.Instantiate(_bootPlayerPopup, _bootPlayerPopup.transform.position, _bootPlayerPopup.transform.rotation) as GameObject;
 		_currentBootPlayerPopup.transform.parent = base.transform;
 		_currentBootPlayerPopup.name = text;
-		if (_currentBootPlayerPopup.animation != null && _currentBootPlayerPopup.animation.GetClip("in") != null)
+		if (_currentBootPlayerPopup.GetComponent<Animation>() != null && _currentBootPlayerPopup.GetComponent<Animation>().GetClip("in") != null)
 		{
-			_currentBootPlayerPopup.animation.Play("in");
+			_currentBootPlayerPopup.GetComponent<Animation>().Play("in");
 		}
 	}
 
 	private void CloseBootPopup()
 	{
-		if (_currentBootPlayerPopup != null && _currentBootPlayerPopup.animation != null && _currentBootPlayerPopup.animation.GetClip("out") != null)
+		if (_currentBootPlayerPopup != null && _currentBootPlayerPopup.GetComponent<Animation>() != null && _currentBootPlayerPopup.GetComponent<Animation>().GetClip("out") != null)
 		{
-			_currentBootPlayerPopup.animation.Play("out");
+			_currentBootPlayerPopup.GetComponent<Animation>().Play("out");
 		}
 		else
 		{

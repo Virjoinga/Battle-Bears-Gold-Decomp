@@ -174,7 +174,7 @@ public class LactoseIntolerance : WeaponBase
 		{
 			component.skinMaterial = base.playerController.CharacterHandle.Renderers[0].material;
 		}
-		Collider componentInChildren2 = gameObject.collider;
+		Collider componentInChildren2 = gameObject.GetComponent<Collider>();
 		if (componentInChildren2 == null)
 		{
 			componentInChildren2 = gameObject.GetComponentInChildren<Collider>();

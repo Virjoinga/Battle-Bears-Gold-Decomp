@@ -24,7 +24,7 @@ public class SixthSenseGoggles : SpecialItem
 	protected override void Awake()
 	{
 		base.Awake();
-		myAudio = base.audio;
+		myAudio = base.GetComponent<AudioSource>();
 	}
 
 	protected override void Configure(Item item)
@@ -39,7 +39,7 @@ public class SixthSenseGoggles : SpecialItem
 		myTransform.parent = playerController.transform;
 		if (!isRemote)
 		{
-			highlightCamera = p.PlayerCam.transform.Find("highlightCamera").camera;
+			highlightCamera = p.PlayerCam.transform.Find("highlightCamera").GetComponent<Camera>();
 			highlightCamera.enabled = true;
 		}
 		if (startSound != null)

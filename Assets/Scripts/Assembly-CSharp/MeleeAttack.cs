@@ -39,7 +39,7 @@ public class MeleeAttack : WeaponBase
 			component.OwnerID = ownerID;
 			component.DamageMultiplier = base.playerController.DamageMultiplier;
 			component.MeleeMultiplier = base.playerController.MeleeMultiplier;
-			Physics.IgnoreCollision(gameObject.collider, myTransform.root.collider);
+			Physics.IgnoreCollision(gameObject.GetComponent<Collider>(), myTransform.root.GetComponent<Collider>());
 		}
 		if (!dontSendNetworkMessages)
 		{
@@ -67,7 +67,7 @@ public class MeleeAttack : WeaponBase
 			component.OwnerID = ownerID;
 			component.DamageMultiplier = base.playerController.DamageMultiplier;
 			component.MeleeMultiplier = base.playerController.MeleeMultiplier;
-			Physics.IgnoreCollision(gameObject.collider, myTransform.root.collider);
+			Physics.IgnoreCollision(gameObject.GetComponent<Collider>(), myTransform.root.GetComponent<Collider>());
 		}
 	}
 }

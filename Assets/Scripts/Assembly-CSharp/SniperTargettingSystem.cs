@@ -11,7 +11,7 @@ public class SniperTargettingSystem : TargettingSystem
 	{
 		base.Start();
 		targettingSystemTransform.eulerAngles = new Vector3(0f, 180f, 0f);
-		myAnimation = targettingSystem.animation;
+		myAnimation = targettingSystem.GetComponent<Animation>();
 	}
 
 	protected override IEnumerator beginLock()
@@ -19,7 +19,7 @@ public class SniperTargettingSystem : TargettingSystem
 		targettingSystem.SetActiveRecursively(true);
 		if (myAnimation == null)
 		{
-			myAnimation = targettingSystem.animation;
+			myAnimation = targettingSystem.GetComponent<Animation>();
 		}
 		myAnimation["sniperAni"].speed = myAnimation["sniperAni"].length / targettingTime;
 		myAnimation.Play("sniperAni");

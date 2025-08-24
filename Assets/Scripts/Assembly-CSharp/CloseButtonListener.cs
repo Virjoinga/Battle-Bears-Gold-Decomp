@@ -8,8 +8,8 @@ public class CloseButtonListener : MonoBehaviour
 		switch (button.name)
 		{
 		case "error_close":
-			DelayedSetActive(false, base.animation["out"].length);
-			base.animation.Play("out");
+			DelayedSetActive(false, base.GetComponent<Animation>()["out"].length);
+			base.GetComponent<Animation>().Play("out");
 			break;
 		}
 	}

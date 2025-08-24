@@ -53,17 +53,17 @@ public class DiscController : RotatingItem
 		ConstantDamageSource componentInChildren = GetComponentInChildren<ConstantDamageSource>();
 		if (componentInChildren != null)
 		{
-			Physics.IgnoreCollision(componentInChildren.collider, base.collider);
+			Physics.IgnoreCollision(componentInChildren.GetComponent<Collider>(), base.GetComponent<Collider>());
 		}
 		if (IsRemote)
 		{
-			if (base.rigidbody != null)
+			if (base.GetComponent<Rigidbody>() != null)
 			{
-				UnityEngine.Object.Destroy(base.rigidbody);
+				UnityEngine.Object.Destroy(base.GetComponent<Rigidbody>());
 			}
-			if (base.collider != null)
+			if (base.GetComponent<Collider>() != null)
 			{
-				UnityEngine.Object.Destroy(base.collider);
+				UnityEngine.Object.Destroy(base.GetComponent<Collider>());
 			}
 		}
 	}

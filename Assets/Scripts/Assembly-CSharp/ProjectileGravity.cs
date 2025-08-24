@@ -16,7 +16,7 @@ public class ProjectileGravity : Projectile
 	public virtual void Awake()
 	{
 		_transform = base.transform;
-		_rigidbody = base.rigidbody;
+		_rigidbody = base.GetComponent<Rigidbody>();
 		StartCoroutine(DelayedGravity());
 	}
 

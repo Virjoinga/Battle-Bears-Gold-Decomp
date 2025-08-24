@@ -17,23 +17,23 @@ public class BombChuMovement : MonoBehaviour
 		{
 			GetFacingDirectionAndPositionFromRaycast();
 		}
-		base.transform.forward = base.rigidbody.velocity;
+		base.transform.forward = base.GetComponent<Rigidbody>().velocity;
 	}
 
 	protected virtual void OnCollisionEnter(Collision collision)
 	{
-		base.rigidbody.useGravity = false;
-		base.rigidbody.detectCollisions = false;
+		base.GetComponent<Rigidbody>().useGravity = false;
+		base.GetComponent<Rigidbody>().detectCollisions = false;
 		_hasHitGround = true;
-		base.rigidbody.velocity = base.transform.rotation * new Vector3(0f, 0f, _groundSpeed);
-		Physics.IgnoreCollision(base.collider, collision.collider);
+		base.GetComponent<Rigidbody>().velocity = base.transform.rotation * new Vector3(0f, 0f, _groundSpeed);
+		Physics.IgnoreCollision(base.GetComponent<Collider>(), collision.collider);
 		CalculateFacingDirection(collision);
 	}
 
 	private void CalculateFacingDirection(Collision collision)
 	{
-		Vector3 velocity = base.rigidbody.velocity;
-		base.transform.position -= collision.contacts[0].normal * base.collider.bounds.extents.x;
+		Vector3 velocity = base.GetComponent<Rigidbody>().velocity;
+		base.transform.position -= collision.contacts[0].normal * base.GetComponent<Collider>().bounds.extents.x;
 		Vector3 realNormal = GetRealNormal(collision.contacts[0].point, collision.contacts[0].normal, collision.contacts[0].otherCollider);
 		SetForwardFromNormal(velocity, realNormal);
 	}
@@ -79,8 +79,8 @@ public class BombChuMovement : MonoBehaviour
 		}
 		else
 		{
-			base.rigidbody.useGravity = true;
-			base.rigidbody.detectCollisions = true;
+			base.GetComponent<Rigidbody>().useGravity = true;
+			base.GetComponent<Rigidbody>().detectCollisions = true;
 			_hasHitGround = false;
 		}
 	}

@@ -35,8 +35,8 @@ public class OfflineMode : MonoBehaviour
 		{
 			AudioSource.PlayClipAtPoint(transitionSound, Vector3.zero);
 		}
-		base.animation.Play("out");
-		yield return new WaitForSeconds(base.animation["out"].length);
+		base.GetComponent<Animation>().Play("out");
+		yield return new WaitForSeconds(base.GetComponent<Animation>()["out"].length);
 		loadingScreen.SetActive(true);
 		yield return Application.LoadLevelAsync("Tutorial");
 	}

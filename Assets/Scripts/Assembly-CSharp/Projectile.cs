@@ -95,9 +95,9 @@ public class Projectile : ConfigurableNetworkObject
 		component.DamageMultiplier = base.DamageMultiplier;
 		component.SetItemOverride(spawnItemOverride);
 		component.SetEquipmentNames(equipmentNames);
-		if (base.rigidbody != null && (_orientX || _orientY || _orientZ))
+		if (base.GetComponent<Rigidbody>() != null && (_orientX || _orientY || _orientZ))
 		{
-			gameObject.transform.LookAt(base.transform.position + base.rigidbody.velocity.normalized);
+			gameObject.transform.LookAt(base.transform.position + base.GetComponent<Rigidbody>().velocity.normalized);
 			Vector3 eulerAngles = gameObject.transform.rotation.eulerAngles;
 			if (!_orientX)
 			{
@@ -113,9 +113,9 @@ public class Projectile : ConfigurableNetworkObject
 			}
 			gameObject.transform.eulerAngles = eulerAngles;
 		}
-		if (tesla != null && gameObject.collider != null)
+		if (tesla != null && gameObject.GetComponent<Collider>() != null)
 		{
-			Physics.IgnoreCollision(tesla.PlayerController.DamageReceiver.collider, gameObject.collider);
+			Physics.IgnoreCollision(tesla.PlayerController.DamageReceiver.GetComponent<Collider>(), gameObject.GetComponent<Collider>());
 		}
 	}
 

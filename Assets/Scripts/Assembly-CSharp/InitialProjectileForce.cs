@@ -6,7 +6,7 @@ public class InitialProjectileForce : MonoBehaviour
 
 	private void Start()
 	{
-		base.rigidbody.AddTorque(rotationalForce, ForceMode.VelocityChange);
+		base.GetComponent<Rigidbody>().AddTorque(rotationalForce, ForceMode.VelocityChange);
 		Object.Destroy(this);
 	}
 }

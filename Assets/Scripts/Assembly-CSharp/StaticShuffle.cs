@@ -94,7 +94,7 @@ public class StaticShuffle : WeaponBase
 		componentInChildren.DamageMultiplier = base.playerController.DamageMultiplier;
 		ChargingLineOfSightDamageSource componentInChildren2 = gameObject.GetComponentInChildren<ChargingLineOfSightDamageSource>();
 		componentInChildren2.ChargePercent = chargePercent;
-		Collider componentInChildren3 = gameObject.collider;
+		Collider componentInChildren3 = gameObject.GetComponent<Collider>();
 		if (componentInChildren3 == null)
 		{
 			componentInChildren3 = gameObject.GetComponentInChildren<Collider>();

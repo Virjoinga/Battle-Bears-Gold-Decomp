@@ -135,7 +135,7 @@ public class EndOfGameReportMenu : MonoBehaviour
 
 	private void Awake()
 	{
-		myAnimation = base.animation;
+		myAnimation = base.GetComponent<Animation>();
 		guiController = GetComponent(typeof(GUIController)) as GUIController;
 		popupCamera = popupRoot.GetComponentInChildren<Camera>();
 	}
@@ -535,8 +535,8 @@ public class EndOfGameReportMenu : MonoBehaviour
 		}
 		bool val = true;
 		ServiceManager.Instance.UpdateProperty("display_rank", ref val);
-		skillChange.renderer.enabled = val;
-		finalSkill.renderer.enabled = val;
+		skillChange.GetComponent<Renderer>().enabled = val;
+		finalSkill.GetComponent<Renderer>().enabled = val;
 		if (!val)
 		{
 			firstSkillLine.text = string.Empty;
@@ -653,14 +653,14 @@ public class EndOfGameReportMenu : MonoBehaviour
 
 	private void AdjustFontColours(bool b)
 	{
-		matchXP.renderer.material = ((!b) ? notEnoughEnergyFont : enoughEnergyFont);
-		killXP.renderer.material = ((!b) ? notEnoughEnergyFont : enoughEnergyFont);
-		totalXP.renderer.material = ((!b) ? notEnoughEnergyFont : enoughEnergyFont);
-		matchJoules.renderer.material = ((!b) ? notEnoughEnergyFont : enoughEnergyFont);
-		killJoules.renderer.material = ((!b) ? notEnoughEnergyFont : enoughEnergyFont);
-		mapJoules.renderer.material = ((!b) ? notEnoughEnergyFont : enoughEnergyFont);
-		bonusJoules.renderer.material = ((!b) ? notEnoughEnergyFont : enoughEnergyFont);
-		totalJoules.renderer.material = ((!b) ? notEnoughEnergyFont : enoughEnergyFont);
+		matchXP.GetComponent<Renderer>().material = ((!b) ? notEnoughEnergyFont : enoughEnergyFont);
+		killXP.GetComponent<Renderer>().material = ((!b) ? notEnoughEnergyFont : enoughEnergyFont);
+		totalXP.GetComponent<Renderer>().material = ((!b) ? notEnoughEnergyFont : enoughEnergyFont);
+		matchJoules.GetComponent<Renderer>().material = ((!b) ? notEnoughEnergyFont : enoughEnergyFont);
+		killJoules.GetComponent<Renderer>().material = ((!b) ? notEnoughEnergyFont : enoughEnergyFont);
+		mapJoules.GetComponent<Renderer>().material = ((!b) ? notEnoughEnergyFont : enoughEnergyFont);
+		bonusJoules.GetComponent<Renderer>().material = ((!b) ? notEnoughEnergyFont : enoughEnergyFont);
+		totalJoules.GetComponent<Renderer>().material = ((!b) ? notEnoughEnergyFont : enoughEnergyFont);
 	}
 
 	private void LogCollectedJoules()
@@ -701,7 +701,7 @@ public class EndOfGameReportMenu : MonoBehaviour
 			StartCoroutine(switchView(false));
 			break;
 		case "fb_btn":
-			facebookRoot.animation.Play();
+			facebookRoot.GetComponent<Animation>().Play();
 			if (!isFacebookPosting)
 			{
 				isFacebookPosting = true;

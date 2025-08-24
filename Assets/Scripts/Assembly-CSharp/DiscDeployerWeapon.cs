@@ -18,7 +18,7 @@ public class DiscDeployerWeapon : DeployerWeapon
 		if (component != null)
 		{
 			component.FollowObject = base.transform.root;
-			Physics.IgnoreCollision(component.collider, base.transform.root.collider);
+			Physics.IgnoreCollision(component.GetComponent<Collider>(), base.transform.root.GetComponent<Collider>());
 			component.transform.rotation = Quaternion.identity;
 			component.Owner = base.playerController;
 			component.IsRemote = isRemote;

@@ -23,16 +23,16 @@ public class FoVAdjuster : MonoBehaviour
 
 	private void Start()
 	{
-		_initialPos = base.camera.transform.localPosition;
-		_scale = base.camera.transform.localScale;
-		base.camera.fov = _baseFoV;
+		_initialPos = base.GetComponent<Camera>().transform.localPosition;
+		_scale = base.GetComponent<Camera>().transform.localScale;
+		base.GetComponent<Camera>().fov = _baseFoV;
 	}
 
 	private void Update()
 	{
 		if (_forceAspect)
 		{
-			base.camera.aspect = _targetAspectRatio;
+			base.GetComponent<Camera>().aspect = _targetAspectRatio;
 		}
 		base.transform.localPosition = _initialPos + _offset;
 		base.transform.localPosition = _initialScale + _scale;

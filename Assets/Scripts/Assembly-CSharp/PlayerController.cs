@@ -526,7 +526,7 @@ public class PlayerController : MonoBehaviour
 		_radarTracker = ((!_isRoyaleMode) ? base.gameObject.AddComponent<RadarTracker>() : base.gameObject.AddComponent<AlwaysOnRadarTracker>());
 		PlayerJoulesManager.PlayerCont = this;
 		myTransform = base.transform;
-		myAudio = base.audio;
+		myAudio = base.GetComponent<AudioSource>();
 		aimer = myTransform.Find("aimer");
 		weaponManager = GetComponentInChildren(typeof(WeaponManagerBase)) as WeaponManagerBase;
 		dmgReceiver = GetComponent(typeof(PlayerDamageReceiver)) as PlayerDamageReceiver;
@@ -534,9 +534,9 @@ public class PlayerController : MonoBehaviour
 		bodyAnimator = GetComponentInChildren(typeof(BodyAnimatorBase)) as BodyAnimatorBase;
 		legAnimator = GetComponentInChildren(typeof(LegAnimator)) as LegAnimator;
 		motor = GetComponent(typeof(CharacterMotor)) as CharacterMotor;
-		if (Camera.mainCamera != null)
+		if (Camera.main != null)
 		{
-			playerCam = Camera.mainCamera.GetComponent(typeof(PlayerCamera)) as PlayerCamera;
+			playerCam = Camera.main.GetComponent(typeof(PlayerCamera)) as PlayerCamera;
 		}
 		bombTimerMount = myTransform.Find("bombTimerMount");
 		_radiationDisplay = myTransform.Find("statusEffect_mount/radiation").GetComponent<RadiationMeter>();
@@ -1262,9 +1262,9 @@ public class PlayerController : MonoBehaviour
 		isDisabled = true;
 		weaponManager.OnStopFiring();
 		bodyAnimator.StopAllCoroutines();
-		bodyAnimator.animation.Stop();
-		legAnimator.animation.Stop();
-		bodyAnimator.animation.Play("stun");
+		bodyAnimator.GetComponent<Animation>().Stop();
+		legAnimator.GetComponent<Animation>().Stop();
+		bodyAnimator.GetComponent<Animation>().Play("stun");
 		if (weaponManager.CurrentWeapon.isRiggedWeapon)
 		{
 			weaponManager.CurrentWeapon.gameObject.SetActive(false);
@@ -1326,7 +1326,7 @@ public class PlayerController : MonoBehaviour
 			weaponManager.OnTaunt();
 			bodyAnimator.isDisabled = true;
 			legAnimator.isDisabled = true;
-			legAnimator.animation.Stop();
+			legAnimator.GetComponent<Animation>().Stop();
 			motor.SetVelocity(Vector3.zero);
 			motor.SetControllable(false);
 			if (perf != null)
@@ -1486,7 +1486,7 @@ public class PlayerController : MonoBehaviour
 			bodyRotator.rotation = aimer.rotation;
 			bodyAnimator.isDisabled = true;
 			legAnimator.isDisabled = true;
-			legAnimator.animation.Stop();
+			legAnimator.GetComponent<Animation>().Stop();
 			motor.SetVelocity(Vector3.zero);
 			motor.SetControllable(false);
 			perf2 = (SimpleControllerPerformer)Performer;
@@ -1497,12 +1497,12 @@ public class PlayerController : MonoBehaviour
 			playerCam.enabled = false;
 			tauntCamera = Object.Instantiate(playerCam.gameObject, tauntCameraSpot.position, playerCam.transform.rotation) as GameObject;
 			tauntCamera.name = "tauntCamera" + OwnerID;
-			tauntCamera.camera.fieldOfView = 60f;
+			tauntCamera.GetComponent<Camera>().fieldOfView = 60f;
 			Object.Destroy(tauntCamera.GetComponent<FoVAdjuster>());
 			tauntCamera.transform.LookAt(myTransform.position);
-			playerCam.camera.enabled = false;
-			bodyAnimator.animation.CrossFade(tauntName);
-			yield return new WaitForSeconds(bodyAnimator.animation[tauntName].length);
+			playerCam.GetComponent<Camera>().enabled = false;
+			bodyAnimator.GetComponent<Animation>().CrossFade(tauntName);
+			yield return new WaitForSeconds(bodyAnimator.GetComponent<Animation>()[tauntName].length);
 			IsBombPickupAllowed = true;
 			canControl = true;
 			weaponManager.isDisabled = false;
@@ -1514,7 +1514,7 @@ public class PlayerController : MonoBehaviour
 			legAnimator.OnReset();
 			motor.SetControllable(true);
 			playerCam.enabled = true;
-			playerCam.camera.enabled = true;
+			playerCam.GetComponent<Camera>().enabled = true;
 			Object.Destroy(tauntCamera);
 			playerCam.OnResetNormalPosition();
 			if (perf2 != null)
@@ -1541,9 +1541,9 @@ public class PlayerController : MonoBehaviour
 		bodyRotator.rotation = aimer.rotation;
 		bodyAnimator.isDisabled = true;
 		legAnimator.isDisabled = true;
-		legAnimator.animation.Stop();
-		bodyAnimator.animation.CrossFade(tauntName);
-		yield return new WaitForSeconds(bodyAnimator.animation[tauntName].length);
+		legAnimator.GetComponent<Animation>().Stop();
+		bodyAnimator.GetComponent<Animation>().CrossFade(tauntName);
+		yield return new WaitForSeconds(bodyAnimator.GetComponent<Animation>()[tauntName].length);
 		IsBombPickupAllowed = true;
 		canControl = true;
 		weaponManager.isDisabled = false;
@@ -1651,7 +1651,7 @@ public class PlayerController : MonoBehaviour
 			legAnimator.OnReset();
 			motor.SetControllable(true);
 			playerCam.enabled = true;
-			playerCam.camera.enabled = true;
+			playerCam.GetComponent<Camera>().enabled = true;
 			Object.Destroy(tauntCamera);
 			playerCam.OnResetNormalPosition();
 			SimpleControllerPerformer simpleControllerPerformer = (SimpleControllerPerformer)Performer;
@@ -1765,8 +1765,8 @@ public class PlayerController : MonoBehaviour
 		weaponManager.OnStopFiring();
 		base.gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
 		bodyAnimator.StopAllCoroutines();
-		bodyAnimator.animation.Stop();
-		legAnimator.animation.Stop();
+		bodyAnimator.GetComponent<Animation>().Stop();
+		legAnimator.GetComponent<Animation>().Stop();
 		Vector3 originalScale = new Vector3(1f, 1f, 1f);
 		GameObject deathCamera2 = null;
 		if (!isRemote)
@@ -1777,7 +1777,7 @@ public class PlayerController : MonoBehaviour
 			deathCamera2.name = "deathCamera" + OwnerID;
 			Object.Destroy(deathCamera2.GetComponent<FoVAdjuster>());
 			deathCamera2.transform.LookAt(myTransform.position);
-			playerCam.camera.enabled = false;
+			playerCam.GetComponent<Camera>().enabled = false;
 		}
 		if (isExplosion && gibs != null)
 		{
@@ -1792,16 +1792,16 @@ public class PlayerController : MonoBehaviour
 		}
 		else
 		{
-			if (bodyAnimator.animation["death"] != null)
+			if (bodyAnimator.GetComponent<Animation>()["death"] != null)
 			{
-				if (bodyAnimator.animation[weaponManager.CurrentWeapon.name + "_fireLoop"] != null)
+				if (bodyAnimator.GetComponent<Animation>()[weaponManager.CurrentWeapon.name + "_fireLoop"] != null)
 				{
-					bodyAnimator.animation[weaponManager.CurrentWeapon.name + "_fireLoop"].layer = 0;
+					bodyAnimator.GetComponent<Animation>()[weaponManager.CurrentWeapon.name + "_fireLoop"].layer = 0;
 				}
-				bodyAnimator.animation["death"].layer = 3;
+				bodyAnimator.GetComponent<Animation>()["death"].layer = 3;
 			}
 			yield return null;
-			bodyAnimator.animation.Play("death");
+			bodyAnimator.GetComponent<Animation>().Play("death");
 			weaponManager.CurrentWeapon.WeaponDeath();
 		}
 		spawnGibs = true;
@@ -1874,7 +1874,7 @@ public class PlayerController : MonoBehaviour
 				component.enabled = true;
 			}
 			playerCam.OnResetNormalPosition();
-			playerCam.camera.enabled = true;
+			playerCam.GetComponent<Camera>().enabled = true;
 			playerCam.enabled = true;
 			if (gameObject != null)
 			{
@@ -2214,7 +2214,7 @@ public class PlayerController : MonoBehaviour
 	{
 		if (!isRemote && currentBombToGrab != null)
 		{
-			Vector3 center = currentBombToGrab.collider.bounds.center;
+			Vector3 center = currentBombToGrab.GetComponent<Collider>().bounds.center;
 			Vector3 vector = center - (center - myTransform.position).normalized * 40f;
 			if (motor.IsGrounded())
 			{

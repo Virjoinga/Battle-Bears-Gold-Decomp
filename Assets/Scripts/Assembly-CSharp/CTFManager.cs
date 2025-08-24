@@ -113,8 +113,8 @@ public class CTFManager : MonoBehaviour
 		for (int i = 0; i < 2; i++)
 		{
 			depositTransforms[i] = depositSpots[i].transform;
-			depositSpots[i].animation["drop_idle"].wrapMode = WrapMode.Once;
-			depositSpots[i].animation.Play("drop_idle");
+			depositSpots[i].GetComponent<Animation>()["drop_idle"].wrapMode = WrapMode.Once;
+			depositSpots[i].GetComponent<Animation>().Play("drop_idle");
 		}
 	}
 
@@ -174,7 +174,7 @@ public class CTFManager : MonoBehaviour
 		currentBombs[(int)team].transform.localPosition = Vector3.zero;
 		currentBombs[(int)team].transform.localEulerAngles = Vector3.zero;
 		currentBombs[(int)team].transform.localScale = Vector3.one;
-		bombSpawnStations[(int)team].animation.Play("bombOut");
+		bombSpawnStations[(int)team].GetComponent<Animation>().Play("bombOut");
 	}
 
 	private void setBombTimer(Team team, int delay)
@@ -182,7 +182,7 @@ public class CTFManager : MonoBehaviour
 		if (currentBombPickupTime[(int)team] == 0)
 		{
 			currentBombPickupTime[(int)team] = GameManager.Instance.CurrentServerTime - delay;
-			bombSpawnStations[(int)team].animation.Play("spawnIdle");
+			bombSpawnStations[(int)team].GetComponent<Animation>().Play("spawnIdle");
 		}
 	}
 
