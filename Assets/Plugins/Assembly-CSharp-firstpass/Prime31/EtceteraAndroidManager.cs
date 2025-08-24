@@ -49,12 +49,15 @@ namespace Prime31
 
 		public static event Action<List<EtceteraAndroid.Contact>> contactsLoadedEvent;
 
-		static EtceteraAndroidManager()
+        /*static EtceteraAndroidManager()
 		{
 			AbstractManager.initialize(typeof(EtceteraAndroidManager));
-		}
-
-		public void alertButtonClicked(string positiveButton)
+		}*/
+        private void Awake()
+        {
+            AbstractManager.initialize(typeof(EtceteraAndroidManager));
+        }
+        public void alertButtonClicked(string positiveButton)
 		{
 			if (EtceteraAndroidManager.alertButtonClickedEvent != null)
 			{
