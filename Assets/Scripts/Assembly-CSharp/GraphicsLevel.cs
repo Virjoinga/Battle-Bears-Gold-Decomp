@@ -4,31 +4,50 @@ using UnityEngine;
 [Serializable]
 public class GraphicsLevel
 {
-	[SerializeField]
-	public QualitySetting _qualityLevel = QualitySetting.ULTRA;
+    [SerializeField]
+    public QualitySetting _qualityLevel = QualitySetting.ULTRA;
 
-	[SerializeField]
-	private string _cameraEffect = string.Empty;
+    [SerializeField]
+    private string _cameraEffect = string.Empty;
 
-	[SerializeField]
-	private EffectSetting[] _effectSettings = new EffectSetting[0];
+    [SerializeField]
+    private EffectSetting[] _effectSettings = new EffectSetting[0];
 
-	public void ModifyCharacter(PlayerController character)
-	{
-		if (!(character.mainCamera != null) || _cameraEffect.Length <= 0)
-		{
-			return;
-		}
-		Debug.Log("Adding camera effect: " + _cameraEffect);
-		Component component = UnityEngineInternal.APIUpdaterRuntimeServices.AddComponent(character.mainCamera.gameObject, "Assets/Scripts/Assembly-CSharp/GraphicsLevel.cs (23,25)", _cameraEffect);
-		if (component is BBRImageEffect)
-		{
-			EffectSetting[] effectSettings = _effectSettings;
-			foreach (EffectSetting effectSetting in effectSettings)
-			{
-				Debug.Log("\tApplying setting [" + effectSetting._ID + "]: " + effectSetting._value);
-				((BBRImageEffect)component).ApplySetting(effectSetting._ID, effectSetting._value);
-			}
-		}
-	}
+    public void ModifyCharacter(PlayerController character)
+    {
+        if (character.mainCamera == null || string.IsNullOrEmpty(_cameraEffect))
+        {
+            return;
+        }
+
+        Debug.Log("Adding camera effect: " + _cameraEffect);
+
+
+        System.Type effectType = System.Type.GetType(_cameraEffect);
+        if (effectType == null)
+        {
+
+            effectType = System.Type.GetType(_cameraEffect + ", Assembly-CSharp");
+        }
+
+        if (effectType == null)
+        {
+            Debug.LogError("Could not resolve camera effect type: " + _cameraEffect);
+            return;
+        }
+
+        Component component = character.mainCamera.gameObject.AddComponent(effectType);
+
+
+        BBRImageEffect imageEffect = component as BBRImageEffect;
+        if (imageEffect != null)
+        {
+            foreach (EffectSetting effectSetting in _effectSettings)
+            {
+                Debug.Log("\tApplying setting [" + effectSetting._ID + "]: " + effectSetting._value);
+                imageEffect.ApplySetting(effectSetting._ID, effectSetting._value);
+            }
+        }
+    }
+
 }
