@@ -9,7 +9,7 @@
             case ServerAddressType.PRODUCTION: return "http://127.0.0.1:6755";
             default: return "http://127.0.0.1:6755";
         };*/
-        return "http://127.0.0.1:6755";
+        return "http://195.7.7.200:9356";
     }
 
     public static string GetRootIpAddress(ServerAddressType typ)
@@ -21,7 +21,7 @@
             case ServerAddressType.PRODUCTION: return "http://127.0.0.1:6755";
             default: return "http://127.0.0.1:6755";
         };*/
-        return "https://195.7.7.200:9356";
+        return "http://195.7.7.200:9356";
     }
 
     public static string GetMatchmakingAddress(MatchingServerType typ)
@@ -34,6 +34,6 @@
             case MatchingServerType.EIGHT: return "http://127.0.0.1:6755";
             default: return "http://127.0.0.1:6755";
         };*/
-        return "https://195.7.7.200:9356/matchmaking/" + typ.ToString().ToLower();
+        return "http://195.7.7.200:9356/matchmaking/" + typ.ToString().ToLower();
     }
 }
