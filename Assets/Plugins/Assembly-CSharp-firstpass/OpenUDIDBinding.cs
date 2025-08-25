@@ -6,7 +6,7 @@ public class OpenUDIDBinding
 {
 	public static string GetOpenUDID()
 	{
-		string empty = string.Empty;
+		/*string empty = string.Empty;
 		AndroidJavaClass androidJavaClass = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
 		AndroidJavaObject @static = androidJavaClass.GetStatic<AndroidJavaObject>("currentActivity");
 		AndroidJavaClass androidJavaClass2 = new AndroidJavaClass("android.provider.Settings$Secure");
@@ -17,7 +17,8 @@ public class OpenUDIDBinding
 		{
 			empty = string.Empty;
 		}
-		return getMd5Hash(empty);
+		return getMd5Hash(empty);*/
+		return getMd5Hash(SystemInfo.deviceUniqueIdentifier);
 	}
 
 	private static string getMd5Hash(string input)

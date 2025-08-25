@@ -527,7 +527,8 @@ namespace DeltaDNA
 
 		private static string GetManufacturer()
 		{
-			return Trim(new AndroidJavaObject("android.os.Build").GetStatic<string>("MANUFACTURER"), 72);
+			return SystemInfo.deviceModel;
+			//return Trim(new AndroidJavaObject("android.os.Build").GetStatic<string>("MANUFACTURER"), 72);
 		}
 
 		private static string GetCurrentTimezoneOffset()
