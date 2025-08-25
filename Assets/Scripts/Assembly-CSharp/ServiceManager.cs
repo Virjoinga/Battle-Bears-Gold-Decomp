@@ -610,7 +610,7 @@ public class ServiceManager : MonoBehaviour, ServiceInterface
 	private void Awake()
 	{
 		instance = this;
-		switch (serverAddress)
+		/*switch (serverAddress)
 		{
 		case ServerAddressType.DEVELOPMENT:
 		{
@@ -656,8 +656,11 @@ public class ServiceManager : MonoBehaviour, ServiceInterface
 			ROOT_SERVER_URL = "http://bbr2.battlebears.com/1.2/store";
 			FORCE_MATCH_SERVER = string.Empty;
 			break;
-		}
-		if (requestInProgress)
+		}*/
+		ROOT_SERVER_IP_ADDRESS = ServerX.GetRootAddress(serverAddress);
+        FORCE_MATCH_SERVER = ServerX.GetMatchmakingAddress(matchingServer);
+
+        if (requestInProgress)
 		{
 			LogConnectionFailure("crash");
 			requestInProgress = false;
