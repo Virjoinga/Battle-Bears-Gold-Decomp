@@ -115,7 +115,9 @@ public class Bootloader : MonoBehaviour
 
 	private void Awake()
 	{
-		Application.targetFrameRate = 30;
+#if !UNITY_STANDALONE
+		Application.targetFrameRate = 240;
+#endif
 		PhysicsCollisionMatrixLayerMasks.Init();
 		InitializeAppsFlyer();
 		Singleton<DDNA>.Instance.Init();
