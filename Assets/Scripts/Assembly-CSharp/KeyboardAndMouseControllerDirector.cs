@@ -29,5 +29,7 @@ public class KeyboardAndMouseControllerDirector : SimpleControllerDirector
 		base.Switch = Input.GetKeyDown(KeyCode.Tab);
 		base.Melee = Input.GetMouseButton(1);
 		base.Special = Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.LeftShift);
+
+		if (Input.GetKeyDown(KeyCode.F1)) Cursor.lockState = Cursor.lockState == CursorLockMode.Locked ? CursorLockMode.None : CursorLockMode.Locked;
 	}
 }
