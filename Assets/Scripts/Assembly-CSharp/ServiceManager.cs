@@ -657,7 +657,8 @@ public class ServiceManager : MonoBehaviour, ServiceInterface
 			FORCE_MATCH_SERVER = string.Empty;
 			break;
 		}*/
-		ROOT_SERVER_IP_ADDRESS = ServerX.GetRootAddress(serverAddress);
+		ROOT_SERVER_URL = ServerX.GetRootAddress(serverAddress);
+		ROOT_SERVER_IP_ADDRESS = ServerX.GetRootIpAddress(serverAddress);
         FORCE_MATCH_SERVER = ServerX.GetMatchmakingAddress(matchingServer);
 
         if (requestInProgress)
