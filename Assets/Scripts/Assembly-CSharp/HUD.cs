@@ -1116,7 +1116,7 @@ public class HUD : MonoBehaviour
 				}
 				else if (Preferences.Instance.CurrentShootMode == ShootMode.shootButton)
 				{
-					PlayerController.Director = PlayerController.gameObject.AddComponent<SatelliteSecondaryShootButtonDirector>();
+					PlayerController.Director = PlayerController.gameObject.AddComponent<SateliteKeyboardAndMouseControllerDirector>();
 				}
 				else if (Preferences.Instance.CurrentShootMode == ShootMode.keyboardAndMouse)
 				{
@@ -1133,7 +1133,7 @@ public class HUD : MonoBehaviour
 			}
 			else if (Preferences.Instance.CurrentShootMode == ShootMode.shootButton)
 			{
-				PlayerController.Director = PlayerController.gameObject.AddComponent<ShootButtonControllerDirector>();
+				PlayerController.Director = PlayerController.gameObject.AddComponent<KeyboardAndMouseControllerDirector>();
 			}
 			else if (Preferences.Instance.CurrentShootMode == ShootMode.keyboardAndMouse)
 			{
