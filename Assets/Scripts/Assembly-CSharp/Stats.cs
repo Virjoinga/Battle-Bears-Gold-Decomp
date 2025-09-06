@@ -26,8 +26,8 @@ public class Stats
 
 	public Stats()
     {
-        joules = 0;
-        gas = 0;
+        joules = 1;
+        gas = 1;
         skill = 150.0;
         exp = 0;
     }

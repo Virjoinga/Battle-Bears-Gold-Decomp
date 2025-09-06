@@ -1401,7 +1401,7 @@ public class ServiceManager : MonoBehaviour, ServiceInterface
 
 	private IEnumerator PurchaseItemCoroutine(int purchaseItemID, FinishedCallback success, FinishedCallback failure)
 	{
-		WWWForm form = new WWWForm();
+		/*WWWForm form = new WWWForm();
 		form.AddField("session", SessionId);
 		form.AddField("store_item_id", purchaseItemID);
 		WWW www = new WWW(ROOT_SERVER_URL + "/transactions.json?" + AddTimeString(), form);
@@ -1414,7 +1414,9 @@ public class ServiceManager : MonoBehaviour, ServiceInterface
 		else
 		{
 			ProcessJSONResponse(www, success, failure);
-		}
+		}*/
+		success();
+        yield break;
 	}
 
 	private IEnumerator PurchaseDealCoroutine(int dealID, FinishedCallback success, FinishedCallback failure)
@@ -1700,7 +1702,7 @@ public class ServiceManager : MonoBehaviour, ServiceInterface
 		{
 			ProcessJSONResponse(www, success, failure);
 		}*/
-		success();
+		//success();
 		yield break;
 	}
 
@@ -1846,8 +1848,9 @@ public class ServiceManager : MonoBehaviour, ServiceInterface
 				UpdateDeals(resp.deals);
 			}
 			if (resp.inventory != null)
-			{
-				PlayerPrefs.SetString("cached_inventory", JsonMapper.ToJson(resp.inventory));
+            {
+                //foreach (var v in resp.inventory) v.level = 0; // REMOVE IF BALANCING
+                PlayerPrefs.SetString("cached_inventory", JsonMapper.ToJson(resp.inventory));
 				UpdateInventory(resp.inventory);
 			}
 			if (resp.stats != null)
@@ -1863,9 +1866,19 @@ public class ServiceManager : MonoBehaviour, ServiceInterface
 				UpdateSession(resp.session);
 			}
 			if (resp.store_items != null)
-			{
-				PlayerPrefs.SetString("cached_store", JsonMapper.ToJson(resp.store_items));
+            {
+				resp.locker = new List<int>();
+                foreach (var v in resp.store_items)
+				{
+                    v.base_gas = 0; // REMOVE IF BALANCING
+					v.base_joules = 0;
+					v.current_gas = 0;
+					v.current_joules = 0;
+					resp.locker.Add(v.item_id);
+                }
+                PlayerPrefs.SetString("cached_store", JsonMapper.ToJson(resp.store_items));
 				UpdatePurchaseables(resp.store_items);
+				UpdateLocker(resp.locker);
 			}
 			if (resp.settings != null)
 			{
