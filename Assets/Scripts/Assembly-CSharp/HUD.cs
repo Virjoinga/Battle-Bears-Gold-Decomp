@@ -288,9 +288,11 @@ public class HUD : MonoBehaviour
 	{
 		get
 		{
-			return ServiceManager.Instance.IsItemBought(ServiceManager.Instance.GetItemByName("jump").id);
-		}
-	}
+			//return ServiceManager.Instance.IsItemBought(ServiceManager.Instance.GetItemByName("jump").id);
+            return true;
+
+        }
+    }
 
 	public bool JumpButtonEnabled
 	{
