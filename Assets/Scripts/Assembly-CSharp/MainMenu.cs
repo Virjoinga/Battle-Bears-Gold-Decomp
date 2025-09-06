@@ -1195,7 +1195,7 @@ public class MainMenu : MonoBehaviour
         if (!HandlePlayNowButton(b) && !HandleCancelMatchmakingButton(b, stats) && !HandleGameTipButton(b, stats))
         {
             HandleSpecialOfferButton(b, stats);
-            HandleTryPlayWithNoGamesLeft(b, stats);
+            //HandleTryPlayWithNoGamesLeft(b, stats);
             SetCharacterRotatorTarget(b);
             if (!HandleBackButton(b, stats) && !HandleGearUpCustomizationPressed(b, stats) && !HandleMainMenuOptionsButton(b, stats) && !HandleMainMenuExtrasButton(b, stats) && !HandleGetGasButton(b, stats) && !HandleGetJoulesButton(b, stats) && !HandleCreateAccountMenuButton(b, stats) && !HandleBuyCurrentDealButton(b, stats) && !HandlePrivateMatchButton(b, stats) && !HandleDiscordButton(b))
             {
