@@ -657,9 +657,6 @@ public class ServiceManager : MonoBehaviour, ServiceInterface
 			FORCE_MATCH_SERVER = string.Empty;
 			break;
 		}*/
-		ROOT_SERVER_URL = ServerX.GetRootAddress(serverAddress);
-		ROOT_SERVER_IP_ADDRESS = ServerX.GetRootIpAddress(serverAddress);
-        FORCE_MATCH_SERVER = ServerX.GetMatchmakingAddress(matchingServer);
 
         if (requestInProgress)
 		{
@@ -907,7 +904,7 @@ public class ServiceManager : MonoBehaviour, ServiceInterface
 
 	private IEnumerator LoginCoroutine(string user, string password, FinishedCallback success, FinishedCallback failure)
 	{
-		WWWForm form = new WWWForm();
+		/*WWWForm form = new WWWForm();
 		form.AddField("username", user);
 		form.AddField("password", password);
 		form.AddField("utc_offset", TimeZone.CurrentTimeZone.GetUtcOffset(DateTime.Now).ToString());
@@ -924,7 +921,9 @@ public class ServiceManager : MonoBehaviour, ServiceInterface
 		else
 		{
 			ProcessJSONResponse(www, success, failure);
-		}
+		}*/
+		success();
+		yield break;
 	}
 
 	private IEnumerator UpgradeFromGuestCoroutine(string user, string password, FinishedCallback success, FinishedCallback failure)
@@ -948,7 +947,7 @@ public class ServiceManager : MonoBehaviour, ServiceInterface
 
 	private IEnumerator CreateAccountCoroutine(string user, string password, bool isGuest, FinishedCallback success, FinishedCallback failure)
 	{
-		WWWForm form = new WWWForm();
+		/*WWWForm form = new WWWForm();
 		form.AddField("username", user);
 		form.AddField("password", password);
 		form.AddField("guest", (!isGuest) ? "0" : "1");
@@ -963,7 +962,9 @@ public class ServiceManager : MonoBehaviour, ServiceInterface
 		else
 		{
 			ProcessJSONResponse(www, success, failure);
-		}
+		}*/
+		success();
+		yield break;
 	}
 
 	private IEnumerator RequestPasswordResetCoroutine(string user, FinishedCallback success, FinishedCallback failure)
@@ -1345,7 +1346,7 @@ public class ServiceManager : MonoBehaviour, ServiceInterface
 
 	private IEnumerator RefreshPlayerLockerCoroutine(FinishedCallback success, FinishedCallback failure)
 	{
-		WWW www = new WWW(ROOT_SERVER_URL + "/player.json?session=" + SessionId + "&" + AddVersionStrings() + "&runtime=" + GetRuntimeString() + "&" + AddTimeString());
+		/*WWW www = new WWW(ROOT_SERVER_URL + "/player.json?session=" + SessionId + "&" + AddVersionStrings() + "&runtime=" + GetRuntimeString() + "&" + AddTimeString());
 		yield return www;
 		if (WWWErrorCheck(www) && ROOT_SERVER_URL != ROOT_SERVER_IP_ADDRESS)
 		{
@@ -1355,12 +1356,14 @@ public class ServiceManager : MonoBehaviour, ServiceInterface
 		else
 		{
 			ProcessJSONResponse(www, success, failure);
-		}
+		}*/
+		success();
+		yield break;
 	}
 
 	private IEnumerator RefreshStoreItems(FinishedCallback success, FinishedCallback failure)
 	{
-		WWW www = new WWW(ROOT_SERVER_URL + "/store_items.json?" + AddVersionStrings() + "&runtime=" + GetRuntimeString() + "&" + AddTimeString());
+        /*WWW www = new WWW(ROOT_SERVER_URL + "/store_items.json?" + AddVersionStrings() + "&runtime=" + GetRuntimeString() + "&" + AddTimeString());
 		yield return www;
 		if (WWWErrorCheck(www) && ROOT_SERVER_URL != ROOT_SERVER_IP_ADDRESS)
 		{
@@ -1370,12 +1373,15 @@ public class ServiceManager : MonoBehaviour, ServiceInterface
 		else
 		{
 			ProcessJSONResponse(www, success, failure);
-		}
+		}*/
+        Response resp = JsonMapper.ToObject<Response>(Resources.Load<TextAsset>("store_config").text);
+        ProcessJSONResponse(resp, success, failure);
+        yield break;
 	}
 
 	private IEnumerator RefreshServersCoroutine(FinishedCallback success, FinishedCallback failure)
 	{
-		WWW www = new WWW(ROOT_SERVER_URL + "/servers.json?" + AddTimeString());
+		/*WWW www = new WWW(ROOT_SERVER_URL + "/servers.json?" + AddTimeString());
 		yield return www;
 		if (WWWErrorCheck(www) && ROOT_SERVER_URL != ROOT_SERVER_IP_ADDRESS)
 		{
@@ -1385,7 +1391,9 @@ public class ServiceManager : MonoBehaviour, ServiceInterface
 		else
 		{
 			ProcessJSONResponse(www, success, failure);
-		}
+		}*/
+		success();
+		yield break;
 	}
 
 	private IEnumerator PurchaseItemCoroutine(int purchaseItemID, FinishedCallback success, FinishedCallback failure)
@@ -1706,6 +1714,7 @@ public class ServiceManager : MonoBehaviour, ServiceInterface
 			}
 			return;
 		}
+		Debug.Log(www.text);
 		try
 		{
 			Response resp = JsonMapper.ToObject<Response>(www.text);
