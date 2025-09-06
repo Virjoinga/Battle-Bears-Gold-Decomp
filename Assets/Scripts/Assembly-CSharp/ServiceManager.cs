@@ -609,7 +609,10 @@ public class ServiceManager : MonoBehaviour, ServiceInterface
 
 	private void Awake()
 	{
-		instance = this;
+		stats = new Stats();
+		stats.pid = UnityEngine.Random.Range(0, int.MaxValue);
+
+        instance = this;
 		/*switch (serverAddress)
 		{
 		case ServerAddressType.DEVELOPMENT:
