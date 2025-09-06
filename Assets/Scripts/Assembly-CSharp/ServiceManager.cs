@@ -1648,7 +1648,7 @@ public class ServiceManager : MonoBehaviour, ServiceInterface
 		lastGameReport = report;
 		waitingForResults = true;
 		WWWForm form = new WWWForm();
-		form.AddField("game_name", report.game_name);
+		/*form.AddField("game_name", report.game_name);
 		form.AddField("player_id", stats.pid);
 		form.AddField("communication_type", "request");
 		form.AddField("num_players", report.players.Count);
@@ -1662,7 +1662,9 @@ public class ServiceManager : MonoBehaviour, ServiceInterface
 		}
 		ProcessReportJSONResponse(reportSubmitRequest, success, failure);
 		reportSubmitRequest = null;
-		waitingForResults = false;
+		waitingForResults = false;*/
+		success();
+        yield break;
 	}
 
 	private IEnumerator GetStatsCoroutine(FinishedCallback success, FinishedCallback failure)
@@ -1682,7 +1684,7 @@ public class ServiceManager : MonoBehaviour, ServiceInterface
 
 	private IEnumerator NotifyGameStartCoroutine(FinishedCallback success, FinishedCallback failure)
 	{
-		EventTracker.TrackEvent(MatchEventsHelper.MatchStarted());
+		/*EventTracker.TrackEvent(MatchEventsHelper.MatchStarted());
 		WWWForm form = new WWWForm();
 		form.AddField("session", SessionId);
 		form.AddField("game_name", GetMatchGameName());
@@ -1697,7 +1699,9 @@ public class ServiceManager : MonoBehaviour, ServiceInterface
 		else
 		{
 			ProcessJSONResponse(www, success, failure);
-		}
+		}*/
+		success();
+		yield break;
 	}
 
 	private bool WWWErrorCheck(WWW www)
