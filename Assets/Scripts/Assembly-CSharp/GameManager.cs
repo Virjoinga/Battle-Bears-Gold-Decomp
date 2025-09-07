@@ -827,7 +827,6 @@ public class GameManager : MonoBehaviour
 		{
 			yield break;
 		}
-		AdManager.Instance.FetchAd(LocalPlayerWon ? AdType.matchWon : AdType.matchLost);
 		TryUnlockKillCountAchievements();
 		gameSubmitted = true;
 		foreach (KeyValuePair<int, PlayerCharacterManager> kvp in players)
@@ -996,7 +995,6 @@ public class GameManager : MonoBehaviour
 	{
 		if (_gameMode != GameMode.ROYL)
 		{
-			AdManager.Instance.ShowAd(LocalPlayerWon ? AdType.matchWon : AdType.matchLost);
 		}
 	}
 

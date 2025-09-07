@@ -431,10 +431,6 @@ public class MainMenu : MonoBehaviour
             }
             ServiceManager.Instance.CheckMaliciousPlayer(CheckMaliciousPlayerCallback);
         }
-        if (AdManager.Instance != null)
-        {
-            AdManager.Instance.Menu = this;
-        }
     }
 
     private void UpdateLocalizedText()
@@ -656,11 +652,7 @@ public class MainMenu : MonoBehaviour
 
     private IEnumerator TryShowFeaturedOffer()
     {
-        while (!AdManager.Instance.DidInitialize && AdManager.Instance.HaveNotReceivedInitCallback)
-        {
-            yield return null;
-        }
-        AdManager.Instance.ShowFeaturedOffer();
+        yield return null;
     }
 
     private void updateNextRefillTime()
@@ -1305,7 +1297,6 @@ public class MainMenu : MonoBehaviour
             }
             if (text == "freegas_btn")
             {
-                AdManager.Instance.ShowAd(AdType.storeOfferwall);
                 EventTracker.TrackEvent(new OfferwallOpenedSchema(new CurrentGasParameter(stats.gas)));
                 return;
             }

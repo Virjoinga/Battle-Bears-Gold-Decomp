@@ -267,7 +267,6 @@ public class BuyGas : Popup
 			}
 			break;
 		case "FreeGasButton":
-			AdManager.Instance.ShowAd(AdType.storeOfferwall);
 			EventTracker.TrackEvent(new OfferwallOpenedSchema(new CurrentGasParameter(ServiceManager.Instance.GetStats().gas)));
 			break;
 		default:
