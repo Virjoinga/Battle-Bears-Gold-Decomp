@@ -18,9 +18,9 @@ public class MouseLock : MonoBehaviour
     void Update()
     {
         Scene currentScene = SceneManager.GetActiveScene();
-        if (currentScene.name == "MainMenu")
+        if (currentScene.name == "MainMenu" || currentScene.name == "ReportScreen")
         {
-            Cursor.lockState = CursorLockMode.Confined;
+            UnlockMouse();
         }
 
         GameObject pauseMenu = GameObject.Find("pause(Clone)");
