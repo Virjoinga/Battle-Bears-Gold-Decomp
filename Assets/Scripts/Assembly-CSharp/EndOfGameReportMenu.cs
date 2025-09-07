@@ -105,10 +105,6 @@ public class EndOfGameReportMenu : MonoBehaviour
 
 	public Transform popupRoot;
 
-	public GameObject facebookRoot;
-
-	private bool isFacebookPosting;
-
 	private Camera popupCamera;
 
 	public TextMesh firstSkillLine;
@@ -116,22 +112,6 @@ public class EndOfGameReportMenu : MonoBehaviour
 	public TextMesh secondSkillLine;
 
 	private bool isViewingPlayerStats;
-
-	private void OnEnable()
-	{
-		FacebookManager.sessionOpenedEvent += facebookLogin;
-		FacebookManager.loginFailedEvent += facebookLoginFailed;
-		FacebookManager.dialogCompletedWithUrlEvent += facebookPost;
-		FacebookManager.dialogFailedEvent += facebookPostFailed;
-	}
-
-	private void OnDisable()
-	{
-		FacebookManager.sessionOpenedEvent -= facebookLogin;
-		FacebookManager.loginFailedEvent -= facebookLoginFailed;
-		FacebookManager.dialogCompletedWithUrlEvent -= facebookPost;
-		FacebookManager.dialogFailedEvent -= facebookPostFailed;
-	}
 
 	private void Awake()
 	{
@@ -700,21 +680,6 @@ public class EndOfGameReportMenu : MonoBehaviour
 		case "teamStats_btn":
 			StartCoroutine(switchView(false));
 			break;
-		case "fb_btn":
-			facebookRoot.GetComponent<Animation>().Play();
-			if (!isFacebookPosting)
-			{
-				isFacebookPosting = true;
-				if (!FacebookAndroid.isSessionValid())
-				{
-					FacebookAndroid.login();
-				}
-				else
-				{
-					postToFacebook();
-				}
-			}
-			break;
 		case "gas_btn":
 			createPopup(buyGasPopup);
 			break;
@@ -845,72 +810,6 @@ public class EndOfGameReportMenu : MonoBehaviour
 	private void OpenPraisePopup(GUIButton button, int playerID)
 	{
 		praisePopup.ShowMenu(playerID, button);
-	}
-
-	private void facebookLogin()
-	{
-		postToFacebook();
-	}
-
-	private void MetroFacebookLogin(string error)
-	{
-		if (error == null)
-		{
-			postToFacebook();
-		}
-	}
-
-	private void postToFacebook()
-	{
-		string empty = string.Empty;
-		int num = allPlayers.IndexOf(ourPlayer) + 1;
-		string empty2 = string.Empty;
-		switch (num)
-		{
-		case 1:
-			empty2 = "st";
-			break;
-		case 2:
-			empty2 = "nd";
-			break;
-		case 3:
-			empty2 = "rd";
-			break;
-		default:
-			empty2 = "th";
-			break;
-		}
-		string text = "s";
-		if (ourPlayer.TotalKills == 1 || ourPlayer.TotalKills == -1)
-		{
-			text = string.Empty;
-		}
-		empty = "I just got " + num + empty2 + " place and " + ourPlayer.TotalKills + " kill" + text + " in BATTLE BEARS GOLD!";
-		Dictionary<string, object> dictionary = new Dictionary<string, object>();
-		dictionary.Add("description", empty);
-		dictionary.Add("link", "https://play.google.com/store/apps/details?id=net.skyvu.battlebearsgold&hl=en");
-		dictionary.Add("name", "BATTLE BEARS!");
-		dictionary.Add("picture", "https://battlebears.com/wp-content/uploads/2013/04/BBG_Icon.png");
-		dictionary.Add("caption", "The craziest mobile multiplayer shooter");
-		Dictionary<string, object> parameters = dictionary;
-		FacebookAndroid.showFacebookShareDialog(parameters);
-	}
-
-	private void facebookLoginFailed(P31Error error)
-	{
-		Debug.LogError("Facebook login failed from end of game: " + error.message);
-	}
-
-	private void facebookPost(string result)
-	{
-	}
-
-	private void facebookPost()
-	{
-	}
-
-	private void facebookPostFailed(P31Error error)
-	{
 	}
 
 	private void createPopup(GameObject popup)

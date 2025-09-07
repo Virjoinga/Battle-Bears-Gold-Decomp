@@ -151,7 +151,6 @@ public class Bootloader : MonoBehaviour
 			PlayerPrefs.DeleteKey("hasShownChartboost");
 		}
 		MogaController mogaController = MogaController.Instance;
-		FacebookAndroid.init();
 		GoogleIAB.init("MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAlTbZhxfU5IGp3+uNTxBvsY3QeSXbs+4PRNEQZrAAWhAQHuwTIRRmLVEtILn16HiPAhn/3X0UiJyG47JA/vzevH5uZlGNDKO5HsDDoANGWjvvhou5tVs0EThM/AYbkTkLq2GpOVg4ZxiOPAJR4dS4PX784trhVA6D0RdZFRpoqdO8Ie2Geua7Aee227D7bwB7XU7UWnrmjyBC6xmPTmGPP5+07aBBywEj79zRlTijtpTl6hw9JhEYlBFPhcXwMrzasDXBAJmBSpAX5KY0EQBzlHCz2VSBhU2gv/gu90LlJexPX//xFCidEa1jLFqKUCGkrbSbKAo9RoC36yzjbeo8ZwIDAQAB");
 		Screen.sleepTimeout = -1;
 		ServiceManager.Instance.RefreshServers(OnGetServerSuccess, OnGetServerFailure);
