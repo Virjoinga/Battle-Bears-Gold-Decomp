@@ -667,7 +667,7 @@ public class ServiceManager : MonoBehaviour, ServiceInterface
 			LogConnectionFailure("crash");
 			requestInProgress = false;
 		}
-		string @string = PlayerPrefs.GetString("cached_store", string.Empty);
+		string @string = string.Empty;// PlayerPrefs.GetString("cached_store", string.Empty);
 		if (@string != string.Empty)
 		{
 			STORE_VERSION_STRING = Bootloader.Instance.GetMD5Hash(@string);
@@ -680,8 +680,8 @@ public class ServiceManager : MonoBehaviour, ServiceInterface
 				Debug.LogWarning("using incompatible store in cache, skipping preloading: " + ex.ToString());
 			}
 		}
-		string string2 = PlayerPrefs.GetString("cached_inventory", string.Empty);
-		if (string2 != string.Empty)
+		string string2 = string.Empty;// PlayerPrefs.GetString("cached_inventory", string.Empty);
+        if (string2 != string.Empty)
 		{
 			INVENTORY_VERSION_STRING = Bootloader.Instance.GetMD5Hash(string2);
 			try
