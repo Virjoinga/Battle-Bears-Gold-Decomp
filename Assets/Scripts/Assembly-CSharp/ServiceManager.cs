@@ -610,7 +610,8 @@ public class ServiceManager : MonoBehaviour, ServiceInterface
 	private void Awake()
 	{
 		stats = new Stats();
-		stats.pid = UnityEngine.Random.Range(0, int.MaxValue);
+		stats.pid = PlayerPrefs.GetInt("SAVE_DATA_PID", UnityEngine.Random.Range(0, int.MaxValue));
+		PlayerPrefs.SetInt("SAVE_DATA_PID", stats.pid);
 
         instance = this;
 		/*switch (serverAddress)
