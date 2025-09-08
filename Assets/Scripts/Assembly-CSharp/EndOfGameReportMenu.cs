@@ -675,7 +675,7 @@ public class EndOfGameReportMenu : MonoBehaviour
 			break;
 		case "mainMenu_btn":
 			loadingMainMenuPopup.SetActive(false);
-			Application.LoadLevel("PostgameAdScreen");
+			Application.LoadLevel("MainMenu");
 			break;
 		case "teamStats_btn":
 			StartCoroutine(switchView(false));
@@ -835,6 +835,7 @@ public class EndOfGameReportMenu : MonoBehaviour
 			return;
 		}
 		loadingMainMenuPopup.SetActive(false);
-		Application.LoadLevel("PostgameAdScreen");
+		//Application.LoadLevel("PostgameAdScreen");
+		Application.LoadLevel("MainMenu");
 	}
 }
