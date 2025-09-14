@@ -1127,12 +1127,23 @@ public class Gearup : MonoBehaviour
 		{
 			gameObject = UnityEngine.Object.Instantiate(submenuScrollerButtonPrefab) as GameObject;
 			gameObject.name = "select#" + item.name;
-			(gameObject.transform.Find("title").GetComponent(typeof(TextMesh)) as TextMesh).text = item.title;
-			if (isEquipped)
+            //(gameObject.transform.Find("title").GetComponent(typeof(TextMesh)) as TextMesh).text = item.title;
+
+            var title = gameObject.transform.Find("title").GetComponent<TextMesh>();
+            title.anchor = TextAnchor.UpperLeft;
+            title.text = item.title;
+
+            if (isEquipped)
 			{
-				(gameObject.transform.Find("subtitle").GetComponent(typeof(TextMesh)) as TextMesh).text = "Equipped";
-			}
-			else
+                //(gameObject.transform.Find("subtitle").GetComponent(typeof(TextMesh)) as TextMesh).text = "Equipped";
+
+                var subtitle = gameObject.transform.Find("subtitle").GetComponent<TextMesh>();
+                subtitle.anchor = TextAnchor.UpperLeft;
+                subtitle.text = "Equipped";
+
+
+            }
+            else
 			{
 				(gameObject.transform.Find("subtitle").GetComponent(typeof(TextMesh)) as TextMesh).text = string.Empty;
 			}
@@ -1151,8 +1162,13 @@ public class Gearup : MonoBehaviour
 				gameObject.transform.Find("gas_icon").gameObject.SetActive(false);
 				gameObject.transform.Find("cost").GetComponent<TextMesh>().text = string.Format("{0:#,0}", purchaseableByID.current_joules);
 			}
-			(gameObject.transform.Find("subtitle").GetComponent(typeof(TextMesh)) as TextMesh).text = item.title;
-			if ((double)item.level > ServiceManager.Instance.GetStats().level)
+			//(gameObject.transform.Find("subtitle").GetComponent(typeof(TextMesh)) as TextMesh).text = item.title;
+
+            var subtitle = gameObject.transform.Find("subtitle").GetComponent<TextMesh>();
+            subtitle.anchor = TextAnchor.UpperLeft;
+            subtitle.text = item.title;
+
+            if ((double)item.level > ServiceManager.Instance.GetStats().level)
 			{
 				(gameObject.transform.Find("levelNum").GetComponent(typeof(TextMesh)) as TextMesh).text = item.level.ToString();
 			}
