@@ -121,7 +121,7 @@ public class CTFManager : MonoBehaviour
 	private void Start()
 	{
 		ServiceManager.Instance.UpdateProperty("bomb_fuse_time", ref EXPLODE_TIME);
-		EXPLODE_TIME *= 1000;
+		//EXPLODE_TIME *= 1000;
 		ServiceManager.Instance.UpdateProperty("bomb_respawn_time", ref BOMB_CREATE_DELAY);
 		createBomb(Team.RED);
 		createBomb(Team.BLUE);
