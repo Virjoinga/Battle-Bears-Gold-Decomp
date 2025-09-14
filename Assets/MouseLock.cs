@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -25,9 +26,19 @@ public class MouseLock : MonoBehaviour
 
         GameObject pauseMenu = GameObject.Find("pause(Clone)");
         GameObject statsOverlay = GameObject.Find("teamStats_overlay(Clone)");
+    
+        GameObject player = null;
 
-        GameObject player = GameObject.FindGameObjectWithTag("Player");       
-        if (player != null )
+        foreach (GameObject obj in GameObject.FindObjectsOfType<GameObject>())
+        {
+            if (obj.name.Contains("Local Player"))
+            {
+                player = obj;
+                break;
+            }
+        }
+
+        if (player != null)
         {
             playerController = player.GetComponent<PlayerController>();
             if (playerController != null )
