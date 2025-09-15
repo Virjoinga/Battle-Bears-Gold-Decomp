@@ -1,4 +1,4 @@
-Shader "CPX_Custom/Mobile/Unlit (Custom Lightmap  Support)" {
+Shader "CPX_Custom/Mobile/Unlit (Custom Lightmap 1 Support)" {
 Properties {
     _MainTex ("Base (RGB)", 2D) = "white" {}
     _LightMap ("Lightmap", 2D) = "white" {}   // manual lightmap slot
