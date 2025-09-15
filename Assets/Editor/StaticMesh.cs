@@ -52,12 +52,12 @@ public class StaticMesh : Editor
                     Mesh[] subMeshes = new Mesh[renderers[i].sharedMaterials.Length];
 
                     for (int j = 0; j < subMeshes.Length; j++)
-                    {
                         subMeshes[j] = splitMeshes[subMeshIndex + j];
-                    }
 
                     Mesh mesh = MeshManager.CombineMesh(subMeshes);
                     mesh.vertices = OffsetVertices(renderers[i].transform, mesh.vertices);
+
+                    CorrectWinding(mesh, renderers[i].transform);
 
                     meshesToCreate.Add(mesh);
                     meshFilters.Add(filters[i]);
@@ -66,6 +66,8 @@ public class StaticMesh : Editor
                 {
                     Mesh mesh = CopyMesh(splitMeshes[subMeshIndex]);
                     mesh.vertices = OffsetVertices(renderers[i].transform, mesh.vertices);
+
+                    CorrectWinding(mesh, renderers[i].transform);
 
                     meshesToCreate.Add(mesh);
                     meshFilters.Add(filters[i]);
@@ -132,11 +134,29 @@ public class StaticMesh : Editor
         Matrix4x4 inverse = target.localToWorldMatrix.inverse;
 
         for (int i = 0; i < vertices.Length; i++)
-        {
             vertices[i] = inverse.MultiplyPoint3x4(inputVertices[i]);
-        }
 
         return vertices;
+    }
+
+    private static void CorrectWinding(Mesh mesh, Transform transform)
+    {
+        Vector3 scale = transform.lossyScale;
+
+        if (scale.x * scale.y * scale.z < 0)
+        {
+            for (int sub = 0; sub < mesh.subMeshCount; sub++)
+            {
+                int[] tris = mesh.GetTriangles(sub);
+                for (int i = 0; i < tris.Length; i += 3)
+                {
+                    int temp = tris[i];
+                    tris[i] = tris[i + 2];
+                    tris[i + 2] = temp;
+                }
+                mesh.SetTriangles(tris, sub);
+            }
+        }
     }
 }
 
