@@ -1,52 +1,33 @@
-Shader "CPX_Custom/Mobile/Unlit (Custom Lightmap  Support)" {
+Shader "CPX_Custom/Mobile/Unlit (Lightmap Support)" {
 Properties {
-    _MainTex ("Base (RGB)", 2D) = "white" {}
-    _LightMap ("Lightmap", 2D) = "white" {}   // manual lightmap slot
+ _MainTex ("Base (RGB)", 2D) = "white" {}
 }
-
-SubShader {
-    Tags { "RenderType"="Opaque" }
-    LOD 100
-
-    Pass {
-        CGPROGRAM
-        #pragma vertex vert
-        #pragma fragment frag
-        #include "UnityCG.cginc"
-
-        sampler2D _MainTex;
-        float4 _MainTex_ST;
-
-        sampler2D _LightMap;
-        float4 _LightMap_ST;
-
-        struct appdata {
-            float4 vertex : POSITION;
-            float2 uv : TEXCOORD0;   // main texture UV
-            float2 uv2 : TEXCOORD1;  // secondary UVs (lightmap)
-        };
-
-        struct v2f {
-            float4 pos : SV_POSITION;
-            float2 uv : TEXCOORD0;
-            float2 uv2 : TEXCOORD1;
-        };
-
-        v2f vert (appdata v) {
-            v2f o;
-            o.pos = UnityObjectToClipPos(v.vertex);
-            o.uv = TRANSFORM_TEX(v.uv, _MainTex);
-            o.uv2 = TRANSFORM_TEX(v.uv2, _LightMap);
-            return o;
-        }
-
-        fixed4 frag (v2f i) : SV_Target {
-            fixed4 baseCol = tex2D(_MainTex, i.uv);
-            fixed4 lmCol   = tex2D(_LightMap, i.uv2);
-            return baseCol * lmCol; // multiply base texture by lightmap
-        }
-        ENDCG
-    }
+SubShader { 
+ LOD 100
+ Tags { "RenderType"="Opaque" }
+ Pass {
+  Tags { "LIGHTMODE"="Vertex" "RenderType"="Opaque" }
+  SetTexture [_MainTex] { combine texture }
+ }
+ Pass {
+  Tags { "LIGHTMODE"="VertexLM" "RenderType"="Opaque" }
+  BindChannels {
+   Bind "vertex", Vertex
+   Bind "texcoord1", TexCoord0
+   Bind "texcoord", TexCoord1
+  }
+  SetTexture [unity_Lightmap] { Matrix [unity_LightmapMatrix] combine texture }
+  SetTexture [_MainTex] { combine texture * previous double, texture alpha * primary alpha }
+ }
+ Pass {
+  Tags { "LIGHTMODE"="VertexLMRGBM" "RenderType"="Opaque" }
+  BindChannels {
+   Bind "vertex", Vertex
+   Bind "texcoord1", TexCoord0
+   Bind "texcoord", TexCoord1
+  }
+  SetTexture [unity_Lightmap] { Matrix [unity_LightmapMatrix] combine texture * texture alpha double }
+  SetTexture [_MainTex] { combine texture * previous quad, texture alpha * primary alpha }
+ }
 }
-Fallback "Mobile/VertexLit"
 }
