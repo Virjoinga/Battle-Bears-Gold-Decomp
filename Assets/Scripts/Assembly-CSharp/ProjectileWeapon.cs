@@ -147,8 +147,16 @@ public class ProjectileWeapon : WeaponBase
             return null;
         }
 
-        object[] instantiationData = new object[] { base.OwnerID, velocity };
-        GameObject proj = PhotonNetwork.Instantiate(projectile.name, pos, Quaternion.identity, 0, instantiationData);
+        // Pass OwnerID as instantiation data
+        object[] instantiationData = new object[] { base.OwnerID };
+
+        GameObject proj = PhotonNetwork.Instantiate(
+            projectile.name,
+            pos,
+            Quaternion.identity,
+            0,
+            instantiationData
+        );
 
         if (proj == null)
         {
@@ -156,19 +164,20 @@ public class ProjectileWeapon : WeaponBase
             return null;
         }
 
-        // Setup networked projectile
-        NetworkedProjectile netProj = proj.GetComponent<NetworkedProjectile>();
-        if (netProj != null)
+        // Set equipment & item overrides
+        proj.BroadcastMessage("SetEquipmentNames", base.EquipmentNames, SendMessageOptions.DontRequireReceiver);
+        proj.BroadcastMessage("SetItemOverride", base.name, SendMessageOptions.DontRequireReceiver);
+
+        // Set initial velocity and orientation
+        Rigidbody rb = proj.GetComponent<Rigidbody>();
+        if (rb != null)
         {
-            netProj.Initialize(base.OwnerID, velocity);
-            netProj.projectileSpeed = projectileSpeed;
-        }
-        else
-        {
-            Debug.LogWarning("Projectile prefab missing NetworkedProjectile component!");
+            rb.velocity = velocity;
+            if (rb.velocity != Vector3.zero)
+                proj.transform.LookAt(proj.transform.position + rb.velocity);
         }
 
-        // Local collision handling
+        // Handle collisions locally
         Collider projCollider = proj.GetComponent<Collider>();
         if (projCollider == null)
             projCollider = proj.GetComponentInChildren<Collider>();
@@ -185,13 +194,8 @@ public class ProjectileWeapon : WeaponBase
             }
         }
 
-        // Equipment & item messages
-        proj.BroadcastMessage("SetEquipmentNames", base.EquipmentNames, SendMessageOptions.DontRequireReceiver);
-        proj.BroadcastMessage("SetItemOverride", base.name, SendMessageOptions.DontRequireReceiver);
-
         return proj;
     }
-
 
 
     public override void OnRemoteAttack(Vector3 pos, Vector3 vel, int delay)
