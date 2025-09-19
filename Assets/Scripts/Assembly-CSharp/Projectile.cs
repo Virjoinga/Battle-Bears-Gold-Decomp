@@ -88,72 +88,35 @@ public class Projectile : ConfigurableNetworkObject
 
     protected virtual void CreateExplosion()
     {
-        if (objectToSpawn == null)
+        GameObject gameObject = PhotonNetwork.Instantiate(objectToSpawn.gameObject.name, transform.position, Quaternion.identity, 0);
+        ConfigurableNetworkObject component = gameObject.GetComponent<ConfigurableNetworkObject>();
+        component.OwnerID = base.OwnerID;
+        component.DamageMultiplier = base.DamageMultiplier;
+        component.SetItemOverride(spawnItemOverride);
+        component.SetEquipmentNames(equipmentNames);
+        if (base.GetComponent<Rigidbody>() != null && (_orientX || _orientY || _orientZ))
         {
-            Debug.LogError("Projectile: objectToSpawn prefab is null!");
-            return;
-        }
-
-        // Pass OwnerID as instantiation data
-        object[] instantiationData = new object[] { base.OwnerID };
-
-        // Spawn projectile over Photon
-        GameObject proj = PhotonNetwork.Instantiate(
-            objectToSpawn.gameObject.name,
-            transform.position,
-            Quaternion.identity,
-            0,
-            instantiationData
-        );
-
-        if (proj == null)
-        {
-            Debug.LogError("Projectile: PhotonNetwork.Instantiate returned null!");
-            return;
-        }
-
-        // Get the networked component
-        ConfigurableNetworkObject component = proj.GetComponent<ConfigurableNetworkObject>();
-        if (component != null)
-        {
-            component.DamageMultiplier = base.DamageMultiplier;
-            component.SetItemOverride(spawnItemOverride);
-            component.SetEquipmentNames(equipmentNames);
-        }
-        else
-        {
-            Debug.LogWarning("Projectile: spawned object has no ConfigurableNetworkObject component!");
-        }
-
-        // Orient projectile if Rigidbody exists
-        Rigidbody rb = GetComponent<Rigidbody>();
-        if (rb != null && (_orientX || _orientY || _orientZ))
-        {
-            proj.transform.LookAt(transform.position + rb.velocity.normalized);
-            Vector3 eulerAngles = proj.transform.rotation.eulerAngles;
-            if (!_orientX) eulerAngles.x = 0f;
-            if (!_orientY) eulerAngles.y = 0f;
-            if (!_orientZ) eulerAngles.z = 0f;
-            proj.transform.eulerAngles = eulerAngles;
-        }
-
-        // Ignore Tesla collisions locally
-        if (tesla != null)
-        {
-            Collider projCollider = proj.GetComponent<Collider>();
-            if (projCollider != null)
+            gameObject.transform.LookAt(base.transform.position + base.GetComponent<Rigidbody>().velocity.normalized);
+            Vector3 eulerAngles = gameObject.transform.rotation.eulerAngles;
+            if (!_orientX)
             {
-                Collider teslaCollider = tesla.PlayerController.DamageReceiver.GetComponent<Collider>();
-                if (teslaCollider != null)
-                    Physics.IgnoreCollision(teslaCollider, projCollider);
+                eulerAngles.x = 0f;
             }
+            if (!_orientY)
+            {
+                eulerAngles.y = 0f;
+            }
+            if (!_orientZ)
+            {
+                eulerAngles.z = 0f;
+            }
+            gameObject.transform.eulerAngles = eulerAngles;
         }
-
-        // Optional: trigger camera shake
-        DoCameraShake();
+        if (tesla != null && gameObject.GetComponent<Collider>() != null)
+        {
+            Physics.IgnoreCollision(tesla.PlayerController.DamageReceiver.GetComponent<Collider>(), gameObject.GetComponent<Collider>());
+        }
     }
-
-
 
     protected void DoCameraShake()
     {
