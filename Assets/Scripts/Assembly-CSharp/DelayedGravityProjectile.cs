@@ -1,56 +1,65 @@
 using System.Collections;
 using UnityEngine;
 
-public class DelayedGravityProjectile : MonoBehaviour
+public class DelayedGravityProjectile : Photon.MonoBehaviour
 {
-	public float delay = 0.5f;
+    public float delay = 0.5f;
+    public float gravityAmount = 500f;
+    public bool lookAtDirection = true;
 
-	public float gravityAmount = 500f;
+    [HideInInspector]
+    public int ownerID = -1;
 
-	protected Rigidbody myRigidbody;
+    public Rigidbody myRigidbody;
+    public Transform myTransform;
 
-	protected Transform myTransform;
+    void Awake()
+    {
+        myRigidbody = GetComponent<Rigidbody>();
+        myTransform = transform;
 
-	public bool lookAtDirection = true;
+        if (!lookAtDirection)
+            enabled = false;
+    }
 
-	public int ownerID = -1;
+    void Start()
+    {
+        PhotonView pv = GetComponent<PhotonView>();
+        if (pv != null && pv.instantiationData != null)
+        {
+            ownerID = (int)pv.instantiationData[0];
+        }
+        else
+        {
+            Debug.LogWarning("Projectile: PhotonView missing or no instantiation data!");
+        }
+    }
 
-	private void Awake()
-	{
-		myRigidbody = base.GetComponent<Rigidbody>();
-		myTransform = base.transform;
-		if (!lookAtDirection)
-		{
-			base.enabled = false;
-		}
-	}
+    private void OnNetworkDelay(float timeAlreadyElapsed)
+    {
+        StartCoroutine(delayedGravity(delay - timeAlreadyElapsed));
+    }
 
-	private void OnNetworkDelay(float timeAlreadyElapsed)
-	{
-		StartCoroutine(delayedGravity(delay - timeAlreadyElapsed));
-	}
+    private IEnumerator delayedGravity(float actualDelay)
+    {
+        yield return new WaitForSeconds(actualDelay);
+        ConstantForce c = gameObject.AddComponent<ConstantForce>();
+        c.force = new Vector3(0, -gravityAmount, 0);
+    }
 
-	private IEnumerator delayedGravity(float actualDelay)
-	{
-		yield return new WaitForSeconds(actualDelay);
-		ConstantForce c = base.gameObject.AddComponent(typeof(ConstantForce)) as ConstantForce;
-		Vector3 force = c.force;
-		force.y = 0f - gravityAmount;
-		c.force = force;
-	}
+    private void OnCollisionEnter()
+    {
+        enabled = false;
+    }
 
-	private void OnCollisionEnter()
-	{
-		base.enabled = false;
-	}
+    private void OnTriggerEnter()
+    {
+        enabled = false;
+    }
 
-	private void OnTriggerEnter()
-	{
-		base.enabled = false;
-	}
-
-	private void LateUpdate()
-	{
-		myTransform.LookAt(myTransform.position + myRigidbody.velocity);
-	}
+    void LateUpdate()
+    {
+        if (myRigidbody != null)
+            myTransform.LookAt(myTransform.position + myRigidbody.velocity);
+    }
 }
