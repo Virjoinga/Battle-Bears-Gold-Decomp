@@ -616,7 +616,7 @@ public class ServiceManager : MonoBehaviour, ServiceInterface
             stats.pid = UnityEngine.Random.Range(0, int.MaxValue);
             stats.joules = 8000;
             stats.gas = 4;
-            stats.skill = 1;
+            stats.skill = 500;
             PlayerPrefs.SetInt("SAVE_DATA_PID", stats.pid);
             Save();
         }
