@@ -176,4 +176,6 @@ public interface ServiceInterface
 	int GetCurrentMatchServerIndex();
 
 	void ReportPlayer(int playerToBeReported, int reportType, FinishedCallback success, FinishedCallback failure);
+
+	void Save();
 }

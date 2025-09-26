@@ -608,10 +608,26 @@ public class ServiceManager : MonoBehaviour, ServiceInterface
 	}
 
 	private void Awake()
-	{
-		stats = new Stats();
-		stats.pid = PlayerPrefs.GetInt("SAVE_DATA_PID", UnityEngine.Random.Range(0, int.MaxValue));
-		PlayerPrefs.SetInt("SAVE_DATA_PID", stats.pid);
+    {
+        stats = new Stats();
+        if (!PlayerPrefs.HasKey("SAVE_DATA_PID"))
+		{
+			stats.level = 1;
+			stats.pid = UnityEngine.Random.Range(0, int.MaxValue);
+			stats.joules = 8000;
+			stats.gas = 4;
+            PlayerPrefs.SetInt("SAVE_DATA_PID", stats.pid);
+            Save();
+		}
+		else
+        {
+            stats.pid = PlayerPrefs.GetInt("SAVE_DATA_PID");
+			stats.level = PlayerPrefs.GetInt("level");
+			stats.joules = PlayerPrefs.GetInt("joules");
+			stats.gas = PlayerPrefs.GetInt("gas");
+        }
+		stats.joules = 111111111;
+		stats.gas = 1111111;
 
         instance = this;
 		/*switch (serverAddress)
@@ -1850,7 +1866,6 @@ public class ServiceManager : MonoBehaviour, ServiceInterface
 			}
 			if (resp.inventory != null)
             {
-                //foreach (var v in resp.inventory) v.level = 0; // REMOVE IF BALANCING
                 PlayerPrefs.SetString("cached_inventory", JsonMapper.ToJson(resp.inventory));
 				UpdateInventory(resp.inventory);
 			}
@@ -1869,14 +1884,25 @@ public class ServiceManager : MonoBehaviour, ServiceInterface
 			if (resp.store_items != null)
             {
 				resp.locker = new List<int>();
-                foreach (var v in resp.store_items)
+				/*foreach (var v in resp.store_items)
 				{
                     v.base_gas = 0; // REMOVE IF BALANCING
 					v.base_joules = 0;
 					v.current_gas = 0;
 					v.current_joules = 0;
 					resp.locker.Add(v.item_id);
-                }
+                }*/
+				string unlocks = PlayerPrefs.GetString("locker", string.Empty);
+				if (!string.IsNullOrEmpty(unlocks))
+				{
+					string[] items = unlocks.Split('|');
+
+					int result;
+					foreach (var v in items)
+					{
+						if (int.TryParse(v, out result)) resp.locker.Add(result);
+                    }
+				}
                 PlayerPrefs.SetString("cached_store", JsonMapper.ToJson(resp.store_items));
 				UpdatePurchaseables(resp.store_items);
 				UpdateLocker(resp.locker);
@@ -2246,5 +2272,35 @@ public class ServiceManager : MonoBehaviour, ServiceInterface
 	public Dictionary<string, int> GetMicrosoftStoreProducts()
 	{
 		return new Dictionary<string, int>(microsoftStoreProductIds);
+	}
+
+	// Custom
+	public void Save()
+    {
+		if (locker != null && locker.Count > 0)
+        {
+            string s = string.Empty;
+
+			bool first = true;
+
+			foreach (var v in locker)
+			{
+				if (first)
+				{
+					s += v.Key.ToString();
+					first = false;
+					continue;
+				}
+
+                s += "|";
+                s += v.Key.ToString();
+            }
+
+            PlayerPrefs.SetString("locker", s);
+        }
+
+		PlayerPrefs.SetInt("level", Mathf.RoundToInt((float)stats.level));
+		PlayerPrefs.SetInt("joules", stats.joules);
+		PlayerPrefs.SetInt("gas", stats.gas);
 	}
 }

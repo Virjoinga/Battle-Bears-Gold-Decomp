@@ -445,7 +445,22 @@ public class Gearup : MonoBehaviour
 		attemptedPurchaseInfo = purchaseInfo;
 		attemptedItemToPurchase = item;
 		EventTracker.TrackEvent(ItemTransactionEventHelper.Transaction(item, purchaseInfo));
-		ServiceManager.Instance.PurchaseItem(purchaseInfo, delegate
+
+		var stats = ServiceManager.Instance.GetStats();
+
+        if (stats.gas < purchaseInfo.current_gas || stats.joules < purchaseInfo.current_joules)
+		{
+            OnItemBuyFail();
+            return;
+		}
+
+		ServiceManager.Instance.GetStats().gas -= purchaseInfo.current_gas;
+		ServiceManager.Instance.GetStats().joules -= purchaseInfo.current_joules;
+
+        OnItemBuySuccess();
+        ServiceManager.Instance.GetLocker().Add(item.id, item);
+        ServiceManager.Instance.Save();
+		/*ServiceManager.Instance.PurchaseItem(purchaseInfo, delegate
 		{
 			EventTracker.TrackEvent(ItemTransactionEventHelper.PurchaseSucceeded(item, purchaseInfo));
 			OnItemBuySuccess();
@@ -453,7 +468,7 @@ public class Gearup : MonoBehaviour
 		{
 			EventTracker.TrackEvent(ItemTransactionEventHelper.PurchaseFailed(item, purchaseInfo, ServiceManager.Instance.LastError));
 			OnItemBuyFail();
-		});
+		});*/
 	}
 
 	private void HandleBackButton()
