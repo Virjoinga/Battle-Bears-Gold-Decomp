@@ -626,10 +626,12 @@ public class ServiceManager : MonoBehaviour, ServiceInterface
             stats.level = PlayerPrefs.GetInt("level");
             stats.joules = PlayerPrefs.GetInt("joules");
             stats.gas = PlayerPrefs.GetInt("gas");
-            stats.skill = PlayerPrefs.GetInt("skill");
+            stats.skill = PlayerPrefs.GetFloat("skill");
+
+
         }
-        stats.joules = 111111111;
-        stats.gas = 1111111;
+        // stats.joules = 111111111;
+        //  stats.gas = 1111111;
 
         instance = this;
         /*switch (serverAddress)
@@ -2304,5 +2306,7 @@ public class ServiceManager : MonoBehaviour, ServiceInterface
         PlayerPrefs.SetInt("level", Mathf.RoundToInt((float)stats.level));
         PlayerPrefs.SetInt("joules", stats.joules);
         PlayerPrefs.SetInt("gas", stats.gas);
+        PlayerPrefs.SetFloat("skill", (float)stats.skill);
+
     }
 }
