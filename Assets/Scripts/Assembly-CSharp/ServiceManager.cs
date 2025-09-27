@@ -384,10 +384,10 @@ public class ServiceManager : MonoBehaviour, ServiceInterface
 
     public static Rank GetRank(double skill)
     {
-        int val = 0;
-        int val2 = 0;
-        int val3 = 0;
-        int val4 = 0;
+        int val = 1000;
+        int val2 = 2000;
+        int val3 = 4000;
+        int val4 = 8000;
         Instance.UpdateProperty("rank_bronze", ref val);
         Instance.UpdateProperty("rank_silver", ref val2);
         Instance.UpdateProperty("rank_gold", ref val3);
