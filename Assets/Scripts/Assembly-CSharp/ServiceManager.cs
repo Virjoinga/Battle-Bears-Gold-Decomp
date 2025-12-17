@@ -6,6 +6,7 @@ using Prime31;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using UnityEngine;
 
 public class ServiceManager : MonoBehaviour, ServiceInterface
@@ -946,7 +947,9 @@ public class ServiceManager : MonoBehaviour, ServiceInterface
 		{
 			ProcessJSONResponse(www, success, failure);
 		}*/
-        success();
+
+        Response resp = JsonMapper.ToObject<Response>(Regex.Unescape(Resources.Load<TextAsset>("sign_in").text));
+        ProcessJSONResponse(resp, success, failure);
         yield break;
     }
 
